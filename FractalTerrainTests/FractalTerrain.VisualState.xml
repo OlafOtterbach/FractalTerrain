@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="true">
+  <TopNode>[0-1000]C:\Workbench\01_Projects\_Samples\FractalTerrain\FractalTerrainTests\FractalTerrain.nunit</TopNode>
+  <SelectedNode>[0-1000]C:\Workbench\01_Projects\_Samples\FractalTerrain\FractalTerrainTests\FractalTerrain.nunit</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\Workbench\01_Projects\_Samples\FractalTerrain\FractalTerrainTests\FractalTerrain.nunit" Expanded="true" />
+    <Node UniqueName="[0-1010]C:\Workbench\01_Projects\_Samples\FractalTerrain\FractalTerrainTests\bin\Debug\FractalTerrainTests.dll" Expanded="true" />
+    <Node UniqueName="[0-1011]FractalTerrainTests" Expanded="true" />
+    <Node UniqueName="[0-1001]FractalTerrainTests.VectorIntTests" Expanded="true" />
+  </Nodes>
+</VisualState>
