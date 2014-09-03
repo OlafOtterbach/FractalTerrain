@@ -64,7 +64,7 @@ namespace FractalTerrain
             }
             if( (inputEvent.RightButton == MouseButtonState.Pressed) && (inputEvent.LeftButton == MouseButtonState.Released))
             {
-                  dy = ((double)deltaY) * 10.0;
+                  dy = -((double)deltaY) * 10.0;
                   Camera.Zoom(dy);
                   Render();
             }

@@ -10,6 +10,7 @@ namespace FractalTerrainTests
    [TestClass]
    public class ViewCameraTest
    {
+/*
       [TestMethod]
       public void ConstructorTest()
       {
@@ -68,7 +69,7 @@ namespace FractalTerrainTests
          Assert.IsTrue(camera.Target.IsEqual(new Point3D(0.0, -50.0, 0.0), epsilon));
          Assert.IsTrue(camera.Offset.Ey().IsEqual(new Vector3D(0.0, 0.0, -1.0), epsilon));
          Assert.IsTrue(camera.Offset.Ez().IsEqual(new Vector3D(0.0, 1.0, 0.0), epsilon));
- */
       }
+ */
    }
 }

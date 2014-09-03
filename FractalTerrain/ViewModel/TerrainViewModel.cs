@@ -2,6 +2,7 @@
 /// <author>Olaf Otterbach</author>
 
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FractalTerrain
@@ -22,50 +23,78 @@ namespace FractalTerrain
 
       public AppleManViewWpf AppleView { get; set; }
 
+      public bool ParallelProcess { get; set; }
 
-      public int AppleManSize
+      public int GridSize
+      {
+         get
+         {
+            return m_model.MapSize;
+         }
+         set
+         {
+            m_model.MapSize = value;
+         }
+      }
+
+      public double AppleManSize
       {
          get
          {
             var size = m_model.AppleManSize;
             var maximalSize = ( m_model.MaximalStartPosition + 1.0) - m_model.MinimalStartPosition;
-            var scrollBarSize = (int)( ( size / maximalSize ) * 100.0 );
+            var scrollBarSize = ( ( size / maximalSize ) * 100.0 );
             return scrollBarSize;
          }
          set
          {
             var maximalSize = ( m_model.MaximalStartPosition + 1.0 ) - m_model.MinimalStartPosition;
-            var size = (double)value;
+            var size = value;
             var newSize = ( size / 100.0 ) * maximalSize;
             m_model.AppleManSize = newSize;
             m_model.UpdateAppleMan();
-            AppleView.Update();
-            AppleView.Render();
+            Update();
          }
       }
 
-      public int AppleManXStartPosition
+
+      public void MoveAppleMan(Vector deltaMovement)
+      {
+         m_model.AppleManXStartPosition += deltaMovement.X;
+         m_model.AppleManXStartPosition += deltaMovement.Y;
+         m_model.UpdateAppleMan();
+         Update();
+      }
+
+
+      public void ZoomAppleMan( double deltaZoom )
+      {
+         m_model.AppleManSize += deltaZoom;
+         m_model.UpdateAppleMan();
+         Update();
+      }
+
+      public double AppleManXStartPosition
       {
          get
          {
             var startX = m_model.AppleManXStartPosition - m_model.MinimalStartPosition;
             var size = ( m_model.MaximalStartPosition + 1.0 ) - m_model.MinimalStartPosition;
-            var scrollBarSize = (int)( ( startX / size ) * 100.0 );
+            var scrollBarSize = ( ( startX / size ) * 100.0 );
             return scrollBarSize;
          }
          set
          {
             var size = ( m_model.MaximalStartPosition + 1.0 ) - m_model.MinimalStartPosition;
-            var startX = (double)value;
+            var startX = value;
             var newPos = ( startX / 100.0 ) * size + m_model.MinimalStartPosition;
             m_model.AppleManXStartPosition = newPos;
             m_model.UpdateAppleMan();
-            AppleView.Update();
-            AppleView.Render();
+            Update();
          }
       }
 
-      public int AppleManYStartPosition
+      public double AppleManYStartPosition
       {
          get
          {
@@ -81,8 +110,7 @@ namespace FractalTerrain
             var newPos = ( startY / 100.0 ) * size + m_model.MinimalStartPosition;
             m_model.AppleManYStartPosition = newPos;
             m_model.UpdateAppleMan();
-            AppleView.Update();
-            AppleView.Render();
+            Update();
          }
       }
 
@@ -138,6 +166,18 @@ namespace FractalTerrain
       private void UpdateTerrainModel()
       {
          m_model.Update();
+      }
+
+      private void Update()
+      {
+         AppleView.Update();
+         AppleView.Render();
+         if(ParallelProcess)
+         {
+            UpdateTerrainModel();
+            View.Update();
+            View.Render();
+         }
       }
 
       private void UpdateView()

@@ -46,6 +46,7 @@ namespace FractalTerrain
          }
       }
 
+
       private void Resize(int width, int height, int alignWidth)
       {
          m_width = width;
