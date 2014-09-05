@@ -10,35 +10,27 @@
     <i:Interaction.Behaviors>
         <local:MainWindowBehaviour />
     </i:Interaction.Behaviors>
-    <Grid Grid.IsSharedSizeScope="true">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Canvas x:Name="canvas" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0" Background="Black" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Canvas x:Name="canvas" Background="Black" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
             <i:Interaction.Behaviors>
                 <local:TerrainViewBehaviour/>
             </i:Interaction.Behaviors>
         </Canvas>
-        <Expander Background="LightGray" Grid.Row="0" Grid.Column="0" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Down" Width="Auto" Height="Auto" Panel.ZIndex="1000" Header="Settings" >
-            <Border Margin="4" BorderThickness="1" BorderBrush="#FF00FF00">
-                <StackPanel>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
+        <Expander BorderThickness="2" BorderBrush="White" Background="White" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Stretch" ExpandDirection="Down" Width="Auto" Height="Auto" Panel.ZIndex="1000" Header="Settings" >
+            <Border Margin="2" BorderThickness="1" BorderBrush="Black">
+                <StackPanel Margin="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <ScrollBar Margin="2,2,2,0" x:Name="SizeScrollbar" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Minimum="0" Maximum="100" Value = "{ Binding Path=AppleManSize }" />
-                    <Border Margin="2" Grid.Row="1" Grid.Column="0" Width="256" Height="200" BorderThickness="1" BorderBrush="#FF00FF00">
+                        <Border Margin="2" Grid.Row="1" Grid.Column="0" Width="320" Height="256" BorderThickness="1" BorderBrush="#FF00FF00">
                             <Image x:Name="AppleImage" Stretch="Fill">
                                 <i:Interaction.Behaviors>
                                     <local:AppleManViewBehaviour />
@@ -47,7 +39,7 @@
                         </Border>
                         <ScrollBar Margin="0,2,2,2" x:Name="YStartPosition" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Minimum="0" Maximum="100" Value = "{ Binding Path=AppleManYStartPosition }" />
                         <ScrollBar Margin="2,0,2,2" x:Name="XStartPosition" Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Minimum="0" Maximum="100" Value = "{ Binding Path=AppleManXStartPosition }" />
-                </Grid>
+                    </Grid>
                     <StackPanel Orientation="Horizontal">
                         <Label>Size</Label>
                         <ComboBox Name="SizeComboBox" IsEditable="false" Text="{ Binding Path=GridSize}">
