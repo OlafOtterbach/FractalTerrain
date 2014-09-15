@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:FractalTerrain"
+        xmlns:custom="clr-namespace:FractalTerrain.Gui"
         Title="MainWindow"  WindowState="Maximized">
     <Window.DataContext>
         <local:TerrainViewModel />
@@ -16,7 +17,7 @@
                 <local:TerrainViewBehaviour/>
             </i:Interaction.Behaviors>
         </Canvas>
-        <Expander BorderThickness="2" BorderBrush="White" Background="White" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Stretch" ExpandDirection="Down" Width="Auto" Height="Auto" Panel.ZIndex="1000" Header="Settings" >
+        <Expander BorderThickness="2" BorderBrush="White" Background="White" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Down" Width="Auto" Height="Auto" Panel.ZIndex="1000" Header="Settings" >
             <Border Margin="2" BorderThickness="1" BorderBrush="Black">
                 <StackPanel Margin="2">
                     <Grid>
@@ -31,7 +32,7 @@
                         </Grid.ColumnDefinitions>
                         <ScrollBar Margin="2,2,2,0" x:Name="SizeScrollbar" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Minimum="0" Maximum="100" Value = "{ Binding Path=AppleManSize }" />
                         <Border Margin="2" Grid.Row="1" Grid.Column="0" Width="320" Height="256" BorderThickness="1" BorderBrush="#FF00FF00">
-                            <Image x:Name="AppleImage" Stretch="Fill">
+                            <Image x:Name="AppleImage" Stretch="Fill">                                
                                 <i:Interaction.Behaviors>
                                     <local:AppleManViewBehaviour />
                                 </i:Interaction.Behaviors>
@@ -42,17 +43,18 @@
                     </Grid>
                     <StackPanel Orientation="Horizontal">
                         <Label>Size</Label>
-                        <ComboBox Name="SizeComboBox" IsEditable="false" Text="{ Binding Path=GridSize}">
+                        <custom:SubmitComboBox IsEditable="true" Text="{Binding Path=GridSize, Mode=TwoWay, UpdateSourceTrigger=Explicit}" IsSynchronizedWithCurrentItem="false">
                             <ComboBoxItem>65</ComboBoxItem>
                             <ComboBoxItem>129</ComboBoxItem>
                             <ComboBoxItem>257</ComboBoxItem>
                             <ComboBoxItem>513</ComboBoxItem>
                             <ComboBoxItem>1025</ComboBoxItem>
-                        </ComboBox>
+                        </custom:SubmitComboBox>
                         <Label Content=" X "/>
-                        <Label Content="{Binding ElementName=SizeComboBox, Path=Text }" />
+                        <Label Name="SizeLabel" Content="{Binding Path=GridSize}" />
                     </StackPanel>
                     <CheckBox IsChecked= "{ Binding Path=ParallelProcess }">Parallel</CheckBox>
+                    <local:ImageViewControl x:Name="AppleView" Width="Auto" Height="20" Text="{ Binding ElementName=SizeLabel ,Path=Text}" />
                     <Button Command="{Binding Path=Start}">Start</Button>
                 </StackPanel>
             </Border>

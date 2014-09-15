@@ -33,7 +33,10 @@ namespace FractalTerrain
          }
          set
          {
-            m_model.MapSize = value;
+            var save = value;
+            m_model.MapSize = save;
+            OnPropertyChanged("GridSize");
+            Update();
          }
       }
 
@@ -133,9 +136,7 @@ namespace FractalTerrain
       {
          UpdateTerrainModel();
          UpdateView();
-         OnPropertyChanged("Size");
-         OnPropertyChanged("Exemplares");
-         OnPropertyChanged("ActualModelIndex");
+         OnPropertyChanged("GridSize");
       }
 
       public bool OnStartCanBeExecuted()

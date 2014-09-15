@@ -49,7 +49,7 @@ namespace FractalTerrain
          var width = appleImage.ActualWidth;
          var height = appleImage.ActualHeight;
          var ratio = width / height;
-         var deltaY = -ratio * deltaMovement.Y / width * 100.0;
+         var deltaY = -ratio * deltaMovement.Y / height * 100.0;
          var deltaX = -deltaMovement.X / width * 100.0;
          var parent = Application.Current.MainWindow;
          var viewModel = parent.DataContext as TerrainViewModel;
