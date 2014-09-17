@@ -60,7 +60,7 @@
     <Compile Include="Behaviour\AppleManViewBehaviour.cs" />
     <Compile Include="Behaviour\MainWindowBehaviour.cs" />
     <Compile Include="Behaviour\TerrainViewBehaviour.cs" />
-    <Compile Include="Gui\SubmitComboBox.cs" />
+    <Compile Include="Gui\CommitComboBox.cs" />
     <Compile Include="Math\VectorInt.cs" />
     <Compile Include="Model\AppleManDataGenerator.cs" />
     <Compile Include="Model\AppleManData.cs" />

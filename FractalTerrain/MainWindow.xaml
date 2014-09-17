@@ -43,13 +43,13 @@
                     </Grid>
                     <StackPanel Orientation="Horizontal">
                         <Label>Size</Label>
-                        <custom:SubmitComboBox IsEditable="true" Text="{Binding Path=GridSize, Mode=TwoWay, UpdateSourceTrigger=Explicit}" IsSynchronizedWithCurrentItem="false">
+                        <custom:CommitComboBox IsEditable="true" Text="{Binding Path=GridSize, Mode=TwoWay, UpdateSourceTrigger=Explicit}" IsSynchronizedWithCurrentItem="false">
                             <ComboBoxItem>65</ComboBoxItem>
                             <ComboBoxItem>129</ComboBoxItem>
                             <ComboBoxItem>257</ComboBoxItem>
                             <ComboBoxItem>513</ComboBoxItem>
                             <ComboBoxItem>1025</ComboBoxItem>
-                        </custom:SubmitComboBox>
+                        </custom:CommitComboBox>
                         <Label Content=" X "/>
                         <Label Name="SizeLabel" Content="{Binding Path=GridSize}" />
                     </StackPanel>
