@@ -57,9 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviour\AppleManViewBehaviour.cs" />
-    <Compile Include="Behaviour\MainWindowBehaviour.cs" />
-    <Compile Include="Behaviour\TerrainViewBehaviour.cs" />
+    <Compile Include="Gui\AppleManViewBehaviour.cs" />
+    <Compile Include="Gui\MainWindowBehaviour.cs" />
+    <Compile Include="Gui\TerrainViewBehaviour.cs" />
     <Compile Include="Gui\CommitComboBox.cs" />
     <Compile Include="Math\VectorInt.cs" />
     <Compile Include="Model\AppleManDataGenerator.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="View\ICanvas2D.cs" />
     <Compile Include="Math\Matrix3DExtensions.cs" />
     <Compile Include="Math\Point3DExtensions.cs" />
-    <Compile Include="View\ImageViewControl.xaml.cs">
+    <Compile Include="Gui\ImageViewControl.xaml.cs">
       <DependentUpon>ImageViewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TerrainView3D.cs" />
@@ -101,7 +101,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\ImageViewControl.xaml">
+    <Page Include="Gui\ImageViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

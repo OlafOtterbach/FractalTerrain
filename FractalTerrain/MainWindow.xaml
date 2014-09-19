@@ -9,12 +9,12 @@
         <local:TerrainViewModel />
     </Window.DataContext>
     <i:Interaction.Behaviors>
-        <local:MainWindowBehaviour />
+        <custom:MainWindowBehaviour />
     </i:Interaction.Behaviors>
     <Grid>
         <Canvas x:Name="canvas" Background="Black" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
             <i:Interaction.Behaviors>
-                <local:TerrainViewBehaviour/>
+                <custom:TerrainViewBehaviour/>
             </i:Interaction.Behaviors>
         </Canvas>
         <Expander BorderThickness="2" BorderBrush="White" Background="White" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Down" Width="Auto" Height="Auto" Panel.ZIndex="1000" Header="Settings" >
@@ -34,7 +34,7 @@
                         <Border Margin="2" Grid.Row="1" Grid.Column="0" Width="320" Height="256" BorderThickness="1" BorderBrush="#FF00FF00">
                             <Image x:Name="AppleImage" Stretch="Fill">                                
                                 <i:Interaction.Behaviors>
-                                    <local:AppleManViewBehaviour />
+                                    <custom:AppleManViewBehaviour />
                                 </i:Interaction.Behaviors>
                             </Image>
                         </Border>
@@ -54,7 +54,7 @@
                         <Label Name="SizeLabel" Content="{Binding Path=GridSize}" />
                     </StackPanel>
                     <CheckBox IsChecked= "{ Binding Path=ParallelProcess }">Parallel</CheckBox>
-                    <local:ImageViewControl x:Name="AppleView" Width="Auto" Height="20" Text="{ Binding ElementName=SizeLabel ,Path=Text}" />
+                    <custom:ImageViewControl x:Name="AppleView" Width="Auto" Height="20" Text="{ Binding Path=GridSize}" />
                     <Button Command="{Binding Path=Start}">Start</Button>
                 </StackPanel>
             </Border>

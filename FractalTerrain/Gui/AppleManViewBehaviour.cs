@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
 
-namespace FractalTerrain
+namespace FractalTerrain.Gui
 {
    public class AppleManViewBehaviour : Behavior<UIElement>
    {

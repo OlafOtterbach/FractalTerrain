@@ -17,24 +17,35 @@ namespace FractalTerrain.Gui
          this.LostFocus += new RoutedEventHandler(OnFocusLost);
       }
 
-      public void OnFocusLost( object sender, EventArgs e)
+
+      protected override void OnDropDownClosed(EventArgs e)
       {
-         BindingExpression bindingExpression = GetBindingExpression(ComboBox.TextProperty);
-         if( bindingExpression != null )
-         {
-            bindingExpression.UpdateSource();
-         }
+         base.OnDropDownClosed(e);
+         UpdateTextBoxBinding();
       }
 
-      void OnPreviewKeyDown(object sender, KeyEventArgs e)
+
+      private void OnFocusLost(object sender, EventArgs e)
+      {
+         UpdateTextBoxBinding();
+      }
+
+
+      private void OnPreviewKeyDown(object sender, KeyEventArgs e)
       {
          if( e.Key == Key.Enter )
          {
-            var bindingExpression = GetBindingExpression(ComboBox.TextProperty);
-            if( bindingExpression != null )
-            {
-               bindingExpression.UpdateSource();
-            }
+            UpdateTextBoxBinding();
+         }
+      }
+
+
+      private void UpdateTextBoxBinding()
+      {
+         var bindingExpression = GetBindingExpression(ComboBox.TextProperty);
+         if( bindingExpression != null )
+         {
+            bindingExpression.UpdateSource();
          }
       }
    }

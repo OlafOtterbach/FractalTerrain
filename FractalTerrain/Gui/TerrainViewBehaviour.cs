@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 
-namespace FractalTerrain
+namespace FractalTerrain.Gui
 {
    public class TerrainViewBehaviour : Behavior<UIElement>
    {
