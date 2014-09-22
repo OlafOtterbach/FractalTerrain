@@ -1,11 +1,12 @@
 ﻿/// <summary>Definition of the class TerrainViewModel.</summary>
 /// <author>Olaf Otterbach</author>
 
+using FractalTerrain.View;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 
-namespace FractalTerrain
+namespace FractalTerrain.ViewModel
 {
    public class TerrainViewModel : INotifyPropertyChanged
    {
@@ -25,6 +26,7 @@ namespace FractalTerrain
 
       public bool ParallelProcess { get; set; }
 
+
       public int GridSize
       {
          get
@@ -35,10 +37,11 @@ namespace FractalTerrain
          {
             var save = value;
             m_model.MapSize = save;
+            Update(ParallelProcess);
             OnPropertyChanged("GridSize");
-            Update();
          }
       }
+
 
       public double AppleManSize
       {
@@ -55,27 +58,11 @@ namespace FractalTerrain
             var size = value;
             var newSize = ( size / 100.0 ) * maximalSize;
             m_model.AppleManSize = newSize;
-            m_model.UpdateAppleMan();
-            Update();
+            Update(ParallelProcess);
+            OnPropertyChanged("AppleManSize");
          }
       }
 
-
-      public void MoveAppleMan(Vector deltaMovement)
-      {
-         m_model.AppleManXStartPosition += deltaMovement.X;
-         m_model.AppleManXStartPosition += deltaMovement.Y;
-         m_model.UpdateAppleMan();
-         Update();
-      }
-
-
-      public void ZoomAppleMan( double deltaZoom )
-      {
-         m_model.AppleManSize += deltaZoom;
-         m_model.UpdateAppleMan();
-         Update();
-      }
 
       public double AppleManXStartPosition
       {
@@ -92,10 +79,11 @@ namespace FractalTerrain
             var startX = value;
             var newPos = ( startX / 100.0 ) * size + m_model.MinimalStartPosition;
             m_model.AppleManXStartPosition = newPos;
-            m_model.UpdateAppleMan();
-            Update();
+            Update(ParallelProcess);
+            OnPropertyChanged("AppleManXStartPosition");
          }
       }
+
 
       public double AppleManYStartPosition
       {
@@ -112,8 +100,8 @@ namespace FractalTerrain
             var startY = (double)value;
             var newPos = ( startY / 100.0 ) * size + m_model.MinimalStartPosition;
             m_model.AppleManYStartPosition = newPos;
-            m_model.UpdateAppleMan();
-            Update();
+            Update(ParallelProcess);
+            OnPropertyChanged("AppleManYStartPosition");
          }
       }
 
@@ -122,6 +110,7 @@ namespace FractalTerrain
       public void Resize()
       {
          View.Resize();
+         View.Render();
       }
 
       public TerrainModel ActualModel
@@ -134,9 +123,7 @@ namespace FractalTerrain
       
       public void OnStart()
       {
-         UpdateTerrainModel();
-         UpdateView();
-         OnPropertyChanged("GridSize");
+         Update( true );
       }
 
       public bool OnStartCanBeExecuted()
@@ -154,6 +141,40 @@ namespace FractalTerrain
          }
       }
 
+
+
+      private void Update( bool renderTerrain )
+      {
+         m_model.Update();
+         AppleView.Update();
+         AppleView.Render();
+         if( renderTerrain )
+         {
+            View.Update();
+            View.Render();
+         }
+      }
+
+
+/*
+      private void UpdateModel()
+      {
+         m_model.Update();
+      }
+
+
+      private void Update( bool renderTerrain )
+      {
+         AppleView.Update();
+         AppleView.Render();
+         if( renderTerrain )
+         {
+            View.Update();
+            View.Render();
+         }
+      }
+*/
+
       private void CreateTerrainModel()
       {
          var mapSize = 129;
@@ -162,31 +183,6 @@ namespace FractalTerrain
          var appleYPos = -0.0036470011473482278;
          var terrainBuilder = new TerrainModelBuilder();
          m_model = terrainBuilder.Create(mapSize, appleXPos, appleYPos, appleSize);
-      }
-
-      private void UpdateTerrainModel()
-      {
-         m_model.Update();
-      }
-
-      private void Update()
-      {
-         AppleView.Update();
-         AppleView.Render();
-         if(ParallelProcess)
-         {
-            UpdateTerrainModel();
-            View.Update();
-            View.Render();
-         }
-      }
-
-      private void UpdateView()
-      {
-         AppleView.Update();
-         View.Update();
-         AppleView.Render();
-         View.Render();
       }
 
       private TerrainModel m_model;

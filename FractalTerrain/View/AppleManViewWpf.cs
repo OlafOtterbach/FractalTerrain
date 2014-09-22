@@ -1,22 +1,19 @@
 ﻿/// <summary>Definition of the class AppleManViewWpf.</summary>
 /// <author>Olaf Otterbach</author>
 
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using FractalTerrain.ViewModel;
 
-namespace FractalTerrain
+namespace FractalTerrain.View
 {
    public class AppleManViewWpf
    {
       public AppleManViewWpf(Image image) : base()
       {
-//         m_canvas = canvas;
-         m_image = image;// new Image();
-//         m_image.Stretch = Stretch.Fill;
-//         canvas.Children.Add(m_image);
+         m_image = image;
       }
 
       public TerrainViewModel ViewModel { get; set; }

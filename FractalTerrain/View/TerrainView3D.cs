@@ -1,15 +1,14 @@
-﻿/// <summary>Definition of the class Canvas2D.</summary>
+﻿/// <summary>Definition of the class TerrainView3D.</summary>
 /// <author>Olaf Otterbach</author>
-/// <start>12.04.2014</start>
-/// <state>20.04.2014</state>
 
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media.Media3D;
+using FractalTerrain.ViewModel;
 
-namespace FractalTerrain
+namespace FractalTerrain.View
 {
    /// <summary>
    /// View to show the fractal terrain.
@@ -80,7 +79,7 @@ namespace FractalTerrain
 
       public void DrawTerrain()
       {
-         if (ViewModel == null)
+         if( ( ViewModel == null ) || ( !m_visualModel.IsValid ) )
          {
             return;
          }

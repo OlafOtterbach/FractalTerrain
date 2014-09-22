@@ -1,14 +1,12 @@
-﻿/// <summary>Definition of the class TerrainView3DBehaviour.</summary>
+﻿/// <summary>Definition of the class TerrainView3DWpf.</summary>
 /// <author>Olaf Otterbach</author>
-/// <start>20.04.2014</start>
-/// <state>20.04.2014</state>
 
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
 
-namespace FractalTerrain
+namespace FractalTerrain.View
 {
    /// <summary>
    /// View with Wpf events.

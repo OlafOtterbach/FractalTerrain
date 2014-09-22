@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using FractalTerrain.View;
+using FractalTerrain.ViewModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
@@ -68,7 +70,7 @@ namespace FractalTerrain.Gui
          var zoom = sign * factor * length;
          var parent = Application.Current.MainWindow;
          var viewModel = parent.DataContext as TerrainViewModel;
-         viewModel.ZoomAppleMan(zoom);
+         viewModel.AppleManSize += zoom;
       }
 
       private Point m_mousePosition;

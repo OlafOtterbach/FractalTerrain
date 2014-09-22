@@ -1,14 +1,12 @@
 ﻿/// <summary>Definition of the class VisualModel.</summary>
 /// <author>Olaf Otterbach</author>
-/// <start>03.05.2014</start>
-/// <state>03.05.2014</state>
 
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
 
-namespace FractalTerrain
+namespace FractalTerrain.View
 {
    public class VisualModel
    {
@@ -16,25 +14,14 @@ namespace FractalTerrain
       {
          HeightFactor = 150.0;
       }
-/*
-      public IEnumerable<VisualLine> Lines 
-      { 
-         get
-         {
-            var max = m_size - 1;
-            //return GetLines(new VectorInt(max, 0), new VectorInt(0, 1), new VectorInt(-1, 0));
-            return GetLines(new VectorInt(max,max), new VectorInt(-1, 0), new VectorInt(0, -1));
-         }
-      }
-*/
 
       public Point3D Minimum { get; private set; }
-
 
       public Point3D Maximum { get; private set; }
 
       public double HeightFactor { get; set; }
 
+      public bool IsValid { get { return ( m_vertices != null ); } }
 
       public void InitTerrain( TerrainModel model )
       {

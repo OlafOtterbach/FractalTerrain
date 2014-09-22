@@ -1,11 +1,9 @@
 ﻿/// <summary>Definition of the class ViewCamera.</summary>
 /// <author>Olaf Otterbach</author>
-/// <start>13.04.2014</start>
-/// <state>17.04.2014</state>
 
 using System.Windows.Media.Media3D;
 
-namespace FractalTerrain
+namespace FractalTerrain.View
 {
    public class ViewCamera
    {

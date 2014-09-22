@@ -1,7 +1,5 @@
 ﻿/// <summary>Definition of the class Canvas2DWPF.</summary>
 /// <author>Olaf Otterbach</author>
-/// <start>02.05.2014</start>
-/// <state>02.05.2014</state>
 
 using System;
 using System.Windows;
@@ -10,7 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FractalTerrain
+namespace FractalTerrain.View
 {
    /// <summary>
    /// WPF bitmap canvas to draw 2D geometry.

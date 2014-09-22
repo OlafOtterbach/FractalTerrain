@@ -1,11 +1,10 @@
 ﻿/// <summary>Definition of the struct VisualVertex.</summary>
 /// <author>Olaf Otterbach</author>
-/// <start>10.06.2014</start>
-/// <state>10.06.2014</state>
 
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
-namespace FractalTerrain
+
+namespace FractalTerrain.View
 {
    /// <summary>
    /// Class for a vertex in a line grid.

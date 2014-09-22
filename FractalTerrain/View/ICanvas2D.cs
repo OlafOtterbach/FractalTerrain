@@ -1,14 +1,12 @@
 ﻿/// <summary>Definition of the interface ICanvas2D.</summary>
 /// <author>Olaf Otterbach</author>
-/// <start>11.04.2014</start>
-/// <state>11.04.2014</state>
 
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace FractalTerrain
+namespace FractalTerrain.View
 {
    /// <summary>
    /// Interface for canvas to draw 2D geometry.

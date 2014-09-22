@@ -1,11 +1,9 @@
 ﻿/// <summary>Definition of the struct VisualLine.</summary>
 /// <author>Olaf Otterbach</author>
-/// <start>03.05.2014</start>
-/// <state>03.05.2014</state>
 
 using System.Windows.Media.Media3D;
 
-namespace FractalTerrain
+namespace FractalTerrain.View
 {
    /// <summary>
    /// Struct representing line for visualisation.

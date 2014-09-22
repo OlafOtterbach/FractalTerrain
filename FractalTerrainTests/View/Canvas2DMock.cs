@@ -2,6 +2,7 @@
 /// <author>Olaf Otterbach</author>
 
 using FractalTerrain;
+using FractalTerrain.View;
 using System.Windows;
 
 namespace FractalTerrainTests

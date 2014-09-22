@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using FractalTerrain.View;
+using FractalTerrain.ViewModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 
@@ -18,6 +20,8 @@ namespace FractalTerrain.Gui
          view3D.ViewModel = viewModel;
          terrainCanvas.MouseMove += new System.Windows.Input.MouseEventHandler(view3D.OnMouseMove);
          terrainCanvas.MouseDown += new System.Windows.Input.MouseButtonEventHandler(view3D.OnMouseDown);
+         terrainCanvas.SizeChanged += new SizeChangedEventHandler((object t_sender, SizeChangedEventArgs t_event) => { view3D.Resize(); view3D.Render(); } );
       }
    }
 }
+
