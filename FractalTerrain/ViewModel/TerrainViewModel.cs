@@ -1,9 +1,9 @@
 ﻿/// <summary>Definition of the class TerrainViewModel.</summary>
 /// <author>Olaf Otterbach</author>
 
+using FractalTerrain.Model;
 using FractalTerrain.View;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace FractalTerrain.ViewModel
@@ -26,6 +26,8 @@ namespace FractalTerrain.ViewModel
 
       public bool ParallelProcess { get; set; }
 
+
+      public TerrainCamera Camera { get { return m_model.Camera; } }
 
       public int GridSize
       {

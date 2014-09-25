@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FractalTerrain
+namespace FractalTerrain.Model
 {
    public class AppleManData
    {

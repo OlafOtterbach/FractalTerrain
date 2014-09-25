@@ -1,7 +1,7 @@
 ﻿/// <summary>Definition of the class AppleManDataGenerator.</summary>
 /// <author>Olaf Otterbach</author>
 
-namespace FractalTerrain
+namespace FractalTerrain.Model
 {
    public class AppleManDataGenerator : IAppleManDataGenerator
    {

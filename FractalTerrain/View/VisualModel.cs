@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;
+using FractalTerrain.Model;
 
 namespace FractalTerrain.View
 {
@@ -29,7 +30,7 @@ namespace FractalTerrain.View
       }
 
 
-      public IEnumerable<VisualLine> GetGeometryLines( ViewCamera camera )
+      public IEnumerable<VisualLine> GetGeometryLines( TerrainCamera camera )
       {
          var offset = camera.Offset.Offset();
          var max = m_size - 1;

@@ -2,7 +2,7 @@
 /// <author>Olaf Otterbach</author>
 
 
-namespace FractalTerrain
+namespace FractalTerrain.Model
 {
    public interface IAppleManDataGenerator
    {

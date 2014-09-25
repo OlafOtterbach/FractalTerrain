@@ -3,7 +3,7 @@
 
 using System;
 
-namespace FractalTerrain
+namespace FractalTerrain.Model
 {
    public class TerrainModelDataGenerator : ITerrainModelDataGenerator
    {

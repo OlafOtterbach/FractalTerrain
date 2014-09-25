@@ -4,12 +4,16 @@
 using System;
 using System.Windows.Media.Media3D;
 
-namespace FractalTerrain
+namespace FractalTerrain.Model
 {
    public class TerrainModel
    {
       public TerrainModel( ITerrainModelDataGenerator terrainGenerator, IAppleManDataGenerator appleManGenerator )
       {
+         Camera = new TerrainCamera();
+         Camera.SetCamera(45.0, 45.0, 300.0);
+         Camera.NearPlane = 1.0;
+
          m_terrainGenerator = terrainGenerator;
          m_appleManGenerator = appleManGenerator;
          m_mapSize = 3;
@@ -21,6 +25,8 @@ namespace FractalTerrain
          m_appleManYStartPosition = -1.5;
          m_appleManSize = MaximalStartPosition - MinimalStartPosition;
       }
+
+      public TerrainCamera Camera { get; set; }
 
       public TerrainModelData TerrainModelData { get; private set; }
 
