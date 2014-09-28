@@ -20,6 +20,10 @@ namespace FractalTerrain.View
       /// <param name="canvas">Canvas to draw on</param>
       public TerrainView3D(ICanvas2D canvas)
       {
+         Camera = new ViewCamera();
+         Camera.SetCamera(45.0, 45.0, 300.0);
+         Camera.NearPlane = 1.0;
+
          m_canvas = canvas;
          m_visualModel = new VisualModel();
       }
@@ -31,6 +35,9 @@ namespace FractalTerrain.View
       public TerrainViewModel ViewModel { get; set; }
 
       private VisualModel m_visualModel;
+
+      public ViewCamera Camera { get; set; }
+
 
       /// <summary>
       /// Sets the pen for drawing.
@@ -61,7 +68,7 @@ namespace FractalTerrain.View
          {
             m_visualModel.InitTerrain(model);
             var middle = m_visualModel.Minimum + (m_visualModel.Maximum - m_visualModel.Minimum) / 2.0;
-            ViewModel.Camera.MoveTo(middle);
+            Camera.MoveTo(middle);
          }
       }
 
@@ -80,7 +87,7 @@ namespace FractalTerrain.View
             return;
          }
          m_canvas.Clear();
-         m_visualModel.GetGeometryLines(ViewModel.Camera).ToList().ForEach(DrawLine);
+         m_visualModel.GetGeometryLines(Camera).ToList().ForEach(DrawLine);
       }
 
 
@@ -97,15 +104,15 @@ namespace FractalTerrain.View
       /// <param name="end">End point of the line</param>
       private void DrawLine( Point3D start, Point3D end )
       {
-         var cameraFrame = ViewModel.Camera.Offset.Inverse();
+         var cameraFrame = Camera.Offset.Inverse();
          var frameStart = start * cameraFrame;
          var frameEnd = end * cameraFrame;
-         if( ClippLineAtNearPlane(ViewModel.Camera.NearPlane, ref frameStart, ref frameEnd) )
+         if( ClippLineAtNearPlane(Camera.NearPlane, ref frameStart, ref frameEnd) )
          {
             double width = m_canvas.Width; ;
             double height = m_canvas.Height;
-            var startPos = GetProjectionOfPoint(width, height, ViewModel.Camera.NearPlane, frameStart);
-            var endPos = GetProjectionOfPoint(width, height, ViewModel.Camera.NearPlane, frameEnd);
+            var startPos = GetProjectionOfPoint(width, height, Camera.NearPlane, frameStart);
+            var endPos = GetProjectionOfPoint(width, height, Camera.NearPlane, frameEnd);
             m_canvas.DrawLine(startPos, endPos);
          }
       }

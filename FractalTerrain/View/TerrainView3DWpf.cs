@@ -56,17 +56,24 @@ namespace FractalTerrain.View
             {
                   dx = ((double)(-deltaX));
                   dy = ((double)(-deltaY));
-                  ViewModel.Camera.OrbitYZ(dy);
-                  ViewModel.Camera.OrbitXY(dx);
+                  Camera.OrbitYZ(dy);
+                  Camera.OrbitXY(dx);
                   Render();
             }
             if( (inputEvent.RightButton == MouseButtonState.Pressed) && (inputEvent.LeftButton == MouseButtonState.Released))
             {
                   dy = -((double)deltaY) * 10.0;
-                  ViewModel.Camera.Zoom(dy);
+                  Camera.Zoom(dy);
                   Render();
             }
          }
+      }
+
+
+      public void OnResize(object t_sender, SizeChangedEventArgs t_event)
+      {
+         Resize(); 
+         Render();
       }
 
 

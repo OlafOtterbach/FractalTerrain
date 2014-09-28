@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,12 +63,14 @@
     <Compile Include="Gui\MainWindowBehaviour.cs" />
     <Compile Include="Gui\TerrainViewBehaviour.cs" />
     <Compile Include="Gui\CommitComboBox.cs" />
+    <Compile Include="Gui\TerrainViewControl.xaml.cs">
+      <DependentUpon>TerrainViewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Math\VectorInt.cs" />
     <Compile Include="Model\AppleManDataGenerator.cs" />
     <Compile Include="Model\AppleManData.cs" />
     <Compile Include="Model\IAppleManDataGenerator.cs" />
     <Compile Include="Model\ITerrainModelDataGenerator.cs" />
-    <Compile Include="Model\TerrainCamera.cs" />
     <Compile Include="Model\TerrainModel.cs" />
     <Compile Include="Model\TerrainModelBuilder.cs" />
     <Compile Include="Model\TerrainModelDataGenerator.cs" />
@@ -90,6 +94,10 @@
     <Compile Include="View\VisualLine.cs" />
     <Compile Include="View\VisualModel.cs" />
     <Compile Include="View\VisualVertex.cs" />
+    <Page Include="Gui\TerrainViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

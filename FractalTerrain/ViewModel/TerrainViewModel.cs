@@ -26,9 +26,6 @@ namespace FractalTerrain.ViewModel
 
       public bool ParallelProcess { get; set; }
 
-
-      public TerrainCamera Camera { get { return m_model.Camera; } }
-
       public int GridSize
       {
          get
@@ -143,8 +140,6 @@ namespace FractalTerrain.ViewModel
          }
       }
 
-
-
       private void Update( bool renderTerrain )
       {
          m_model.Update();
@@ -157,25 +152,10 @@ namespace FractalTerrain.ViewModel
          }
       }
 
-
-/*
-      private void UpdateModel()
+      private void RenderTerrain()
       {
-         m_model.Update();
+         View.Render();
       }
-
-
-      private void Update( bool renderTerrain )
-      {
-         AppleView.Update();
-         AppleView.Render();
-         if( renderTerrain )
-         {
-            View.Update();
-            View.Render();
-         }
-      }
-*/
 
       private void CreateTerrainModel()
       {

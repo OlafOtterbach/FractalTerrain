@@ -30,7 +30,7 @@ namespace FractalTerrain.View
       }
 
 
-      public IEnumerable<VisualLine> GetGeometryLines( TerrainCamera camera )
+      public IEnumerable<VisualLine> GetGeometryLines( ViewCamera camera )
       {
          var offset = camera.Offset.Offset();
          var max = m_size - 1;
