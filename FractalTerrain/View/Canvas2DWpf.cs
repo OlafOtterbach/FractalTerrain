@@ -35,7 +35,10 @@ namespace FractalTerrain.View
 
       public override void Refresh()
       {
-         m_bitmap.WritePixels(new Int32Rect(0, 0, GetWidth(), GetHeight()), Buffer, m_bitmap.BackBufferStride, 0);
+         if( m_bitmap != null )
+         {
+            m_bitmap.WritePixels(new Int32Rect(0, 0, GetWidth(), GetHeight()), Buffer, m_bitmap.BackBufferStride, 0);
+         }
       }
 
 

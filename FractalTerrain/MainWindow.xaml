@@ -55,6 +55,7 @@
                     </StackPanel>
                     <CheckBox IsChecked= "{ Binding Path=ParallelProcess }">Parallel</CheckBox>
                     <custom:ImageViewControl x:Name="AppleView" Width="Auto" Height="20" Text="{ Binding Path=GridSize}" />
+                    <custom:TerrainViewControl x:Name="TerrainSubView" Width="Auto" Height="200" />
                     <Button Command="{Binding Path=Start}">Start</Button>
                 </StackPanel>
             </Border>

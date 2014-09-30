@@ -1,18 +1,11 @@
-﻿using FractalTerrain.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// <summary>Definition of the class TerrainViewControl.</summary>
+/// <author>Olaf Otterbach</author>
+
+using FractalTerrain.View;
+using FractalTerrain.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FractalTerrain.Gui
 {
@@ -24,23 +17,31 @@ namespace FractalTerrain.Gui
       public TerrainViewControl()
       {
          InitializeComponent();
+         InitView();
+      }
+
+      private void InitView()
+      {
          var parent = Application.Current.MainWindow;
          var viewModel = parent.DataContext as TerrainViewModel;
+         var canvas2D = new Canvas2DWpf(this.ControlCanvas);
+         m_view3D = new TerrainView3DWpf(canvas2D);
+         viewModel.Register(m_view3D);
+         m_view3D.ViewModel = viewModel;
 
-         var terrainCanvas = this.ControlImage;
-         terrainCanvas.MouseMove += new System.Windows.Input.MouseEventHandler(OnMouseMove);
-         terrainCanvas.MouseDown += new System.Windows.Input.MouseButtonEventHandler(OnMouseDown);
-         terrainCanvas.SizeChanged += new SizeChangedEventHandler(OnResize);
+         this.ControlCanvas.MouseMove += new System.Windows.Input.MouseEventHandler(OnMouseMove);
+         this.ControlCanvas.MouseDown += new System.Windows.Input.MouseButtonEventHandler(OnMouseDown);
+         this.ControlCanvas.SizeChanged += new SizeChangedEventHandler(OnResize);
       }
 
       private void OnResize(object t_sender, SizeChangedEventArgs t_event)
       {
-         var parent = Application.Current.MainWindow;
-         var viewModel = parent.DataContext as TerrainViewModel;
-         var view3D = viewModel.View;
-         view3D.Resize(); view3D.Render();
+         if( m_view3D != null )
+         {
+            m_view3D.Resize();
+            m_view3D.Render();
+         }
       }
-
 
       public void OnMouseDown(object sender, MouseButtonEventArgs inputEvent)
       {
@@ -49,13 +50,10 @@ namespace FractalTerrain.Gui
          m_mouseY = point.Y;
       }
 
-
       public void OnMouseMove(object t_sender, MouseEventArgs inputEvent)
       {
          if( ( inputEvent.LeftButton == MouseButtonState.Pressed ) || ( inputEvent.RightButton == MouseButtonState.Pressed ) )
          {
-            var parent = Application.Current.MainWindow;
-            var viewModel = parent.DataContext as TerrainViewModel;
             Point point = inputEvent.GetPosition((UIElement)t_sender);
             double deltaX = point.X - m_mouseX;
             double deltaY = point.Y - m_mouseY;
@@ -67,26 +65,29 @@ namespace FractalTerrain.Gui
             {
                dx = ( (double)( -deltaX ) );
                dy = ( (double)( -deltaY ) );
- //              viewModel.Camera.OrbitYZ(dy);
- //              viewModel.Camera.OrbitXY(dx);
+               if( m_view3D != null )
+               {
+                  m_view3D.Camera.OrbitYZ(dy);
+                  m_view3D.Camera.OrbitXY(dx);
+                  m_view3D.Render();
+               }
             }
             if( ( inputEvent.RightButton == MouseButtonState.Pressed ) && ( inputEvent.LeftButton == MouseButtonState.Released ) )
             {
                dy = -( (double)deltaY ) * 10.0;
- //              viewModel.Camera.Zoom(dy);
+               if( m_view3D != null )
+               {
+                  m_view3D.Camera.Zoom(dy);
+                  m_view3D.Render();
+               }
             }
          }
       }
 
+      private TerrainView3DWpf m_view3D;
 
-      /// <summary>
-      /// Aktuelle X-Mauskoordinate.
-      /// </summary>
       double m_mouseX = 0;
 
-      /// <summary>
-      /// Aktuelle Y-Mauskoordinate.
-      /// </summary>
       double m_mouseY = 0;
    }
 }

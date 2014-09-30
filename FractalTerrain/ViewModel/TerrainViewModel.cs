@@ -3,6 +3,7 @@
 
 using FractalTerrain.Model;
 using FractalTerrain.View;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -12,6 +13,7 @@ namespace FractalTerrain.ViewModel
    {
       public TerrainViewModel()
       {
+         mTerrainViews = new List<TerrainView3D>();
          CreateTerrainModel();
          Start = new GuiButtonCommand(() => OnStart(), () => OnStartCanBeExecuted());
       }
@@ -21,6 +23,15 @@ namespace FractalTerrain.ViewModel
       public ICommand Start { get; private set; }
 
       public TerrainView3D View { get; set; }
+
+      public IEnumerable<TerrainView3D> TerrainViews { get { return mTerrainViews; } }
+
+      private List<TerrainView3D> mTerrainViews;
+
+      public void Register( TerrainView3D view )
+      {
+         mTerrainViews.Add(view);
+      }
 
       public AppleManViewWpf AppleView { get; set; }
 
@@ -110,6 +121,8 @@ namespace FractalTerrain.ViewModel
       {
          View.Resize();
          View.Render();
+         mTerrainViews.ForEach(v => { v.Resize(); });
+         mTerrainViews.ForEach(v => { v.Render(); });
       }
 
       public TerrainModel ActualModel
@@ -149,12 +162,15 @@ namespace FractalTerrain.ViewModel
          {
             View.Update();
             View.Render();
+            mTerrainViews.ForEach(v => { v.Update(); });
+            mTerrainViews.ForEach(v => { v.Render(); });
          }
       }
 
       private void RenderTerrain()
       {
          View.Render();
+         mTerrainViews.ForEach(v => { v.Render(); });
       }
 
       private void CreateTerrainModel()

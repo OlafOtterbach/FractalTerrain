@@ -1,4 +1,4 @@
-﻿/// <summary>Definition of the class CommitComboBox.</summary>
+﻿/// <summary>Definition of the class SubmitComboBox.</summary>
 /// <author>Olaf Otterbach</author>
 
 using System;
@@ -17,35 +17,24 @@ namespace FractalTerrain.Gui
          this.LostFocus += new RoutedEventHandler(OnFocusLost);
       }
 
-
-      protected override void OnDropDownClosed(EventArgs e)
+      public void OnFocusLost( object sender, EventArgs e)
       {
-         base.OnDropDownClosed(e);
-         UpdateTextBoxBinding();
-      }
-
-
-      private void OnFocusLost(object sender, EventArgs e)
-      {
-         UpdateTextBoxBinding();
-      }
-
-
-      private void OnPreviewKeyDown(object sender, KeyEventArgs e)
-      {
-         if( e.Key == Key.Enter )
-         {
-            UpdateTextBoxBinding();
-         }
-      }
-
-
-      private void UpdateTextBoxBinding()
-      {
-         var bindingExpression = GetBindingExpression(ComboBox.TextProperty);
+         BindingExpression bindingExpression = GetBindingExpression(ComboBox.TextProperty);
          if( bindingExpression != null )
          {
             bindingExpression.UpdateSource();
+         }
+      }
+
+      void OnPreviewKeyDown(object sender, KeyEventArgs e)
+      {
+         if( e.Key == Key.Enter )
+         {
+            var bindingExpression = GetBindingExpression(ComboBox.TextProperty);
+            if( bindingExpression != null )
+            {
+               bindingExpression.UpdateSource();
+            }
          }
       }
    }

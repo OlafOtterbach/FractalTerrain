@@ -91,7 +91,7 @@ namespace FractalTerrain.View
       }
 
 
-      public void DrawLine(VisualLine line)
+      private void DrawLine(VisualLine line)
       {
          m_canvas.SetPen(line.Color);
          DrawLine(line.Start, line.End);
