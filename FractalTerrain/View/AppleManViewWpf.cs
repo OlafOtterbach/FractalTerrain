@@ -26,6 +26,7 @@ namespace FractalTerrain.View
          }
       }
 
+
       public void Update()
       {
          if( ViewModel == null )

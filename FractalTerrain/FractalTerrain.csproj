@@ -59,9 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Gui\AppleManViewBehaviour.cs" />
+    <Compile Include="Gui\AppleManViewControl.xaml.cs">
+      <DependentUpon>AppleManViewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gui\MainWindowBehaviour.cs" />
-    <Compile Include="Gui\TerrainViewBehaviour.cs" />
     <Compile Include="Gui\CommitComboBox.cs" />
     <Compile Include="Gui\TerrainViewControl.xaml.cs">
       <DependentUpon>TerrainViewControl.xaml</DependentUpon>
@@ -87,13 +88,16 @@
     <Compile Include="View\TerrainView3D.cs" />
     <Compile Include="GuiButtonCommand.cs" />
     <Compile Include="Model\TerrainModelData.cs" />
-    <Compile Include="View\TerrainView3DWpf.cs" />
     <Compile Include="ViewModel\TerrainViewModel.cs" />
     <Compile Include="Math\Vector3DExtensions.cs" />
     <Compile Include="View\ViewCamera.cs" />
     <Compile Include="View\VisualLine.cs" />
     <Compile Include="View\VisualModel.cs" />
     <Compile Include="View\VisualVertex.cs" />
+    <Page Include="Gui\AppleManViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Gui\TerrainViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

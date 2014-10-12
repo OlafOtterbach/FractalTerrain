@@ -32,7 +32,8 @@ namespace FractalTerrain.View
 
       public IEnumerable<VisualLine> GetGeometryLines( ViewCamera camera )
       {
-         var offset = camera.Offset.Offset();
+         var cameraOffset = camera.Offset.Offset();
+         var offset = new Point3D(cameraOffset.X, cameraOffset.Y, 0.0);
          var max = m_size - 1;
          var positions = new List<VectorInt>() { new VectorInt(0, 0), new VectorInt(max, 0), new VectorInt(0, max), new VectorInt(max, max) };
          var positionAndVertex = positions.Select(pos => new { Position = pos, Vertex = m_vertices[pos.Y * m_size + pos.X].Vertex }).ToList();

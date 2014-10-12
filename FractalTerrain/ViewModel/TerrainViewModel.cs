@@ -6,6 +6,7 @@ using FractalTerrain.View;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace FractalTerrain.ViewModel
 {
@@ -22,8 +23,6 @@ namespace FractalTerrain.ViewModel
 
       public ICommand Start { get; private set; }
 
-      public TerrainView3D View { get; set; }
-
       public IEnumerable<TerrainView3D> TerrainViews { get { return mTerrainViews; } }
 
       private List<TerrainView3D> mTerrainViews;
@@ -34,6 +33,7 @@ namespace FractalTerrain.ViewModel
       }
 
       public AppleManViewWpf AppleView { get; set; }
+
 
       public bool ParallelProcess { get; set; }
 
@@ -119,8 +119,6 @@ namespace FractalTerrain.ViewModel
 
       public void Resize()
       {
-         View.Resize();
-         View.Render();
          mTerrainViews.ForEach(v => { v.Resize(); });
          mTerrainViews.ForEach(v => { v.Render(); });
       }
@@ -160,16 +158,15 @@ namespace FractalTerrain.ViewModel
          AppleView.Render();
          if( renderTerrain )
          {
-            View.Update();
-            View.Render();
             mTerrainViews.ForEach(v => { v.Update(); });
             mTerrainViews.ForEach(v => { v.Render(); });
          }
+         OnPropertyChanged("AppleBitmap");
       }
+
 
       private void RenderTerrain()
       {
-         View.Render();
          mTerrainViews.ForEach(v => { v.Render(); });
       }
 

@@ -12,34 +12,12 @@
         <custom:MainWindowBehaviour />
     </i:Interaction.Behaviors>
     <Grid>
-        <Canvas x:Name="canvas" Background="Black" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-            <i:Interaction.Behaviors>
-                <custom:TerrainViewBehaviour/>
-            </i:Interaction.Behaviors>
-        </Canvas>
+        <custom:TerrainViewControl x:Name="TerrainMainView" />
         <Expander BorderThickness="2" BorderBrush="White" Background="White" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Down" Width="Auto" Height="Auto" Panel.ZIndex="1000" Header="Settings" >
             <Border Margin="2" BorderThickness="1" BorderBrush="Black">
                 <StackPanel Margin="2">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <ScrollBar Margin="2,2,2,0" x:Name="SizeScrollbar" Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Minimum="0" Maximum="100" Value = "{ Binding Path=AppleManSize }" />
-                        <Border Margin="2" Grid.Row="1" Grid.Column="0" Width="320" Height="256" BorderThickness="1" BorderBrush="#FF00FF00">
-                            <Image x:Name="AppleImage" Stretch="Fill">                                
-                                <i:Interaction.Behaviors>
-                                    <custom:AppleManViewBehaviour />
-                                </i:Interaction.Behaviors>
-                            </Image>
-                        </Border>
-                        <ScrollBar Margin="0,2,2,2" x:Name="YStartPosition" Grid.Row="1" Grid.Column="1" Orientation="Vertical" Minimum="0" Maximum="100" Value = "{ Binding Path=AppleManYStartPosition }" />
-                        <ScrollBar Margin="2,0,2,2" x:Name="XStartPosition" Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Minimum="0" Maximum="100" Value = "{ Binding Path=AppleManXStartPosition }" />
+                        <custom:AppleManViewControl x:Name="AppleSubView" AppleManSize="{Binding Path=AppleManSize}" AppleManXStartPosition="{Binding Path=AppleManXStartPosition}" AppleManYStartPosition="{Binding Path=AppleManYStartPosition}" />
                     </Grid>
                     <StackPanel Orientation="Horizontal">
                         <Label>Size</Label>
@@ -56,7 +34,7 @@
                     <CheckBox IsChecked= "{ Binding Path=ParallelProcess }">Parallel</CheckBox>
                     <custom:ImageViewControl x:Name="AppleView" Width="Auto" Height="20" Text="{ Binding Path=GridSize}" />
                     <custom:TerrainViewControl x:Name="TerrainSubView" Width="Auto" Height="200" />
-                    <Button Command="{Binding Path=Start}">Start</Button>
+                    <Button Command="{Binding Path=Start}">Update</Button>
                 </StackPanel>
             </Border>
         </Expander>

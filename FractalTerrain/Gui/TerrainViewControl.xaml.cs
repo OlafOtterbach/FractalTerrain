@@ -25,7 +25,7 @@ namespace FractalTerrain.Gui
          var parent = Application.Current.MainWindow;
          var viewModel = parent.DataContext as TerrainViewModel;
          var canvas2D = new Canvas2DWpf(this.ControlCanvas);
-         m_view3D = new TerrainView3DWpf(canvas2D);
+         m_view3D = new TerrainView3D(canvas2D);
          viewModel.Register(m_view3D);
          m_view3D.ViewModel = viewModel;
 
@@ -84,7 +84,7 @@ namespace FractalTerrain.Gui
          }
       }
 
-      private TerrainView3DWpf m_view3D;
+      private TerrainView3D m_view3D;
 
       double m_mouseX = 0;
 
