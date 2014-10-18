@@ -5,6 +5,23 @@
         xmlns:local="clr-namespace:FractalTerrain.ViewModel"
         xmlns:custom="clr-namespace:FractalTerrain.Gui"
         Title="MainWindow"  WindowState="Maximized">
+    <Window.Resources>
+        <Style TargetType="{x:Type Control}" x:Key="AdvancedGridSplitterPreview">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Rectangle StrokeThickness="1" Stroke="Red">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Opacity="0.6" Color="Yellow"/>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Window.DataContext>
         <local:TerrainViewModel />
     </Window.DataContext>
@@ -12,16 +29,39 @@
         <custom:MainWindowBehaviour />
     </i:Interaction.Behaviors>
     <Grid>
-        <custom:TerrainViewControl x:Name="TerrainMainView" />
-        <Expander BorderThickness="2" BorderBrush="White" Background="White" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Down" Width="Auto" Height="Auto" Panel.ZIndex="1000" Header="Settings" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+            <custom:TerrainViewControl Grid.Column="0" Grid.Row="0" />
+            <custom:TerrainViewControl Grid.Column="1" Grid.Row="0" />
+            <custom:TerrainViewControl Grid.Column="1" Grid.Row="1" />
+            <custom:TerrainViewControl Grid.Column="0" Grid.Row="1" />
+            <GridSplitter  ShowsPreview="true" PreviewStyle="{StaticResource  AdvancedGridSplitterPreview}" Background="White" BorderThickness="1" BorderBrush="Black"  Width="8" Grid.Row="0"  Grid.Column="0" Grid.RowSpan="2"  ResizeDirection="Columns" HorizontalAlignment="Right"  VerticalAlignment="Stretch" />
+            <GridSplitter ShowsPreview="true" PreviewStyle="{StaticResource AdvancedGridSplitterPreview}" Background="White" BorderThickness="1" BorderBrush="Black" Height="8" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+        </Grid>
+        <Expander BorderThickness="2" BorderBrush="White" Background="White" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Down" Width="Auto" Height="Auto" Panel.ZIndex="1000" Header="" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Collapsed" >
+                    <i:InvokeCommandAction Command="{Binding Path=Start}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <Border Margin="2" BorderThickness="1" BorderBrush="Black">
                 <StackPanel Margin="2">
                     <Grid>
-                        <custom:AppleManViewControl x:Name="AppleSubView" AppleManSize="{Binding Path=AppleManSize}" AppleManXStartPosition="{Binding Path=AppleManXStartPosition}" AppleManYStartPosition="{Binding Path=AppleManYStartPosition}" />
+                        <custom:AppleManViewControl Width="400" Height="300" x:Name="AppleSubView" AppleManSize="{Binding Path=AppleManSize}" AppleManXStartPosition="{Binding Path=AppleManXStartPosition}" AppleManYStartPosition="{Binding Path=AppleManYStartPosition}" />
                     </Grid>
                     <StackPanel Orientation="Horizontal">
                         <Label>Size</Label>
                         <custom:CommitComboBox IsEditable="true" Text="{Binding Path=GridSize, Mode=TwoWay, UpdateSourceTrigger=Explicit}" IsSynchronizedWithCurrentItem="false">
+                            <ComboBoxItem>9</ComboBoxItem>
+                            <ComboBoxItem>17</ComboBoxItem>
+                            <ComboBoxItem>33</ComboBoxItem>
                             <ComboBoxItem>65</ComboBoxItem>
                             <ComboBoxItem>129</ComboBoxItem>
                             <ComboBoxItem>257</ComboBoxItem>
@@ -32,8 +72,7 @@
                         <Label Name="SizeLabel" Content="{Binding Path=GridSize}" />
                     </StackPanel>
                     <CheckBox IsChecked= "{ Binding Path=ParallelProcess }">Parallel</CheckBox>
-                    <custom:ImageViewControl x:Name="AppleView" Width="Auto" Height="20" Text="{ Binding Path=GridSize}" />
-                    <custom:TerrainViewControl x:Name="TerrainSubView" Width="Auto" Height="200" />
+                    <custom:TerrainViewControl Width="Auto" Height="200" />
                     <Button Command="{Binding Path=Start}">Update</Button>
                 </StackPanel>
             </Border>

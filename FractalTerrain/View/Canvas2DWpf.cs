@@ -27,9 +27,12 @@ namespace FractalTerrain.View
       {
          int width = (int)m_canvas.ActualWidth;
          int height = (int)m_canvas.ActualHeight;
-         m_bitmap = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgr32, null);
-         m_image.Source = m_bitmap;
-         Resize(width, height, m_bitmap.BackBufferStride);
+         if( ( width > 0 ) && ( height > 0 ) )
+         {
+            m_bitmap = new WriteableBitmap(width, height, 96, 96, PixelFormats.Bgr32, null);
+            m_image.Source = m_bitmap;
+            Resize(width, height, m_bitmap.BackBufferStride);
+         }
       }
 
 

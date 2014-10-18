@@ -20,7 +20,7 @@ namespace FractalTerrain.Gui
 
          var appleImage = this.AppleImage;
          var appleManView = new AppleManViewWpf(appleImage);
-         m_viewModel.AppleView = appleManView;
+         m_viewModel.Register( appleManView );
          appleManView.ViewModel = m_viewModel;
 
          appleImage.MouseMove += new System.Windows.Input.MouseEventHandler(OnMouseMove);
