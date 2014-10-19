@@ -13,7 +13,7 @@ namespace FractalTerrain.View
    {
       public VisualModel()
       {
-         HeightFactor = 150.0;
+         HeightFactor = 100.0;
       }
 
       public Point3D Minimum { get; private set; }
