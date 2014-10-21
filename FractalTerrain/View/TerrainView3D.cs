@@ -21,7 +21,7 @@ namespace FractalTerrain.View
       public TerrainView3D(ICanvas2D canvas)
       {
          Camera = new ViewCamera();
-         Camera.SetCamera(45.0, 45.0, 300.0);
+         Camera.SetCamera(45.0, 25.0, 150.0);
          Camera.NearPlane = 1.0;
 
          m_canvas = canvas;
