@@ -56,11 +56,14 @@ namespace FractalTerrain.Model
             xpos = xmin;
             ypos += step;
          }
-         for( int yw = 0; yw < mapSize; yw++ )
+         if( maxVal > 0.0 )
          {
-            for( int xw = 0; xw < mapSize; xw++ )
+            for( int yw = 0; yw < mapSize; yw++ )
             {
-               map[xw, yw] = map[xw, yw] / maxVal;
+               for( int xw = 0; xw < mapSize; xw++ )
+               {
+                  map[xw, yw] = map[xw, yw] / maxVal;
+               }
             }
          }
 

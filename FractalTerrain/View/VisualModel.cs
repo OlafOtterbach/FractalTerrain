@@ -165,6 +165,7 @@ namespace FractalTerrain.View
       private List<VisualLine> ColorizeModel()
       {
          var maxZ = Maximum.Z;
+         if( maxZ < HeightFactor / 3.0 * 0.8 ) maxZ = HeightFactor / 3.0 * 0.8;
          var minZ = Minimum.Z;
          var delta = (maxZ - minZ);
          var blueLimit = minZ + delta * 0.2;
