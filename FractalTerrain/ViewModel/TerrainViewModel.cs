@@ -56,28 +56,44 @@ namespace FractalTerrain.ViewModel
             var save = value;
             m_model.MapSize = save;
             Update(ParallelProcess);
-            OnPropertyChanged("GridSize");
          }
       }
 
+
+      public double AppleManMaximumSize
+      {
+         get
+         {
+            return m_model.MaximalStartPosition + m_model.MinimalSize - m_model.MinimalStartPosition;
+         }
+      }
+
+      public double AppleManMinimum
+      {
+         get
+         {
+            return m_model.MinimalStartPosition;
+         }
+      }
+
+      public double AppleManMaximum
+      {
+         get
+         {
+            return m_model.MaximalStartPosition + m_model.MinimalSize;
+         }
+      }
 
       public double AppleManSize
       {
          get
          {
-            var size = m_model.AppleManSize;
-            var maximalSize = ( m_model.MaximalStartPosition + 1.0) - m_model.MinimalStartPosition;
-            var scrollBarSize = ( ( size / maximalSize ) * 100.0 );
-            return scrollBarSize;
+            return m_model.AppleManSize;
          }
          set
          {
-            var maximalSize = ( m_model.MaximalStartPosition + 1.0 ) - m_model.MinimalStartPosition;
-            var size = value;
-            var newSize = ( size / 100.0 ) * maximalSize;
-            m_model.AppleManSize = newSize;
+            m_model.AppleManSize = value;
             Update(ParallelProcess);
-            OnPropertyChanged("AppleManSize");
          }
       }
 
@@ -86,19 +102,12 @@ namespace FractalTerrain.ViewModel
       {
          get
          {
-            var startX = m_model.AppleManXStartPosition - m_model.MinimalStartPosition;
-            var size = ( m_model.MaximalStartPosition + 1.0 ) - m_model.MinimalStartPosition;
-            var scrollBarSize = ( ( startX / size ) * 100.0 );
-            return scrollBarSize;
+            return m_model.AppleManXStartPosition;
          }
          set
          {
-            var size = ( m_model.MaximalStartPosition + 1.0 ) - m_model.MinimalStartPosition;
-            var startX = value;
-            var newPos = ( startX / 100.0 ) * size + m_model.MinimalStartPosition;
-            m_model.AppleManXStartPosition = newPos;
+            m_model.AppleManXStartPosition = value;
             Update(ParallelProcess);
-            OnPropertyChanged("AppleManXStartPosition");
          }
       }
 
@@ -107,19 +116,12 @@ namespace FractalTerrain.ViewModel
       {
          get
          {
-            var startY = m_model.AppleManYStartPosition - m_model.MinimalStartPosition;
-            var size = ( m_model.MaximalStartPosition + 1.0 ) - m_model.MinimalStartPosition;
-            var scrollBarSize = (int)( ( startY / size ) * 100.0 );
-            return scrollBarSize;
+            return m_model.AppleManYStartPosition;
          }
          set
          {
-            var size = ( m_model.MaximalStartPosition + 1.0 ) - m_model.MinimalStartPosition;
-            var startY = (double)value;
-            var newPos = ( startY / 100.0 ) * size + m_model.MinimalStartPosition;
-            m_model.AppleManYStartPosition = newPos;
+            m_model.AppleManYStartPosition = value;
             Update(ParallelProcess);
-            OnPropertyChanged("AppleManYStartPosition");
          }
       }
 
@@ -169,7 +171,13 @@ namespace FractalTerrain.ViewModel
             mTerrainViews.ForEach(v => { v.Update(); });
             mTerrainViews.ForEach(v => { v.Render(); });
          }
-         OnPropertyChanged("AppleBitmap");
+         OnPropertyChanged("GridSize");
+         OnPropertyChanged("AppleManXStartPosition");
+         OnPropertyChanged("AppleManYStartPosition");
+         OnPropertyChanged("AppleManSize");
+         OnPropertyChanged("AppleManMaximumSize");
+         OnPropertyChanged("AppleManMinimum");
+         OnPropertyChanged("AppleManMaximum");
       }
 
 

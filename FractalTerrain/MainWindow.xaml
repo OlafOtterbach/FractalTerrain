@@ -54,7 +54,15 @@
             <Border Margin="2" BorderThickness="1" BorderBrush="Black">
                 <StackPanel Margin="2">
                     <Grid>
-                        <custom:AppleManViewControl Width="400" Height="Auto" x:Name="AppleSubView" AppleManSize="{Binding Path=AppleManSize}" AppleManXStartPosition="{Binding Path=AppleManXStartPosition}" AppleManYStartPosition="{Binding Path=AppleManYStartPosition}" />
+                        <custom:AppleManViewControl 
+                            Width="400" Height="Auto" 
+                            x:Name="AppleSubView"
+                            AppleManSize="{Binding Path=AppleManSize}"
+                            AppleManMaximumSize="{Binding Path=AppleManMaximumSize, Mode=OneWay}" 
+                            AppleManMinimum="{Binding Path=AppleManMinimum, Mode=OneWay}"
+                            AppleManMaximum="{Binding Path=AppleManMaximum, Mode=OneWay}"
+                            AppleManXStartPosition="{Binding Path=AppleManXStartPosition}" 
+                            AppleManYStartPosition="{Binding Path=AppleManYStartPosition}" />
                     </Grid>
                     <StackPanel Orientation="Horizontal">
                         <Label>Size</Label>

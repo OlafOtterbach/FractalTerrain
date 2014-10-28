@@ -29,6 +29,45 @@ namespace FractalTerrain.Gui
 
       public event PropertyChangedEventHandler PropertyChanged;
 
+      public static readonly DependencyProperty m_minimum = DependencyProperty.Register("AppleManMinimum", typeof(double), typeof(AppleManViewControl), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged));
+      public double AppleManMinimum
+      {
+         get
+         {
+            return (double)GetValue(m_minimum);
+         }
+         set
+         {
+            SetValue(m_minimum, value);
+         }
+      }
+
+      public static readonly DependencyProperty m_maximum = DependencyProperty.Register("AppleManMaximum", typeof(double), typeof(AppleManViewControl), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged));
+      public double AppleManMaximum
+      {
+         get
+         {
+            return (double)GetValue(m_maximum);
+         }
+         set
+         {
+            SetValue(m_maximum, value);
+         }
+      }
+
+      public static readonly DependencyProperty m_appleManMaximumSize = DependencyProperty.Register("AppleManMaximumSize", typeof(double), typeof(AppleManViewControl), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged));
+      public double AppleManMaximumSize
+      {
+         get
+         {
+            return (double)GetValue(m_appleManMaximumSize);
+         }
+         set
+         {
+            SetValue(m_appleManMaximumSize, value);
+         }
+      }
+
       public static readonly DependencyProperty m_appleManSize = DependencyProperty.Register("AppleManSize", typeof(double), typeof(AppleManViewControl), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged));
       public double AppleManSize
       {
@@ -74,7 +113,16 @@ namespace FractalTerrain.Gui
          var control = d as AppleManViewControl;
          if( control != null )
          {
+            var name = e.Property.Name;
+            control.OnAppleSizeChanged(name);
          }
+      }
+
+      private void OnAppleSizeChanged( string propertyName )
+      {
+         var parent = Application.Current.MainWindow;
+         var viewModel = parent.DataContext as TerrainViewModel;
+         var scroll = SizeScrollbar;
       }
 
       private void OnPropertyChanged(string name)
@@ -111,29 +159,31 @@ namespace FractalTerrain.Gui
 
       private void Move(Vector deltaMovement)
       {
-         var appleImage = this.AppleImage;
-         var width = appleImage.ActualWidth;
-         var height = appleImage.ActualHeight;
-         var ratio = width / height;
-         var deltaY = -ratio * deltaMovement.Y / height * 100.0;
-         var deltaX = -deltaMovement.X / width * 100.0;
          var parent = Application.Current.MainWindow;
          var viewModel = parent.DataContext as TerrainViewModel;
-         var xpos = viewModel.AppleManXStartPosition + deltaX;
-         var ypos = viewModel.AppleManYStartPosition + deltaY;
+         var appleImage = this.AppleImage;
+
+         var size = viewModel.AppleManSize;
+         var width = appleImage.ActualWidth;
+         var height = appleImage.ActualHeight;
+         var deltaX = deltaMovement.X * ( size / width );
+         var deltaY = deltaMovement.Y * ( size / height );
+         var xpos = viewModel.AppleManXStartPosition - deltaX;
+         var ypos = viewModel.AppleManYStartPosition - deltaY;
+
          viewModel.AppleManXStartPosition = xpos;
          viewModel.AppleManYStartPosition = ypos;
       }
 
       private void Zoom(Vector deltaZoom)
       {
-         const double factor = 0.1;
-         var length = deltaZoom.Length;
-         var sign = deltaZoom.Y > 0.0 ? 1.0 : -1.0;
-         var zoom = sign * factor * length;
          var parent = Application.Current.MainWindow;
          var viewModel = parent.DataContext as TerrainViewModel;
-         viewModel.AppleManSize += zoom;
+         const double factor = 0.1;
+         var sign = deltaZoom.Y > 0.0 ? 1.0 : -1.0;
+         var size = viewModel.AppleManSize;
+         size = size * ( 1.0 - sign * factor );
+         viewModel.AppleManSize = size;
       }
 
       private Point m_mousePosition;

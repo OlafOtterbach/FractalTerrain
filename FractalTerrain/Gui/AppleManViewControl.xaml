@@ -6,9 +6,24 @@
              mc:Ignorable="d" 
              >
     <DockPanel>
-        <ScrollBar Margin="2,2,2,0" x:Name="SizeScrollbar" DockPanel.Dock="Top" Orientation="Horizontal" Minimum="0" Maximum="100" Value = "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManSize}" />
-        <ScrollBar Margin="0,2,2,2" x:Name="YStartPosition" DockPanel.Dock="Right" Orientation="Vertical" Minimum="0" Maximum="100" Value = "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManYStartPosition }" />
-        <ScrollBar Margin="2,0,2,2" x:Name="XStartPosition" DockPanel.Dock="Bottom" Orientation="Horizontal" Minimum="0" Maximum="100" Value = "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManXStartPosition }" />
+        <ScrollBar 
+            Margin="2,2,2,0" x:Name="SizeScrollbar" 
+            DockPanel.Dock="Top" Orientation="Horizontal" 
+            Minimum= "0" 
+            Maximum = "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManMaximumSize,Mode=OneWay}" 
+            Value = "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManSize}" />
+        <ScrollBar 
+            Margin="0,2,2,2" x:Name="YStartPosition" 
+            DockPanel.Dock="Right" Orientation="Vertical" 
+            Minimum= "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManMinimum}" 
+            Maximum = "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManMaximum}" 
+            Value = "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManYStartPosition }" />
+        <ScrollBar 
+            Margin="2,0,2,2" x:Name="XStartPosition" 
+            DockPanel.Dock="Bottom" Orientation="Horizontal" 
+            Minimum= "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManMinimum}" 
+            Maximum = "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManMaximum}" 
+            Value = "{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=AppleManXStartPosition }" />
         <Image x:Name="AppleImage" />
     </DockPanel>
 </UserControl>
