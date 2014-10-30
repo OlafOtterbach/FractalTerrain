@@ -55,7 +55,7 @@
                 <StackPanel Margin="2">
                     <Grid>
                         <custom:AppleManViewControl 
-                            Width="400" Height="Auto" 
+                            Width="400" Height="400" 
                             x:Name="AppleSubView"
                             AppleManSize="{Binding Path=AppleManSize}"
                             AppleManMaximumSize="{Binding Path=AppleManMaximumSize, Mode=OneWay}" 

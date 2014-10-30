@@ -15,11 +15,11 @@ namespace FractalTerrain.Model
          m_mapSize = 3;
          m_minimalSize = 0.1; 
          m_minimalStartPosition = -2.0;
-         m_maximalStartPosition =  0.9;
+         m_maximalStartPosition =  1.9;
          m_maximalEndPosition = m_maximalStartPosition + m_minimalSize;
          m_appleManXStartPosition = -1.5;
          m_appleManYStartPosition = -1.5;
-         m_appleManSize = MaximalStartPosition - MinimalStartPosition;
+         m_appleManSize = m_maximalStartPosition - m_minimalStartPosition;
       }
 
       public TerrainModelData TerrainModelData { get; private set; }
@@ -161,12 +161,22 @@ namespace FractalTerrain.Model
          var deltaX = m_maximalEndPosition - AppleManXStartPosition;
          if( deltaX < m_appleManSize )
          {
-            m_appleManSize = deltaX;
+            m_appleManXStartPosition = m_maximalEndPosition - m_appleManSize;
+            if( m_appleManXStartPosition < m_minimalStartPosition )
+            {
+               m_appleManXStartPosition = m_minimalStartPosition;
+               m_appleManSize = m_maximalEndPosition - AppleManXStartPosition;
+            }
          }
-         var deltaY = m_maximalEndPosition - AppleManXStartPosition;
+         var deltaY = m_maximalEndPosition - AppleManYStartPosition;
          if( deltaY < m_appleManSize )
          {
-            m_appleManSize = deltaY;
+            m_appleManYStartPosition = m_maximalEndPosition - m_appleManSize;
+            if( m_appleManYStartPosition < m_minimalStartPosition )
+            {
+               m_appleManYStartPosition = m_minimalStartPosition;
+               m_appleManSize = m_maximalEndPosition - AppleManYStartPosition;
+            }
          }
       }
 
