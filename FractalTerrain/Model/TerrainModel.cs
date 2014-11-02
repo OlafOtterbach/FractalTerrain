@@ -13,13 +13,12 @@ namespace FractalTerrain.Model
          m_terrainGenerator = terrainGenerator;
          m_appleManGenerator = appleManGenerator;
          m_mapSize = 3;
-         m_minimalSize = 0.1; 
-         m_minimalStartPosition = -2.0;
-         m_maximalStartPosition =  1.9;
-         m_maximalEndPosition = m_maximalStartPosition + m_minimalSize;
+         m_appleManMinimalSize = 0.0005; 
+         m_appleManMinimalPosition = -2.0;
+         m_appleManMaximalPosition =  2.0;
          m_appleManXStartPosition = -1.5;
          m_appleManYStartPosition = -1.5;
-         m_appleManSize = m_maximalStartPosition - m_minimalStartPosition;
+         m_appleManSize = m_appleManMaximalPosition - m_appleManMinimalPosition;
       }
 
       public TerrainModelData TerrainModelData { get; private set; }
@@ -35,7 +34,7 @@ namespace FractalTerrain.Model
          set
          {
             m_mapSize = value;
-            CleanUp();
+//            CleanUp();
          }
       }
 
@@ -48,7 +47,8 @@ namespace FractalTerrain.Model
          set
          {
             m_appleManXStartPosition = value;
-            CleanUp();
+            if( m_appleManXStartPosition < AppleManMinimalPosition ) m_appleManXStartPosition = AppleManMinimalPosition;
+            if( m_appleManXStartPosition > AppleManMaximalPosition - AppleManSize ) m_appleManXStartPosition = AppleManMaximalPosition - AppleManSize;
          }
       }
 
@@ -61,7 +61,8 @@ namespace FractalTerrain.Model
          set
          {
             m_appleManYStartPosition = value;
-            CleanUp();
+            if( m_appleManYStartPosition < AppleManMinimalPosition ) m_appleManYStartPosition = AppleManMinimalPosition;
+            if( m_appleManYStartPosition > AppleManMaximalPosition - AppleManSize ) m_appleManYStartPosition = AppleManMaximalPosition - AppleManSize;
          }
       }
 
@@ -73,55 +74,63 @@ namespace FractalTerrain.Model
          }
          set
          {
+            var middleX = AppleManXStartPosition + m_appleManSize / 2.0;
+            var middleY = AppleManYStartPosition + m_appleManSize / 2.0;
+            
             m_appleManSize = value;
-            CleanUp();
+
+            var maximalSize = AppleManMaximalPosition - AppleManMinimalPosition;
+            if( m_appleManSize > maximalSize ) m_appleManSize = maximalSize;
+            if( m_appleManSize < AppleManMinimalSize ) m_appleManSize = AppleManMinimalSize;
+            AppleManXStartPosition = middleX - AppleManSize / 2.0;
+            AppleManYStartPosition = middleY - AppleManSize / 2.0;
          }
       }
 
 
-      public double MinimalSize
+      public double AppleManMinimalSize
       {
          get
          {
-            return m_minimalSize;
+            return m_appleManMinimalSize;
          }
          set
          {
-            m_minimalSize = value;
+            m_appleManMinimalSize = value;
             CleanUp();
          }
       }
 
-      public double MinimalStartPosition 
+      public double AppleManMinimalPosition 
       { 
          get
          {
-            return m_minimalStartPosition;
+            return m_appleManMinimalPosition;
          }
          set
          {
-            m_minimalStartPosition = value;
+            m_appleManMinimalPosition = value;
             CleanUp();
          }
       }
 
-      public double MaximalStartPosition
+      public double AppleManMaximalPosition
       {
          get
          {
-            return m_maximalStartPosition;
+            return m_appleManMaximalPosition;
          }
          set
          {
-            m_maximalStartPosition = value;
+            m_appleManMaximalPosition = value;
             CleanUp();
          }
       }
 
       public void Update()
       {
-         AppleManData = m_appleManGenerator.Create(MapSize, AppleManXStartPosition, AppleManYStartPosition, AppleManSize );
-         TerrainModelData = m_terrainGenerator.Create(AppleManData);
+         UpdateAppleMan();
+         UpdateTerrain();
       }
 
       public void UpdateAppleMan()
@@ -134,9 +143,9 @@ namespace FractalTerrain.Model
          TerrainModelData = m_terrainGenerator.Create(AppleManData);
       }
 
+
       private void CleanUp()
       {
-         MinimalSizeMaximalRule();
          MapSizeTrimmRule();
          MinimalStartPositionLessThanMaximalStartPositionRule();
          AppleManStartPositionClippingRule();
@@ -150,50 +159,44 @@ namespace FractalTerrain.Model
 
       private void AppleManStartPositionClippingRule()
       {
-         if( m_appleManXStartPosition < m_minimalStartPosition ) m_appleManXStartPosition = m_minimalStartPosition;
-         if( m_appleManXStartPosition > m_maximalStartPosition ) m_appleManXStartPosition = m_maximalStartPosition;
-         if( m_appleManYStartPosition < m_minimalStartPosition ) m_appleManYStartPosition = m_minimalStartPosition;
-         if( m_appleManYStartPosition > m_maximalStartPosition ) m_appleManYStartPosition = m_maximalStartPosition;
+         if( m_appleManXStartPosition < m_appleManMinimalPosition ) m_appleManXStartPosition = m_appleManMinimalPosition;
+         if( m_appleManXStartPosition > m_appleManMaximalPosition ) m_appleManXStartPosition = m_appleManMaximalPosition;
+         if( m_appleManYStartPosition < m_appleManMinimalPosition ) m_appleManYStartPosition = m_appleManMinimalPosition;
+         if( m_appleManYStartPosition > m_appleManMaximalPosition ) m_appleManYStartPosition = m_appleManMaximalPosition;
       }
 
       private void AppleManSizeClippingRule()
       {
-         var deltaX = m_maximalEndPosition - AppleManXStartPosition;
+         var deltaX = m_appleManMaximalPosition - AppleManXStartPosition;
          if( deltaX < m_appleManSize )
          {
-            m_appleManXStartPosition = m_maximalEndPosition - m_appleManSize;
-            if( m_appleManXStartPosition < m_minimalStartPosition )
+            m_appleManXStartPosition = m_appleManMaximalPosition - m_appleManSize;
+            if( m_appleManXStartPosition < m_appleManMinimalPosition )
             {
-               m_appleManXStartPosition = m_minimalStartPosition;
-               m_appleManSize = m_maximalEndPosition - AppleManXStartPosition;
+               m_appleManXStartPosition = m_appleManMinimalPosition;
+               m_appleManSize = m_appleManMaximalPosition - AppleManXStartPosition;
             }
          }
-         var deltaY = m_maximalEndPosition - AppleManYStartPosition;
+         var deltaY = m_appleManMaximalPosition - AppleManYStartPosition;
          if( deltaY < m_appleManSize )
          {
-            m_appleManYStartPosition = m_maximalEndPosition - m_appleManSize;
-            if( m_appleManYStartPosition < m_minimalStartPosition )
+            m_appleManYStartPosition = m_appleManMaximalPosition - m_appleManSize;
+            if( m_appleManYStartPosition < m_appleManMinimalPosition )
             {
-               m_appleManYStartPosition = m_minimalStartPosition;
-               m_appleManSize = m_maximalEndPosition - AppleManYStartPosition;
+               m_appleManYStartPosition = m_appleManMinimalPosition;
+               m_appleManSize = m_appleManMaximalPosition - AppleManYStartPosition;
             }
          }
       }
 
       private void MinimalStartPositionLessThanMaximalStartPositionRule()
       {
-         if( m_maximalEndPosition < m_minimalStartPosition )
+         if( m_appleManMaximalPosition < m_appleManMinimalPosition )
          {
-            var help = m_minimalStartPosition;
-            m_minimalStartPosition = m_maximalStartPosition;
-            m_maximalStartPosition = help;
+            var help = m_appleManMinimalPosition;
+            m_appleManMinimalPosition = m_appleManMaximalPosition;
+            m_appleManMaximalPosition = help;
          }
-      }
-
-      private void MinimalSizeMaximalRule()
-      {
-         const double epsilon = 0.1;
-         if( m_minimalSize < epsilon ) m_minimalSize = epsilon;
       }
 
       private ITerrainModelDataGenerator m_terrainGenerator;
@@ -202,11 +205,9 @@ namespace FractalTerrain.Model
 
       private int m_mapSize;
 
-      private double m_minimalStartPosition;
+      private double m_appleManMinimalPosition;
 
-      private double m_maximalStartPosition;
-
-      private double m_maximalEndPosition;
+      private double m_appleManMaximalPosition;
 
       private double m_appleManXStartPosition;
 
@@ -214,6 +215,6 @@ namespace FractalTerrain.Model
 
       private double m_appleManSize;
 
-      private double m_minimalSize;
+      private double m_appleManMinimalSize;
    }
 }

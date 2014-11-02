@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FractalTerrain;
 using System.Collections.Generic;
+using FractalTerrain.Model;
 
 
 namespace FractalTerrainTests
@@ -16,126 +17,185 @@ namespace FractalTerrainTests
        public void ConstructorTest()
        {
           // Arrange
-          var model = new TerrainModel();
+          var model = new TerrainModel(null,null);
 
           // Test
           Assert.IsNotNull(model);
        }
 
-
-       [TestMethod]
-       public void SizeTest_Input5_Expected5()
+       private TerrainModel GetModel() 
        {
-          // Arrange
-          var model = new TerrainModel();
-
-          // Test
-          model.Size = 5;
-
-          // Check
-          Assert.AreEqual(5, model.Size);
-       }
-
-
-       [TestMethod]
-       public void SizeTest_Input11_Expected9()
-       {
-          // Arrange
-          var model = new TerrainModel();
-
-          // Test
-          model.Size = 11;
-
-          // Check
-          Assert.AreEqual(9, model.Size);
-       }
-
-
-       [TestMethod]
-       public void SizeTest_Input33_Expected33()
-       {
-          // Arrange
-          var model = new TerrainModel();
-
-          // Test
-          model.Size = 33;
-
-          // Check
-          Assert.AreEqual(33, model.Size);
-       }
-
-
-       [TestMethod]
-       public void CreateTest()
-       {
-          // Arrange
-          var model = new TerrainModel();
-
-          // Test
-          model.Create(11);
-
-          // Check
-          Assert.AreEqual(9, model.Size);
-       }
-
-
-       [TestMethod]
-       public void Nextest_Size5_TwoResults()
-       {
-          // Arrange
-          var model = new TerrainModel();
-
-          // Test
-          model.Create(5);
-          var data1 = model.Next();
-          var data2 = model.Next();
-          var can = model.CanGetNext();
-
-          // Check
-          Assert.AreEqual(data1.Size, 3);
-          Assert.AreEqual(data2.Size, 5);
-          Assert.IsFalse(can);
-       }
-
-
-       [TestMethod]
-       public void Nextest_Size5_AllDataFilled()
-       {
-          // Arrange
-          var model = new TerrainModel();
-          model.RandomFunction = () => 4.0;
-          model.HeightFactorFunction = (int s, int i) => 1.0;
-
-          // Test
-          model.Create(5);
-          var data = model.Next();
-          data = model.Next();
-          
-          // Check
-          var list = new List<double>();
-          var size = data.Size * data.Size;
-          for( var i = 0; i < size; i++ )
+          var model = new TerrainModel(null,null)
           {
-             list.Add( data.Terrain[i%data.Size, i/data.Size] );
-          }
-          Assert.AreEqual(data.Size, 5);
-          Assert.IsTrue(list.All(x => x > 0.0));
+             AppleManMinimalPosition = -5.0,
+             AppleManMaximalPosition = 5.0,
+             AppleManSize = 4.0
+          };
+          return model;
        }
-
 
        [TestMethod]
-       public void Nextest_Size33_FilledResult()
+       public void AppleManSizeTestEqualMaximalSize()
        {
-          // Arrange
-          var model = new TerrainModel();
-
-          // Test
-          model.Create(33);
-          var data = model.Next();
-          while( model.CanGetNext() ) data = model.Next();
-
-          // Check
-          Assert.AreEqual(data.Size, 33);
+          var model = GetModel();
+          model.AppleManXStartPosition = -2.0;
+          model.AppleManYStartPosition = -2.0;
+          model.AppleManSize = 10.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -5.0);
+          Assert.AreEqual(model.AppleManYStartPosition, -5.0);
+          Assert.AreEqual(model.AppleManSize, 10.0);
        }
-   }
+
+       [TestMethod]
+       public void AppleManSizeTestGreaterMaximalSize()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -2.0;
+          model.AppleManYStartPosition = -2.0;
+          model.AppleManSize = 12.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -5.0);
+          Assert.AreEqual(model.AppleManYStartPosition, -5.0);
+          Assert.AreEqual(model.AppleManSize, 10.0);
+       }
+
+       [TestMethod]
+       public void AppleManSizeTestSmallerMaximalSizeAwayFromLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -2.0;
+          model.AppleManYStartPosition = -2.0;
+          model.AppleManSize = 2.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -1.0);
+          Assert.AreEqual(model.AppleManYStartPosition, -1.0);
+          Assert.AreEqual(model.AppleManSize, 2.0);
+       }
+
+       [TestMethod]
+       public void AppleManXStartPositionTestClippedRightLessButWiderThanRightLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = 3.0;
+          Assert.AreEqual(model.AppleManXStartPosition, 1.0);
+       }
+
+       [TestMethod]
+       public void AppleManXStartPositionTestClippedRightGreaterRightimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = 6.0;
+          Assert.AreEqual(model.AppleManXStartPosition, 1.0);
+       }
+
+       [TestMethod]
+       public void AppleManXStartPositionTestSizeEqualRightLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = 1.0;
+          Assert.AreEqual(model.AppleManXStartPosition, 1.0);
+       }
+
+       [TestMethod]
+       public void AppleManXStartPositionTestSizeLessRightLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -1.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -1.0);
+       }
+
+       [TestMethod]
+       public void AppleManXStartPositionTestEqualLeftLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -5.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -5.0);
+       }
+
+       [TestMethod]
+       public void AppleManXStartPositionTestLeftLeftLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -7.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -5.0);
+       }
+
+       [TestMethod]
+       public void AppleManXStartPositionTestSizeEqualLeftLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -9.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -5.0);
+       }
+
+       [TestMethod]
+       public void AppleManXStartPositionTestSizeLessLeftLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -12.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -5.0);
+       }
+
+       [TestMethod]
+       public void AppleManYStartPositionTestClippedRightLessButWiderThanRightLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = 3.0;
+          Assert.AreEqual(model.AppleManXStartPosition, 1.0);
+       }
+
+       [TestMethod]
+       public void AppleManYStartPositionTestClippedRightGreaterRightimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = 6.0;
+          Assert.AreEqual(model.AppleManXStartPosition, 1.0);
+       }
+
+       [TestMethod]
+       public void AppleManYStartPositionTestSizeEqualRightLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = 1.0;
+          Assert.AreEqual(model.AppleManXStartPosition, 1.0);
+       }
+
+       [TestMethod]
+       public void AppleManYStartPositionTestSizeLessRightLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -1.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -1.0);
+       }
+
+       [TestMethod]
+       public void AppleManYStartPositionTestEqualLeftLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -5.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -5.0);
+       }
+
+       [TestMethod]
+       public void AppleManYStartPositionTestLeftLeftLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -7.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -5.0);
+       }
+
+       [TestMethod]
+       public void AppleManYStartPositionTestSizeEqualLeftLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -9.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -5.0);
+       }
+
+       [TestMethod]
+       public void AppleManYStartPositionTestSizeLessLeftLimit()
+       {
+          var model = GetModel();
+          model.AppleManXStartPosition = -12.0;
+          Assert.AreEqual(model.AppleManXStartPosition, -5.0);
+       }
+    }
 }

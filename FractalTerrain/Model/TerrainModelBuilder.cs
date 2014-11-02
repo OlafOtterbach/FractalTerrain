@@ -17,11 +17,11 @@ namespace FractalTerrain.Model
          var terrainModel = new TerrainModel( m_terrainGenerator, m_appleManGenerator )
                                 {
                                    MapSize = mapSize,
-                                   AppleManXStartPosition = appleManXPos,
-                                   AppleManYStartPosition = appleManYPos,
+                                   AppleManMinimalPosition = -2.0,
+                                   AppleManMaximalPosition =  2.0,
                                    AppleManSize = appleManSize,
-                                   MinimalStartPosition = -2.5,
-                                   MaximalStartPosition =  1.0
+                                   AppleManXStartPosition = appleManXPos,
+                                   AppleManYStartPosition = appleManYPos
                                 };
          terrainModel.Update();
          return terrainModel;

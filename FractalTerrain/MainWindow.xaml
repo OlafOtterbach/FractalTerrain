@@ -66,7 +66,7 @@
                     </Grid>
                     <StackPanel Orientation="Horizontal">
                         <Label>Size</Label>
-                        <custom:CommitComboBox IsEditable="true" Text="{Binding Path=GridSize, Mode=TwoWay, UpdateSourceTrigger=Explicit}" IsSynchronizedWithCurrentItem="false">
+                        <custom:CommitComboBox  SelectedValue="{Binding Path=GridSize}" IsEditable="true" Text="{Binding Path=GridSize, Mode=TwoWay, UpdateSourceTrigger=Explicit}" IsSynchronizedWithCurrentItem="false">
                             <ComboBoxItem>9</ComboBoxItem>
                             <ComboBoxItem>17</ComboBoxItem>
                             <ComboBoxItem>33</ComboBoxItem>

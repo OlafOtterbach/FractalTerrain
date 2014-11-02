@@ -55,6 +55,7 @@ namespace FractalTerrain.ViewModel
          {
             var save = value;
             m_model.MapSize = save;
+            OnPropertyChanged("GridSize");
             Update(ParallelProcess);
          }
       }
@@ -64,7 +65,7 @@ namespace FractalTerrain.ViewModel
       {
          get
          {
-            return m_model.MaximalStartPosition + m_model.MinimalSize - m_model.MinimalStartPosition;
+            return m_model.AppleManMaximalPosition + m_model.AppleManMinimalSize - m_model.AppleManMinimalPosition;
          }
       }
 
@@ -72,7 +73,7 @@ namespace FractalTerrain.ViewModel
       {
          get
          {
-            return m_model.MinimalStartPosition;
+            return m_model.AppleManMinimalPosition;
          }
       }
 
@@ -80,7 +81,7 @@ namespace FractalTerrain.ViewModel
       {
          get
          {
-            return m_model.MaximalStartPosition + m_model.MinimalSize;
+            return m_model.AppleManMaximalPosition;
          }
       }
 

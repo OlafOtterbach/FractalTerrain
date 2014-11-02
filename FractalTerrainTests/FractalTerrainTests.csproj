@@ -75,7 +75,7 @@
   <ItemGroup>
     <Compile Include="Math\Matrix3DExtensionTests.cs" />
     <Compile Include="Math\VectorIntTests.cs" />
-    <None Include="Model\TerrainModelTests.cs" />
+    <Compile Include="Model\TerrainModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Canvas2DMock.cs" />
     <None Include="packages.config" />
