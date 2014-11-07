@@ -1,6 +1,7 @@
 ﻿/// <summary>Definition of the class AppleManDataGenerator.</summary>
 /// <author>Olaf Otterbach</author>
 
+using System.Threading.Tasks;
 namespace FractalTerrain.Model
 {
    public class AppleManDataGenerator : IAppleManDataGenerator
@@ -16,11 +17,11 @@ namespace FractalTerrain.Model
          double xmax = appleManXPos + appleManSize;
          double ymax = appleManYPos + appleManSize;
          double step = ( xmax - xmin ) / mapSize;
-         double xpos = xmin;
-         double ypos = ymin;
          double maxVal = 0.0;
-         for( int yw = 0; yw < mapSize; yw++ )
+         Parallel.For(0, mapSize, yw =>
          {
+            var ypos = ymin + yw * step;
+            var xpos = xmin;
             for( int xw = 0; xw < mapSize; xw++ )
             {
                int loops = 0;
@@ -53,9 +54,7 @@ namespace FractalTerrain.Model
                }
                xpos += step;
             }
-            xpos = xmin;
-            ypos += step;
-         }
+         });
          if( maxVal > 0.0 )
          {
             for( int yw = 0; yw < mapSize; yw++ )
