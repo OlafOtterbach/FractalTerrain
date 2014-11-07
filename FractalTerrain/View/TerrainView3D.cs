@@ -25,7 +25,6 @@ namespace FractalTerrain.View
          Camera.NearPlane = 1.0;
 
          m_canvas = canvas;
-         m_visualModel = new VisualModel();
       }
 
 
@@ -33,8 +32,6 @@ namespace FractalTerrain.View
       /// ViewModel for model displaying in view.
       /// </summary>
       public TerrainViewModel ViewModel { get; set; }
-
-      private VisualModel m_visualModel;
 
       public ViewCamera Camera { get; set; }
 
@@ -59,17 +56,12 @@ namespace FractalTerrain.View
 
       public void Update()
       {
-         if (ViewModel == null)
+         if( ViewModel == null || ViewModel == null)
          {
             return;
          }
-         var model = ViewModel.ActualModel;
-         if (model != null)
-         {
-            m_visualModel.InitTerrain(model);
-            var middle = m_visualModel.Minimum + (m_visualModel.Maximum - m_visualModel.Minimum) / 2.0;
-            Camera.MoveTo(middle);
-         }
+         var middle = ViewModel.VisualModel.Minimum + ( ViewModel.VisualModel.Maximum - ViewModel.VisualModel.Minimum ) / 2.0;
+         Camera.MoveTo(middle);
       }
 
 
@@ -82,12 +74,12 @@ namespace FractalTerrain.View
 
       public void DrawTerrain()
       {
-         if( ( ViewModel == null ) || ( !m_visualModel.IsValid ) )
+         if( ( ViewModel == null ) || ( !ViewModel.VisualModel.IsValid ) )
          {
             return;
          }
          m_canvas.Clear();
-         m_visualModel.GetGeometryLines(Camera).ToList().ForEach(DrawLine);
+         ViewModel.VisualModel.GetGeometryLines(Camera).ToList().ForEach(DrawLine);
       }
 
 

@@ -107,6 +107,18 @@ namespace FractalTerrain
       }
 
 
+      public static VectorInt operator *(VectorInt vec, int scalar)
+      {
+         return new VectorInt(vec.X * scalar, vec.Y * scalar);
+      }
+
+
+      public static VectorInt operator *(int scalar, VectorInt vec)
+      {
+         return new VectorInt(vec.X * scalar, vec.Y * scalar);
+      }
+
+
       public VectorInt Normalized
       {
          get

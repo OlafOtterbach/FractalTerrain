@@ -16,6 +16,7 @@ namespace FractalTerrain.ViewModel
       {
          mTerrainViews = new List<TerrainView3D>();
          mAppleViews = new List<AppleManViewWpf>();
+         VisualModel = new VisualModel();
          CreateTerrainModel();
          Start = new GuiButtonCommand(() => OnStart(), () => OnStartCanBeExecuted());
       }
@@ -134,6 +135,8 @@ namespace FractalTerrain.ViewModel
          mTerrainViews.ForEach(v => { v.Render(); });
       }
 
+      public VisualModel VisualModel { get; private set; }
+
       public TerrainModel ActualModel
       {
          get
@@ -165,6 +168,7 @@ namespace FractalTerrain.ViewModel
       private void Update( bool renderTerrain )
       {
          m_model.Update();
+         VisualModel.InitTerrain(m_model);
          mAppleViews.ForEach(v => { v.Update(); });
          mAppleViews.ForEach(v => { v.Render(); });
          if( renderTerrain )

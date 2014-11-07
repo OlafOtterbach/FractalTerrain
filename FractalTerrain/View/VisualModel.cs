@@ -1,11 +1,11 @@
 ﻿/// <summary>Definition of the class VisualModel.</summary>
 /// <author>Olaf Otterbach</author>
 
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Windows.Media.Media3D;
 using FractalTerrain.Model;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Media.Media3D;
 
 namespace FractalTerrain.View
 {
@@ -52,35 +52,26 @@ namespace FractalTerrain.View
       }
 
 
-      private IEnumerable<VisualLine> GetLines( VectorInt start, VectorInt xDirectionVector, VectorInt yDirectionVector )
+      private IEnumerable<VisualLine> GetLines(VectorInt start, VectorInt xDirectionVector, VectorInt yDirectionVector)
       {
          var xDirection = GetDirection(xDirectionVector);
          var yDirection = GetDirection(yDirectionVector);
-         var lines = new List<VisualLine>();
-         for( int y = 0; y < m_size; y++ )
+         var count = m_size * m_size * 2;
+         var lines = new VisualLine[count];
+         Parallel.For( 0, m_size, y =>
          {
-            for( int l = 0; l < 2; l++ )
+            var pos = start + y * yDirectionVector;
+            for( int x = 0; x < m_size; x++ )
             {
-               var pos = start;
-               for( int x = 0; x < m_size; x++ )
-               {
-                  var index = pos.Y * m_size + pos.X;
-                  if( l == 0 )
-                  {
-                     lines.Add(m_vertices[index].GetLineOfDirection(xDirection));
-                  }
-                  else
-                  {
-                     lines.Add(m_vertices[index].GetLineOfDirection(yDirection));
-                  }
-                  var line = lines.Last();
-                  pos = pos + xDirectionVector;
-               }
-            }
-            start = start + yDirectionVector;
-         }
-         lines = lines.Where(x => x != null).ToList();
-         return lines;
+               var index = pos.Y * m_size + pos.X;
+               var lineIndex = 2 * (y * m_size + x );
+               lines[lineIndex] = ( m_vertices[index].GetLineOfDirection(xDirection) );
+               lines[lineIndex + 1] = ( m_vertices[index].GetLineOfDirection(yDirection) );
+               pos = pos + xDirectionVector;
+            };
+         });
+         var validLines = lines.Where(x => x != null).ToList();
+         return validLines;
       }
 
 
@@ -108,7 +99,6 @@ namespace FractalTerrain.View
          ColorizeModel();
       }
 
-
       private void CreateVisualVertices(TerrainModel terrainModel)
       {
          var model = terrainModel.TerrainModelData;
@@ -117,28 +107,26 @@ namespace FractalTerrain.View
          var height = HeightFactor;
          var size = 100.0;
          var step = size / (model.Size - 1);
-         for (var y = 0; y < model.Size; y++)
+         Parallel.For(0, model.Size, y =>
          {
-            for (var x = 0; x < model.Size; x++)
+            for( var x = 0; x < model.Size; x++ )
             {
                var index = x + y * model.Size;
                m_vertices[index] = new VisualVertex();
                m_vertices[index].Vertex = new Point3D(x * step - size / 2.0, y * step - size / 2.0, model.Terrain[x, y] * height);
             }
-         }
+         });
       }
-
 
       private void CreateBoundedBox()
       {
-         Minimum = new Point3D(m_vertices.Select(p => p.Vertex.X).Min(), m_vertices.Select(p => p.Vertex.Y).Min(), m_vertices.Select(p => p.Vertex.Z).Min());
-         Maximum = new Point3D(m_vertices.Select(p => p.Vertex.X).Max(), m_vertices.Select(p => p.Vertex.Y).Max(), m_vertices.Select(p => p.Vertex.Z).Max());
+         Minimum = new Point3D(m_vertices.AsParallel().Select(p => p.Vertex.X).Min(), m_vertices.AsParallel().Select(p => p.Vertex.Y).Min(), m_vertices.AsParallel().Select(p => p.Vertex.Z).Min());
+         Maximum = new Point3D(m_vertices.AsParallel().Select(p => p.Vertex.X).Max(), m_vertices.AsParallel().Select(p => p.Vertex.Y).Max(), m_vertices.AsParallel().Select(p => p.Vertex.Z).Max());
       }
-
 
       private void CreateVisualLines()
       {
-         for (var y = 0; y < m_size; y++)
+         Parallel.For( 0, m_size, y=>
          {
             for (var x = 0; x < m_size; x++)
             {
@@ -158,9 +146,8 @@ namespace FractalTerrain.View
                   m_vertices[iUpPoint].South = line;
                }
             }
-         }
+         });
       }
-
 
       private List<VisualLine> ColorizeModel()
       {
@@ -171,18 +158,17 @@ namespace FractalTerrain.View
          var blueLimit = minZ + delta * 0.2;
          var grayLimit = maxZ - delta * 0.3;
          var whiteLimit = maxZ - delta * 0.2;
-         var lines = m_vertices.SelectMany(v => new List<VisualLine>() { v.South, v.West }).Where(x => x != null).ToList(); 
-         lines.Where(line => line.Start.Z <= blueLimit || line.End.Z <= blueLimit).ToList().ForEach(x => x.SetPen(0, 0, 255));
-         lines.Where(line => (line.Start.Z > blueLimit && line.End.Z > blueLimit)
+         var lines = m_vertices.SelectMany(v => new List<VisualLine>() { v.South, v.West }).Where(x => x != null).ToList();
+         lines.AsParallel().Where(line => line.Start.Z <= blueLimit || line.End.Z <= blueLimit).ToList().ForEach(x => x.SetPen(0, 0, 255));
+         lines.AsParallel().Where(line => ( line.Start.Z > blueLimit && line.End.Z > blueLimit )
                              && (line.Start.Z < grayLimit && line.End.Z < grayLimit)).ToList()
               .ForEach(x => x.SetPen(0, 255, 0));
-         lines.Where(line => (line.Start.Z > grayLimit && line.End.Z > grayLimit)
+         lines.AsParallel().Where(line => ( line.Start.Z > grayLimit && line.End.Z > grayLimit )
                              && (line.Start.Z < whiteLimit && line.End.Z < whiteLimit)).ToList()
               .ForEach(x => x.SetPen(128, 128, 128));
-         lines.Where(line => line.Start.Z >= whiteLimit || line.End.Z >= whiteLimit).ToList().ForEach(x => x.SetPen(255, 255, 255));
+         lines.AsParallel().Where(line => line.Start.Z >= whiteLimit || line.End.Z >= whiteLimit).ToList().ForEach(x => x.SetPen(255, 255, 255));
          return lines;
       }
-
 
       private VisualVertex[] m_vertices;
 
