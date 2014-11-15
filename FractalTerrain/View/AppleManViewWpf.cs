@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using FractalTerrain.ViewModel;
+using System.Threading.Tasks;
 
 namespace FractalTerrain.View
 {
@@ -58,16 +59,16 @@ namespace FractalTerrain.View
       {
          var ywidth = m_alignWidth / M_PixelSize;
          var appleMan = ViewModel.ActualModel.AppleManData;
-         for( int y = 0; y < appleMan.Size; y++ )
+         Parallel.For(0, appleMan.Size, y =>
          {
             for( int x = 0; x < appleMan.Size; x++ )
             {
                var adr = y * ywidth + x;
-               var colorValue = appleMan.Map[x,y];
+               var colorValue = appleMan.Map[x, y];
                var penColor = (uint)( colorValue * 256.0 * 256.0 * 256.0 );
                m_buffer[adr] = penColor;
             }
-         }
+         });
       }
 
 

@@ -2,6 +2,7 @@
 /// <author>Olaf Otterbach</author>
 
 using System;
+using System.Threading.Tasks;
 
 namespace FractalTerrain.Model
 {
@@ -9,13 +10,8 @@ namespace FractalTerrain.Model
    {
       public TerrainModelDataGenerator()
       {
-         RandomFunction = (x, y, map) => { var rand = map[x, y]; return rand; };
          HeightFactorFunction = (int size, int iteration) => { return Math.Pow(0.55, iteration); };
       }
-
-
-      public Func<int,int,double[,],double> RandomFunction { get; set; }
-
 
       public Func<int, int, double> HeightFactorFunction { get; set; }
 
@@ -42,10 +38,10 @@ namespace FractalTerrain.Model
          var min = 0;
          var max = terrainModel.Size - 1;
          var map = appleManData.Map;
-         terrain[min, min] = RandomFunction(min, min, map);
-         terrain[max, min] = RandomFunction(max, min, map);
-         terrain[min, max] = RandomFunction(min, max, map);
-         terrain[max, max] = RandomFunction(max, max, map);
+         terrain[min, min] = Random(min, min, map);
+         terrain[max, min] = Random(max, min, map);
+         terrain[min, max] = Random(min, max, map);
+         terrain[max, max] = Random(max, max, map);
 
          var step = terrainModel.Size - 1;
          var index = 1;
@@ -83,11 +79,16 @@ namespace FractalTerrain.Model
          var halfstep = step / 2;
          var xmiddle = x + halfstep;
          var ymiddle = y + halfstep;
-         terrain[xmiddle, ymiddle] = ( terrain[xmin, ymin] + terrain[xmax, ymin] + terrain[xmax, ymax] + terrain[xmin, ymax] ) / 4.0 + RandomFunction(xmiddle, ymiddle, map) * factor;
-         terrain[xmiddle, ymin] = ( terrain[xmin, ymin] + terrain[xmax, ymin] ) / 2.0 + RandomFunction(xmiddle, ymin, map) * factor;
-         terrain[xmin, ymiddle] = ( terrain[xmin, ymin] + terrain[xmin, ymax] ) / 2.0 + RandomFunction(xmin, ymiddle, map) * factor;
-         terrain[xmax, ymiddle] = ( terrain[xmax, ymin] + terrain[xmax, ymax] ) / 2.0 + RandomFunction(xmax, ymiddle, map) * factor;
-         terrain[xmiddle, ymax] = ( terrain[xmin, ymax] + terrain[xmax, ymax] ) / 2.0 + RandomFunction(xmiddle, ymax, map) * factor;
+         terrain[xmiddle, ymiddle] = ( terrain[xmin, ymin] + terrain[xmax, ymin] + terrain[xmax, ymax] + terrain[xmin, ymax] ) / 4.0 + Random(xmiddle, ymiddle, map) * factor;
+         terrain[xmiddle, ymin] = ( terrain[xmin, ymin] + terrain[xmax, ymin] ) / 2.0 + Random(xmiddle, ymin, map) * factor;
+         terrain[xmin, ymiddle] = ( terrain[xmin, ymin] + terrain[xmin, ymax] ) / 2.0 + Random(xmin, ymiddle, map) * factor;
+         terrain[xmax, ymiddle] = ( terrain[xmax, ymin] + terrain[xmax, ymax] ) / 2.0 + Random(xmax, ymiddle, map) * factor;
+         terrain[xmiddle, ymax] = ( terrain[xmin, ymax] + terrain[xmax, ymax] ) / 2.0 + Random(xmiddle, ymax, map) * factor;
+      }
+
+      private double Random( int x, int y, double[,] map )
+      {
+         return map[x, y];
       }
    }
 }

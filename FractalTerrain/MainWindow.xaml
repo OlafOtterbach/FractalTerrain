@@ -48,11 +48,20 @@
         <Expander BorderThickness="2" BorderBrush="White" Background="White" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Down" Width="Auto" Height="Auto" Panel.ZIndex="1000" Header="Settings" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Collapsed" >
-                    <i:InvokeCommandAction Command="{Binding Path=Start}" />
+                    <i:InvokeCommandAction Command="{Binding Path=CommandStart}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Border Margin="2" BorderThickness="1" BorderBrush="Black">
                 <StackPanel Margin="2">
+                    <Menu>
+                        <MenuItem Header="_File">
+                            <MenuItem Header="_New" Command="{Binding Path=CommandNew}"/>
+                            <Separator />
+                            <MenuItem Header="_Open" Command="{Binding Path=CommandOpen}" />
+                            <MenuItem Header="_Save" Command="{Binding Path=CommandSave}" />
+                            <MenuItem Header="Save_As" Command="{Binding Path=CommandSaveAs}" />
+                        </MenuItem>
+                    </Menu>
                     <Grid>
                         <custom:AppleManViewControl 
                             Width="400" Height="400" 

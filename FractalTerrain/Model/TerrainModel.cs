@@ -21,9 +21,9 @@ namespace FractalTerrain.Model
          m_appleManSize = m_appleManMaximalPosition - m_appleManMinimalPosition;
       }
 
-      public TerrainModelData TerrainModelData { get; private set; }
+      public TerrainModelData TerrainModelData { get; set; }
 
-      public AppleManData AppleManData { get; private set; }
+      public AppleManData AppleManData { get; set; }
 
       public int MapSize
       {

@@ -18,12 +18,20 @@ namespace FractalTerrain.ViewModel
          mAppleViews = new List<AppleManViewWpf>();
          VisualModel = new VisualModel();
          CreateTerrainModel();
-         Start = new GuiButtonCommand(() => OnStart(), () => OnStartCanBeExecuted());
+         CommandStart = new GuiButtonCommand(() => OnStart(), () => OnStartCanBeExecuted());
+         CommandNew = new GuiButtonCommand(() => OnNew(), () => OnNewCanBeExecuted());
+         CommandOpen = new GuiButtonCommand(() => OnOpen(), () => OnOpenCanBeExecuted());
+         CommandSave = new GuiButtonCommand(() => OnSave(), () => OnSaveCanBeExecuted());
+         CommandSaveAs = new GuiButtonCommand(() => OnSaveAs(), () => OnSaveAsCanBeExecuted());
       }
 
       public event PropertyChangedEventHandler PropertyChanged;
 
-      public ICommand Start { get; private set; }
+      public ICommand CommandStart { get; private set; }
+      public ICommand CommandNew{ get; private set; }
+      public ICommand CommandOpen { get; private set; }
+      public ICommand CommandSave { get; private set; }
+      public ICommand CommandSaveAs { get; private set; }
 
       public IEnumerable<TerrainView3D> TerrainViews { get { return mTerrainViews; } }
 
@@ -154,6 +162,51 @@ namespace FractalTerrain.ViewModel
       {
          return true;
       }
+
+      public bool OnNewCanBeExecuted()
+      {
+         return true;
+      }
+
+      public void OnNew()
+      {
+         var a = 5;
+         a++;
+      }
+
+      public bool OnOpenCanBeExecuted()
+      {
+         return true;
+      }
+
+      public void OnOpen()
+      {
+         var a = 5;
+         a++;
+      }
+
+      public bool OnSaveCanBeExecuted()
+      {
+         return true;
+      }
+
+      public void OnSave()
+      {
+         var a = 5;
+         a++;
+      }
+
+      public bool OnSaveAsCanBeExecuted()
+      {
+         return true;
+      }
+
+      public void OnSaveAs()
+      {
+         var a = 5;
+         a++;
+      }
+
 
       // Create the OnPropertyChanged method to raise the event
       protected void OnPropertyChanged(string name)
