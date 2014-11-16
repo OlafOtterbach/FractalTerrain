@@ -19,7 +19,7 @@ namespace FractalTerrainTests.Persistence
          var model = GetModel(9);
          var mapper = new PersistMapperV1();
 
-         var data = mapper.MapModelToPersistenceData();
+         var data = mapper.MapModelToPersistenceData(model);
 
          Assert.AreNotEqual(data, null);
       }

@@ -1,6 +1,6 @@
 ﻿namespace FractalTerrain.Persistence
 {
-   class PersistDataV1
+   public class PersistDataV1
    {
       public PersistDataV1()
       {
