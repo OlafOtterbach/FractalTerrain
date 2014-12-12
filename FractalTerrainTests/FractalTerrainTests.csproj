@@ -76,8 +76,11 @@
     <Compile Include="Math\Matrix3DExtensionTests.cs" />
     <Compile Include="Math\VectorIntTests.cs" />
     <Compile Include="Model\TerrainModelTests.cs" />
-    <Compile Include="Persistence\PersistMapperV1Tests.cs" />
+    <Compile Include="Persistence\ParserTests.cs" />
+    <Compile Include="Persistence\PersistMapperTests.cs" />
+    <Compile Include="Persistence\PersistWriterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RatingTests.cs" />
     <Compile Include="View\Canvas2DMock.cs" />
     <None Include="packages.config" />
     <None Include="View\TerrainView3DTests.cs" />

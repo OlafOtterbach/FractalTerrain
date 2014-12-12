@@ -90,7 +90,7 @@
                     </StackPanel>
                     <CheckBox IsChecked= "{ Binding Path=ParallelProcess }">Parallel</CheckBox>
                     <custom:TerrainViewControl Width="Auto" Height="200" />
-                    <Button Command="{Binding Path=Start}">Update</Button>
+                    <Button Command="{Binding Path=CommandStart}">Update</Button>
                 </StackPanel>
             </Border>
         </Expander>

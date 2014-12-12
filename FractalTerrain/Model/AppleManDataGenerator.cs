@@ -9,7 +9,6 @@ namespace FractalTerrain.Model
       public AppleManData Create( int mapSize, double appleManXPos, double appleManYPos, double appleManSize )
       {
          var map = new double[mapSize, mapSize];
-
          const double limit = 4.0;
          int iterations = 100;
          double xmin = appleManXPos;
@@ -57,18 +56,16 @@ namespace FractalTerrain.Model
          });
          if( maxVal > 0.0 )
          {
-            for( int yw = 0; yw < mapSize; yw++ )
+            Parallel.For(0, mapSize, yw =>
             {
                for( int xw = 0; xw < mapSize; xw++ )
                {
                   map[xw, yw] = map[xw, yw] / maxVal;
                }
-            }
+            });
          }
-
          var data = new AppleManData(map, mapSize);
          return data;
       }
-
    }
 }

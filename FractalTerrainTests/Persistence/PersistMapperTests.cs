@@ -1,28 +1,39 @@
 ﻿/// <summary>Definition of the class PersistMapperV1Tests.</summary>
 /// <author>Olaf Otterbach</author>
 
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FractalTerrain;
-using System.Collections.Generic;
 using FractalTerrain.Model;
 using FractalTerrain.Persistence;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FractalTerrainTests.Persistence
 {
    [TestClass]
-   public class PersistMapperV1Tests
+   public class PersistMapperTests
    {
-      [TestMethod]
-      public void MappingModelToDataTest()
-      {
-         var model = GetModel(9);
-         var mapper = new PersistMapperV1();
+      //[TestMethod]
+      //public void MappingModelToDataTest()
+      //{
+      //   var model = GetModel(9);
+      //   var mapper = new PersistMapper();
 
-         var data = mapper.MapModelToPersistenceData(model);
+      //   var data = mapper.MapModelToPersistenceData(model);
 
-         Assert.AreNotEqual(data, null);
-      }
+      //   Assert.AreNotEqual(data, null);
+      //}
+
+
+      //[TestMethod]
+      //public void PersistenceDataToMapModelTest()
+      //{
+      //   var model = GetModel(9);
+      //   var mapper = new PersistMapper();
+
+      //   var data = mapper.MapModelToPersistenceData(model);
+      //   Assert.AreNotEqual(data, null);
+      //   var mappedModel = mapper.PersistenceDataToMapModel(data);
+
+      //   Assert.AreNotEqual(mappedModel, null);
+      //}
 
 
       private TerrainModel GetModel( int mapSize )

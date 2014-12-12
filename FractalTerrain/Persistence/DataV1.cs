@@ -1,19 +1,21 @@
-﻿namespace FractalTerrain.Persistence
+﻿/// <summary>Definition of the class DataV1.</summary>
+/// <author>Olaf Otterbach</author>
+
+namespace FractalTerrain.Persistence
 {
-   public class PersistDataV1
+   public class DataV1 : IData
    {
-      public PersistDataV1()
+      public DataV1()
       {
-         Version = "FractalTerrain V1.0";
+         FileType = "FractalTerrain";
+         Version = "V1.0";
       }
+
+      public string FileType { get; private set; }
 
       public string Version { get; private set; }
 
       public int MapSize { get; set; }
-
-      public double[] TerrainMap { get; set; }
-
-      public double[] AppleManMap { get; set; }
 
       public double AppleManXStartPosition { get; set; }
 

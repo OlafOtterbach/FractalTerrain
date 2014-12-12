@@ -2,6 +2,7 @@
 /// <author>Olaf Otterbach</author>
 
 using FractalTerrain.Model;
+using FractalTerrain.Persistence;
 using FractalTerrain.View;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -181,8 +182,10 @@ namespace FractalTerrain.ViewModel
 
       public void OnOpen()
       {
-         var a = 5;
-         a++;
+         var reader = new FileReader();
+         var result = reader.Read( @"c:\tmp\test.frac" );
+         m_model = result.Model;
+         Update(true);
       }
 
       public bool OnSaveCanBeExecuted()
@@ -192,8 +195,8 @@ namespace FractalTerrain.ViewModel
 
       public void OnSave()
       {
-         var a = 5;
-         a++;
+         var writer = new FileWriter();
+         writer.Write( m_model, @"c:\tmp\test.frac" );
       }
 
       public bool OnSaveAsCanBeExecuted()
@@ -203,8 +206,8 @@ namespace FractalTerrain.ViewModel
 
       public void OnSaveAs()
       {
-         var a = 5;
-         a++;
+         var writer = new FileWriter();
+         writer.Write( m_model, @"c:\tmp\test.frac" );
       }
 
 
