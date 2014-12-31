@@ -1,4 +1,4 @@
-﻿/// <summary>Definition of the class HeaderParserTests.</summary>
+﻿/// <summary>Definition of the class ParserTests.</summary>
 /// <author>Olaf Otterbach</author>
 
 using System.Linq;
@@ -26,7 +26,7 @@ namespace FractalTerrainTests.Persistence
          Assert.AreEqual(res.ParserData.Version, "V1.0");
          Assert.AreEqual( res.ParserData.Data.Keys.Count(), 2 );
          Assert.AreEqual( res.ParserData.Data.Keys.ToList()[0], "Header" );
-         Assert.AreEqual( res.ParserData.Data.Keys.ToList()[1], "ParserData" );
+         Assert.AreEqual( res.ParserData.Data.Keys.ToList()[1], "Data" );
          Assert.AreEqual( res.ParserData.Data.Values.Count, 2 );
          var headerEntries = res.ParserData.Data.Values.ToList()[0];
          var dataEntries = res.ParserData.Data.Values.ToList()[1];
@@ -52,7 +52,8 @@ namespace FractalTerrainTests.Persistence
 
          var res = parser.Parse( ctx );
 
-         Assert.IsTrue( res.Rating.AllSatisfied );
+         Assert.IsFalse( res.Rating.AllSatisfied );
+         Assert.IsTrue( res.Rating.HasParseError );
       }
 
       private string GetValidText()
@@ -76,19 +77,7 @@ AppleManYStartPosition 1.5
       private string GetInvalidDataText()
       {
          return
-@"[Header]
-FileType FractalTerrain
-Version V1.0
-
-[Data]
-MapSize 9
-AppleManMinimalPosition
-AppleManMaximalPosition 3
-AppleManMinimalSize 0.1
-AppleManSize 1
-AppleManXStartPosition -2
-AppleManYStartPosition 1.5
-";
+@"dfsdsfdss";
       }
    }
 }

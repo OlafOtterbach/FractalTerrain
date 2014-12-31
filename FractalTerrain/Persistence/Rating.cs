@@ -21,6 +21,14 @@ namespace FractalTerrain.Persistence
       }
 
       public bool HasParseError { get; set; }
+      public bool HasMappingError { get; set; }
+      public bool HasNoModel { get; set; }
+
+      public bool NoModelToValidate { get; set; }
+      public bool InvalidMapSize { get; set; }
+      public bool InvalidAppleManSize { get; set; }
+
+
       public bool HasUnkownVersion { get; set; }
       public bool ResultIsEmpty { get; set; }
       public bool HasCorruptedData { get; set; }

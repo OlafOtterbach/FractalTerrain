@@ -3,6 +3,7 @@
 
 using FractalTerrain.View;
 using FractalTerrain.ViewModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -33,6 +34,42 @@ namespace FractalTerrain.Gui
          this.ControlCanvas.MouseDown += new System.Windows.Input.MouseButtonEventHandler(OnMouseDown);
          this.ControlCanvas.SizeChanged += new SizeChangedEventHandler(OnResize);
       }
+
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      public static readonly DependencyProperty m_camera = DependencyProperty.Register( "Camera", typeof( CameraSettings ), typeof( TerrainViewControl ), new FrameworkPropertyMetadata( default(CameraSettings), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged ) );
+      public CameraSettings Camera
+      {
+         get
+         {
+            return (CameraSettings)GetValue( m_camera );
+         }
+         set
+         {
+            SetValue( m_camera, value );
+            SetCamera( value );
+         }
+      }
+      private static void OnDependencyPropertyChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
+      {
+         var control = d as TerrainViewControl;
+         if ( control != null )
+         {
+            var settings = control.GetValue( m_camera ) as CameraSettings;
+            control.SetCamera( settings );            
+         }
+      }
+
+      private void SetCamera( CameraSettings settings )
+      {
+         m_view3D.Camera.SetCamera( settings.AngleAxisEz, settings.AngleAxisEy, settings.Distance );
+      }
+
+      private void WriteCameraSettings()
+      {
+         Camera = new CameraSettings { AngleAxisEz = m_view3D.Camera.AngleAxisEz, AngleAxisEy = m_view3D.Camera.AngleAxisEy, Distance = m_view3D.Camera.Distance };
+      }
+
 
       private void OnResize(object t_sender, SizeChangedEventArgs t_event)
       {
@@ -69,6 +106,7 @@ namespace FractalTerrain.Gui
                {
                   m_view3D.Camera.OrbitYZ(dy);
                   m_view3D.Camera.OrbitXY(dx);
+                  WriteCameraSettings();
                   m_view3D.Render();
                }
             }
@@ -78,6 +116,7 @@ namespace FractalTerrain.Gui
                if( m_view3D != null )
                {
                   m_view3D.Camera.Zoom(dy);
+                  WriteCameraSettings();
                   m_view3D.Render();
                }
             }

@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace FractalTerrainTests.Persistence
 {
    [TestClass]
-   public class PersistMapperTests
+   public class ModelToDataMapperTests
    {
       //[TestMethod]
       //public void MappingModelToDataTest()

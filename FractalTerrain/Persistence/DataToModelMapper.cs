@@ -18,14 +18,22 @@ namespace FractalTerrain.Persistence
 
       public Context Map( Context ctx )
       {
-         var data = _mapper.Map( ctx ).Data as DataV1;
-         ctx.Model = _builder.Create( data.MapSize,
-                                      data.AppleManMinimalSize,
-                                      data.AppleManMinimalPosition,
-                                      data.AppleManMaximalPosition,
-                                      data.AppleManXStartPosition,
-                                      data.AppleManYStartPosition,
-                                      data.AppleManSize );
+         ctx = _mapper.Map( ctx );
+         if( ctx.Rating.HasMappingError )
+         {
+            ctx.Rating.HasNoModel = true;
+         }
+         else
+         {
+            var data = ctx.Data as DataV1;
+            ctx.Model = _builder.Create( data.MapSize,
+                                         data.AppleManMinimalSize,
+                                         data.AppleManMinimalPosition,
+                                         data.AppleManMaximalPosition,
+                                         data.AppleManXStartPosition,
+                                         data.AppleManYStartPosition,
+                                         data.AppleManSize );
+         }
          return ctx;
       }
    }

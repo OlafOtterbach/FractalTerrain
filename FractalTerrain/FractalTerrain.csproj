@@ -62,6 +62,7 @@
     <Compile Include="Gui\AppleManViewControl.xaml.cs">
       <DependentUpon>AppleManViewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\RelativeSizeConverter.cs" />
     <Compile Include="Gui\MainWindowBehaviour.cs" />
     <Compile Include="Gui\CommitComboBox.cs" />
     <Compile Include="Gui\TerrainViewControl.xaml.cs">
@@ -92,7 +93,11 @@
     <Compile Include="Persistence\MapperV1.cs" />
     <Compile Include="Persistence\Rating.cs" />
     <Compile Include="Persistence\DataV1.cs" />
+    <Compile Include="Persistence\ModelValidator.cs" />
     <Compile Include="Persistence\Writer.cs" />
+    <Compile Include="ViewModel\CameraSettings.cs" />
+    <Compile Include="ViewModel\ViewModelAndSettingsMapper.cs" />
+    <Compile Include="ViewModel\ViewModelSettings.cs" />
     <Compile Include="View\AppleManViewWpf.cs" />
     <Compile Include="View\Canvas2D.cs" />
     <Compile Include="View\Canvas2DWpf.cs" />

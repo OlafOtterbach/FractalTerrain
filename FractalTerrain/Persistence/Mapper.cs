@@ -19,11 +19,15 @@ namespace FractalTerrain.Persistence
 
       public Context Map( Context ctx )
       {
-         return CanHandle(ctx) ? MapToData(ctx) : _converter.Convert(_succesor.Map(ctx));
+         if( ctx.Rating.HasParseError )
+         {
+            ctx.Rating.HasMappingError = true;
+            return ctx;
+         }
+         return CanHandle( ctx ) ? MapToData( ctx ) : _converter.Convert( _succesor.Map( ctx ) );
       }
 
       protected abstract Context MapToData(Context ctx);
-
 
       protected double TryParseDouble( string text )
       {

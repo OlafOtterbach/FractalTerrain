@@ -6,8 +6,11 @@ using FractalTerrain.Persistence;
 using FractalTerrain.View;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Microsoft.Win32;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System;
+using System.Windows;
 
 namespace FractalTerrain.ViewModel
 {
@@ -15,9 +18,18 @@ namespace FractalTerrain.ViewModel
    {
       public TerrainViewModel()
       {
+         Camera1 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         Camera2 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         Camera3 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         Camera4 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         Camera5 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         ColumnRatio = new GridLength(1, GridUnitType.Star );
+         RowRatio = new GridLength( 1, GridUnitType.Star );
+
          mTerrainViews = new List<TerrainView3D>();
          mAppleViews = new List<AppleManViewWpf>();
          VisualModel = new VisualModel();
+
          CreateTerrainModel();
          CommandStart = new GuiButtonCommand(() => OnStart(), () => OnStartCanBeExecuted());
          CommandNew = new GuiButtonCommand(() => OnNew(), () => OnNewCanBeExecuted());
@@ -52,6 +64,13 @@ namespace FractalTerrain.ViewModel
          mAppleViews.Add(view);
       }
 
+      public CameraSettings Camera1 { get; set; }
+      public CameraSettings Camera2 { get; set; }
+      public CameraSettings Camera3 { get; set; }
+      public CameraSettings Camera4 { get; set; }
+      public CameraSettings Camera5 { get; set; }
+      public GridLength ColumnRatio { get; set; }
+      public GridLength RowRatio { get; set; }
 
       public bool ParallelProcess { get; set; }
 
@@ -182,10 +201,22 @@ namespace FractalTerrain.ViewModel
 
       public void OnOpen()
       {
-         var reader = new FileReader();
-         var result = reader.Read( @"c:\tmp\test.frac" );
-         m_model = result.Model;
-         Update(true);
+         OpenFileDialog fileDialog = new OpenFileDialog();
+         fileDialog.Filter = @"Fractal files (*.frac)|*.frac";
+         fileDialog.InitialDirectory = Environment.CurrentDirectory;
+         if ( fileDialog.ShowDialog() == true )
+         {
+            var pathAndFile = fileDialog.FileName;
+            var reader = new FileReader();
+            var result = reader.Read( pathAndFile );
+            m_model = result.Model;
+            Update( true );
+         }
+      }
+
+      private void Message( Rating rating )
+      {
+         //var messageBox = new Message
       }
 
       public bool OnSaveCanBeExecuted()
@@ -195,6 +226,9 @@ namespace FractalTerrain.ViewModel
 
       public void OnSave()
       {
+         var camera1 = Camera1;
+         var row = RowRatio.Value;
+         var column = ColumnRatio.Value;
          var writer = new FileWriter();
          writer.Write( m_model, @"c:\tmp\test.frac" );
       }
