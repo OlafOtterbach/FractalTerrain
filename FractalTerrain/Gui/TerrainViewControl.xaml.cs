@@ -35,7 +35,36 @@ namespace FractalTerrain.Gui
          this.ControlCanvas.SizeChanged += new SizeChangedEventHandler(OnResize);
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
+
+
+      private static DependencyProperty ElementActualWidthProperty
+         = DependencyProperty.Register( "ElementActualWidth",
+                                        typeof( double ),
+                                        typeof( TerrainViewControl ),
+                                        new FrameworkPropertyMetadata
+                                        (
+                                            default( double ),
+                                            FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                                            OnActualWidthChanged
+                                        )
+                                      );
+      public double ElementActualWidth
+      {
+         get { return (double)GetValue( ElementActualWidthProperty ); }
+         set { var a = 0; a++; }
+      }
+      private void SetActualWidth( double value )
+      {
+         SetValue( ElementActualWidthProperty, value );
+      }
+      private static void OnActualWidthChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
+      {
+         var control = d as TerrainViewControl;
+         if ( control != null )
+         {
+            control.SetActualWidth( control.ActualWidth );
+         }
+      }
 
       public static readonly DependencyProperty m_camera = DependencyProperty.Register( "Camera", typeof( CameraSettings ), typeof( TerrainViewControl ), new FrameworkPropertyMetadata( default(CameraSettings), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged ) );
       public CameraSettings Camera

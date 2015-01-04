@@ -69,6 +69,10 @@ namespace FractalTerrain.ViewModel
       public CameraSettings Camera3 { get; set; }
       public CameraSettings Camera4 { get; set; }
       public CameraSettings Camera5 { get; set; }
+      public double WidthLeft { get; set; }
+      public double WidthRight { get; set; }
+      public double HeightTop { get; set; }
+      public double HeightBottom { get; set; }
       public GridLength ColumnRatio { get; set; }
       public GridLength RowRatio { get; set; }
 
@@ -227,11 +231,15 @@ namespace FractalTerrain.ViewModel
       public void OnSave()
       {
          var camera1 = Camera1;
-         var row = RowRatio.Value;
-         var column = ColumnRatio.Value;
+         var widthLeft = WidthLeft;
+         var widthRight = WidthRight;
+         var heightTop = HeightTop;
+         var heightBottom = HeightBottom;
          var writer = new FileWriter();
          writer.Write( m_model, @"c:\tmp\test.frac" );
       }
+
+
 
       public bool OnSaveAsCanBeExecuted()
       {

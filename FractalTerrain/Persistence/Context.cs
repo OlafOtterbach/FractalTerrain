@@ -2,6 +2,7 @@
 /// <author>Olaf Otterbach</author>
 
 using FractalTerrain.Model;
+using FractalTerrain.ViewModel;
 
 namespace FractalTerrain.Persistence
 {
@@ -21,5 +22,7 @@ namespace FractalTerrain.Persistence
       public IData Data { get; set; }
 
       public TerrainModel Model { get; set; }
+
+      public ViewModelSettings Setting { get; set; }
    }
 }

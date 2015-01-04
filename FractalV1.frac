@@ -1,0 +1,12 @@
+[Header]
+FileType FractalTerrain
+Version V1.0
+
+[Data]
+MapSize 65
+AppleManMinimalPosition -2
+AppleManMaximalPosition 2
+AppleManMinimalSize 0.0005
+AppleManSize 0.316659348799488
+AppleManXStartPosition -1.28784459612851
+AppleManYStartPosition 0.0234702359045416

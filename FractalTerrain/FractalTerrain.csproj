@@ -62,7 +62,6 @@
     <Compile Include="Gui\AppleManViewControl.xaml.cs">
       <DependentUpon>AppleManViewControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gui\RelativeSizeConverter.cs" />
     <Compile Include="Gui\MainWindowBehaviour.cs" />
     <Compile Include="Gui\CommitComboBox.cs" />
     <Compile Include="Gui\TerrainViewControl.xaml.cs">
@@ -79,10 +78,12 @@
     <Compile Include="Persistence\Context.cs" />
     <Compile Include="Persistence\Converter.cs" />
     <Compile Include="Persistence\DataToModelMapper.cs" />
+    <Compile Include="Persistence\DataV1.cs" />
     <Compile Include="Persistence\FileReader.cs" />
     <Compile Include="Persistence\FileWriter.cs" />
     <Compile Include="Persistence\Mapper.cs" />
     <Compile Include="Persistence\MapperUnknown.cs" />
+    <Compile Include="Persistence\MapperV1Dot1.cs" />
     <Compile Include="Persistence\ModelToDataMapper.cs" />
     <Compile Include="Persistence\NullConverter.cs" />
     <Compile Include="Persistence\Parser.cs" />
@@ -92,7 +93,7 @@
     <Compile Include="Persistence\IData.cs" />
     <Compile Include="Persistence\MapperV1.cs" />
     <Compile Include="Persistence\Rating.cs" />
-    <Compile Include="Persistence\DataV1.cs" />
+    <Compile Include="Persistence\DataV1Dot1.cs" />
     <Compile Include="Persistence\ModelValidator.cs" />
     <Compile Include="Persistence\Writer.cs" />
     <Compile Include="ViewModel\CameraSettings.cs" />

@@ -30,20 +30,17 @@
     </i:Interaction.Behaviors>
     <Grid>
         <Grid>
-            <Grid.Resources>
-                <local:RelativeSizeConverter x:Key="RelativeSizeConverter"/>
-            </Grid.Resources>
             <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding Path = RowRatio, Mode=TwoWay}"/>
+                <RowDefinition Height="{Binding Path=RowRatio, Mode=TwoWay}"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding Path = ColumnRatio, Mode=TwoWay}"/>
+                <ColumnDefinition Width="{Binding Path=ColumnRatio, Mode=TwoWay}"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <custom:TerrainViewControl Grid.Column="0" Grid.Row="0" Camera="{Binding Path=Camera1}" />
+            <custom:TerrainViewControl Grid.Column="0" Grid.Row="0" Camera="{Binding Path=Camera1}" ElementActualWidth="{Binding Path=WidthLeft, Mode=OneWayToSource}"  />
             <custom:TerrainViewControl Grid.Column="1" Grid.Row="0" Camera="{Binding Path=Camera2}" />
-            <custom:TerrainViewControl Grid.Column="1" Grid.Row="1" Camera="{Binding Path=Camera3}" />
+            <custom:TerrainViewControl Grid.Column="1" Grid.Row="1" Camera="{Binding Path=Camera3}"  />
             <custom:TerrainViewControl Grid.Column="0" Grid.Row="1" Camera="{Binding Path=Camera4}" />
             <GridSplitter ShowsPreview="true" PreviewStyle="{StaticResource  AdvancedGridSplitterPreview}" Background="White" BorderThickness="1" BorderBrush="Black"  Width="8" Grid.Row="0"  Grid.Column="0" Grid.RowSpan="2"  ResizeDirection="Columns" HorizontalAlignment="Right"  VerticalAlignment="Stretch" />
             <GridSplitter ShowsPreview="true" PreviewStyle="{StaticResource AdvancedGridSplitterPreview}" Background="White" BorderThickness="1" BorderBrush="Black" Height="8" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
