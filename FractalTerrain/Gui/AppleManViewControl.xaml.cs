@@ -27,9 +27,7 @@ namespace FractalTerrain.Gui
          appleImage.MouseDown += new System.Windows.Input.MouseButtonEventHandler(OnMouseDown);
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
-
-      public static readonly DependencyProperty m_minimum = DependencyProperty.Register("AppleManMinimum", typeof(double), typeof(AppleManViewControl), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged));
+      public static readonly DependencyProperty m_minimum = DependencyProperty.Register( "AppleManMinimum", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManMinimum
       {
          get
@@ -42,7 +40,7 @@ namespace FractalTerrain.Gui
          }
       }
 
-      public static readonly DependencyProperty m_maximum = DependencyProperty.Register("AppleManMaximum", typeof(double), typeof(AppleManViewControl), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged));
+      public static readonly DependencyProperty m_maximum = DependencyProperty.Register( "AppleManMaximum", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManMaximum
       {
          get
@@ -55,7 +53,7 @@ namespace FractalTerrain.Gui
          }
       }
 
-      public static readonly DependencyProperty m_appleManMaximumSize = DependencyProperty.Register("AppleManMaximumSize", typeof(double), typeof(AppleManViewControl), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged));
+      public static readonly DependencyProperty m_appleManMaximumSize = DependencyProperty.Register( "AppleManMaximumSize", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManMaximumSize
       {
          get
@@ -68,7 +66,7 @@ namespace FractalTerrain.Gui
          }
       }
 
-      public static readonly DependencyProperty m_appleManSize = DependencyProperty.Register("AppleManSize", typeof(double), typeof(AppleManViewControl), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged));
+      public static readonly DependencyProperty m_appleManSize = DependencyProperty.Register( "AppleManSize", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManSize
       {
          get
@@ -81,7 +79,7 @@ namespace FractalTerrain.Gui
          }
       }
 
-      public static readonly DependencyProperty m_appleManXStartPosition = DependencyProperty.Register("AppleManXStartPosition", typeof(double), typeof(AppleManViewControl), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged));
+      public static readonly DependencyProperty m_appleManXStartPosition = DependencyProperty.Register( "AppleManXStartPosition", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManXStartPosition
       {
          get
@@ -94,7 +92,7 @@ namespace FractalTerrain.Gui
          }
       }
 
-      public static readonly DependencyProperty m_appleManYStartPosition = DependencyProperty.Register("AppleManYStartPosition", typeof(double), typeof(AppleManViewControl), new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged));
+      public static readonly DependencyProperty m_appleManYStartPosition = DependencyProperty.Register( "AppleManYStartPosition", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManYStartPosition
       {
          get
@@ -104,16 +102,6 @@ namespace FractalTerrain.Gui
          set
          {
             SetValue(m_appleManYStartPosition, value);
-         }
-      }
-
-      
-      private static void OnDependencyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-      {
-         var control = d as AppleManViewControl;
-         if( control != null )
-         {
-            var name = e.Property.Name;
          }
       }
 
