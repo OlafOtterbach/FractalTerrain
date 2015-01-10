@@ -66,7 +66,7 @@ namespace FractalTerrain.Gui
          }
       }
 
-      public static readonly DependencyProperty m_camera = DependencyProperty.Register( "Camera", typeof( CameraSettings ), typeof( TerrainViewControl ), new FrameworkPropertyMetadata( default(CameraSettings), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged ) );
+      public static readonly DependencyProperty m_camera = DependencyProperty.Register( "Camera", typeof( CameraSettings ), typeof( TerrainViewControl ), new FrameworkPropertyMetadata( default( CameraSettings ), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged ) );
       public CameraSettings Camera
       {
          get

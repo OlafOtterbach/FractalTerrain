@@ -82,14 +82,13 @@
     <Compile Include="Persistence\PersistWriterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingTests.cs" />
+    <Compile Include="ViewModel\CameraSettingsTests.cs" />
     <Compile Include="View\Canvas2DMock.cs" />
     <None Include="packages.config" />
     <None Include="View\TerrainView3DTests.cs" />
     <Compile Include="View\ViewCameraTests.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FractalTerrain\FractalTerrain.csproj">
       <Project>{c3ac2954-005d-4be6-b6b7-40ba2f9d4c93}</Project>

@@ -12,7 +12,7 @@ namespace FractalTerrain.Persistence
       public Reader()
       {
          _parser = new Parser();
-         _mapper = new DataToModelMapper( new MapperV1( new MapperUnknown(), new NullConverter() ) );
+         _mapper = new DataToModelMapper( new MapperV1Dot1( new MapperV1( new MapperUnknown(), new NullConverter()  ), new ConverterV1ToV1Dot1() ) );
          _validator = new ModelValidator();
       }
 
@@ -23,6 +23,7 @@ namespace FractalTerrain.Persistence
          var result = new ReaderResult
          {
             Model = context.Model,
+            Settings = context.Setting,
             Rating = context.Rating
          };
          return result;

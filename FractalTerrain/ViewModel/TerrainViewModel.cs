@@ -19,7 +19,7 @@ namespace FractalTerrain.ViewModel
       public TerrainViewModel()
       {
          Camera1 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
-         Camera2 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         Camera2 = new CameraSettings { AngleAxisEz = 90.0, AngleAxisEy = 25.0, Distance = 150.0 };
          Camera3 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
          Camera4 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
          Camera5 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
@@ -213,8 +213,13 @@ namespace FractalTerrain.ViewModel
             var pathAndFile = fileDialog.FileName;
             var reader = new FileReader();
             var result = reader.Read( pathAndFile );
-            m_model = result.Model;
-            Update( true );
+            if ( result.Rating.AllSatisfied )
+            {
+               m_model = result.Model;
+               Update( true );
+               var mapper = new ViewModelAndSettingsMapper();
+               mapper.MapSettingsToViewModel( result.Settings, this );
+            }
          }
       }
 
@@ -236,7 +241,8 @@ namespace FractalTerrain.ViewModel
          var heightTop = HeightTop;
          var heightBottom = HeightBottom;
          var writer = new FileWriter();
-         writer.Write( m_model, @"c:\tmp\test.frac" );
+         var mapper = new ViewModelAndSettingsMapper();
+         writer.Write( m_model, mapper.CreateSettingsFromViewModel( this ), @"c:\tmp\test.frac" );
       }
 
 
@@ -248,8 +254,11 @@ namespace FractalTerrain.ViewModel
 
       public void OnSaveAs()
       {
-         var writer = new FileWriter();
-         writer.Write( m_model, @"c:\tmp\test.frac" );
+         this.Camera2 = new CameraSettings { AngleAxisEz = 90, AngleAxisEy = 90, Distance = 100 };
+         this.ColumnRatio = new GridLength(0.5,GridUnitType.Star);
+//         var writer = new FileWriter();
+//         var mapper = new ViewModelAndSettingsMapper();
+//         writer.Write( m_model, mapper.CreateSettingsFromViewModel( this ), @"c:\tmp\test.frac" );
       }
 
 

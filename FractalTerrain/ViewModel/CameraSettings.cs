@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 namespace FractalTerrain.ViewModel
 {
    public class CameraSettings
@@ -10,18 +11,13 @@ namespace FractalTerrain.ViewModel
          Distance = 0.0;
       }
 
-      public CameraSettings( string text )
+      public CameraSettings( CameraSettings setting )
       {
-         AngleAxisEz = 0.0;
-         AngleAxisEy = 0.0;
-         Distance = 0.0;
-         var pattern = @"^(?:\()(?<DoubleValue>[^\]]*)(?:\])(?:[\s\r\n]+)((?<Key>[^\s\[]+)(?:[^\S\[\r\n]+)(?<Value>[^\s\[]+)(?:[\r\n]+))*(?:[\r\n\s]*)";
-         try
-         {
-            var matches = Regex.Matches( text, pattern, RegexOptions.Singleline );
-
-         }
+         AngleAxisEz = setting.AngleAxisEz;
+         AngleAxisEy = setting.AngleAxisEy;
+         Distance = setting.Distance;
       }
+
 
       public double AngleAxisEz { get; set; }
 
@@ -29,10 +25,44 @@ namespace FractalTerrain.ViewModel
 
       public double Distance { get; set; }
 
-      public static string ToString( this CameraSettings settings )
+
+      public override string ToString()
       {
-         var res = string.Format( "({0},{1},{2})", settings.AngleAxisEz, settings.AngleAxisEy, settings.Distance );
+         var res = string.Format( "({0},{1},{2})", AngleAxisEz.ToString( CultureInfo.InvariantCulture ), 
+                                                   AngleAxisEy.ToString( CultureInfo.InvariantCulture ), 
+                                                   Distance.ToString( CultureInfo.InvariantCulture )     );
          return res;
+      }
+
+      public static CameraSettings TryParse( string text )
+      {
+         CameraSettings settings = null;
+         var pattern = @"^(?:\()(?:(\s)*)(?<FirstAngle>(\d)*(.?)(\d)+)(?:(\s)*)(?:,)(?:(\s)*)(?<SecondAngle>(\d)*(.?)(\d)+)(?:(\s)*)(?:,)(?:(\s)*)(?<Distance>(\d)*(.?)(\d)+)(?:(\s)*)(?:\))";
+         var match = Regex.Match( text, pattern, RegexOptions.Singleline );
+         if ( match.Success )
+         {
+            try
+            {
+               settings = new CameraSettings
+               {
+                  AngleAxisEz = ParseDouble( match.Groups["FirstAngle"].Value ),
+                  AngleAxisEy = ParseDouble( match.Groups["SecondAngle"].Value ),
+                  Distance = ParseDouble( match.Groups["Distance"].Value )
+               };
+            }
+            catch
+            {
+               settings = new CameraSettings();
+            }
+         }
+         return settings;
+      }
+
+      private static double ParseDouble( string text )
+      {
+         double result = 0.0;
+         double.TryParse( text, NumberStyles.Number, CultureInfo.InvariantCulture, out result );
+         return result;
       }
    }
 }

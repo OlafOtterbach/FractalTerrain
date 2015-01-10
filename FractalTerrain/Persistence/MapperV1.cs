@@ -25,7 +25,7 @@ namespace FractalTerrain.Persistence
                AppleManSize = ParseDouble( ctx.ParserData.Data["Data"]["AppleManSize"] ),
                AppleManMinimalPosition = ParseDouble( ctx.ParserData.Data["Data"]["AppleManMinimalPosition"] ),
                AppleManMaximalPosition = ParseDouble( ctx.ParserData.Data["Data"]["AppleManMaximalPosition"] ),
-               AppleManMinimalSize = ParseDouble( ctx.ParserData.Data["Data"]["AppleManMinimalSize"] )
+               AppleManMinimalSize = ParseDouble( ctx.ParserData.Data["Data"]["AppleManMinimalSize"] ),
             };
             ctx.Data = mapData;
          }

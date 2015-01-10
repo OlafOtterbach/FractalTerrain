@@ -114,23 +114,6 @@ namespace FractalTerrain.Gui
          if( control != null )
          {
             var name = e.Property.Name;
-            control.OnAppleSizeChanged(name);
-         }
-      }
-
-      private void OnAppleSizeChanged( string propertyName )
-      {
-         var parent = Application.Current.MainWindow;
-         var viewModel = parent.DataContext as TerrainViewModel;
-         var scroll = SizeScrollbar;
-      }
-
-      private void OnPropertyChanged(string name)
-      {
-         PropertyChangedEventHandler handler = PropertyChanged;
-         if( handler != null )
-         {
-            handler(this, new PropertyChangedEventArgs(name));
          }
       }
 

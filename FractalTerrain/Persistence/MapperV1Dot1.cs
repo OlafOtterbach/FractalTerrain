@@ -1,6 +1,7 @@
 ﻿/// <summary>Definition of the class MapperV1Dot1.</summary>
 /// <author>Olaf Otterbach</author>
 
+using FractalTerrain.ViewModel;
 namespace FractalTerrain.Persistence
 {
    public class MapperV1Dot1 : Mapper
@@ -18,6 +19,15 @@ namespace FractalTerrain.Persistence
       {
          try
          {
+            // var HoricontalRatio = ParseDouble( ctx.ParserData.Data["Settings"]["HoricontalRatio"] );
+            // var   VerticalRatio = ParseDouble( ctx.ParserData.Data["Settings"]["VerticalRatio"] );
+            // var   CameraTopLeft = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraTopLeft"] );
+            // var   CameraTopRight = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraTopRight"] );
+            //var    CameraBottomLeft = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraBottomLeft"] );
+            // var   CameraBottomRight = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraBottomRight"] );
+            // var CameraSetting = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraSetting"] );
+
+
             var mapData = new DataV1Dot1()
             {
                MapSize = ParseInt( ctx.ParserData.Data["Data"]["MapSize"] ),
@@ -26,7 +36,14 @@ namespace FractalTerrain.Persistence
                AppleManSize = ParseDouble( ctx.ParserData.Data["Data"]["AppleManSize"] ),
                AppleManMinimalPosition = ParseDouble( ctx.ParserData.Data["Data"]["AppleManMinimalPosition"] ),
                AppleManMaximalPosition = ParseDouble( ctx.ParserData.Data["Data"]["AppleManMaximalPosition"] ),
-               AppleManMinimalSize = ParseDouble( ctx.ParserData.Data["Data"]["AppleManMinimalSize"] )
+               AppleManMinimalSize = ParseDouble( ctx.ParserData.Data["Data"]["AppleManMinimalSize"] ),
+               HoricontalRatio = ParseDouble( ctx.ParserData.Data["Settings"]["HoricontalRatio"] ),
+               VerticalRatio = ParseDouble( ctx.ParserData.Data["Settings"]["VerticalRatio"] ),
+               CameraTopLeft = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraTopLeft"] ),
+               CameraTopRight = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraTopRight"] ),
+               CameraBottomLeft = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraBottomLeft"] ),
+               CameraBottomRight = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraBottomRight"] ),
+               CameraSetting = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraSetting"] ),
             };
             ctx.Data = mapData;
          }

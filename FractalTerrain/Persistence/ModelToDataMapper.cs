@@ -2,14 +2,15 @@
 /// <author>Olaf Otterbach</author>
 
 using FractalTerrain.Model;
+using FractalTerrain.ViewModel;
 
 namespace FractalTerrain.Persistence
 {
    public class ModelToDataMapper
    {
-      public DataV1 Map( TerrainModel model)
+      public DataV1Dot1 Map( TerrainModel model, ViewModelSettings settings )
       {
-         var data = new DataV1
+         var data = new DataV1Dot1
          {
             MapSize = model.MapSize,
             AppleManMinimalSize = model.AppleManMinimalSize,
@@ -17,8 +18,15 @@ namespace FractalTerrain.Persistence
             AppleManMaximalPosition = model.AppleManMaximalPosition,
             AppleManXStartPosition = model.AppleManXStartPosition,
             AppleManYStartPosition = model.AppleManYStartPosition,
-            AppleManSize = model.AppleManSize
-         };
+            AppleManSize = model.AppleManSize,
+            HoricontalRatio = settings.HoricontalRatio,
+            VerticalRatio = settings.VerticalRatio,
+            CameraTopLeft = settings.CameraTopLeft,
+            CameraTopRight = settings.CameraTopRight,
+            CameraBottomLeft = settings.CameraBottomLeft,
+            CameraBottomRight = settings.CameraBottomRight,
+            CameraSetting = settings.CameraSetting,
+         }; 
          return data;
       }
    }
