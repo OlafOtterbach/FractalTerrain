@@ -18,11 +18,11 @@ namespace FractalTerrain.ViewModel
    {
       public TerrainViewModel()
       {
-         Camera1 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
-         Camera2 = new CameraSettings { AngleAxisEz = 90.0, AngleAxisEy = 25.0, Distance = 150.0 };
-         Camera3 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
-         Camera4 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
-         Camera5 = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         CameraTopLeft = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         CameraTopRight = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         CameraBottomLeft = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         CameraBottomRight = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
+         CameraSetting = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
          ColumnRatio = new GridLength(1, GridUnitType.Star );
          RowRatio = new GridLength( 1, GridUnitType.Star );
 
@@ -64,11 +64,11 @@ namespace FractalTerrain.ViewModel
          mAppleViews.Add(view);
       }
 
-      public CameraSettings Camera1 { get; set; }
-      public CameraSettings Camera2 { get; set; }
-      public CameraSettings Camera3 { get; set; }
-      public CameraSettings Camera4 { get; set; }
-      public CameraSettings Camera5 { get; set; }
+      public CameraSettings CameraTopLeft { get; set; }
+      public CameraSettings CameraTopRight { get; set; }
+      public CameraSettings CameraBottomLeft { get; set; }
+      public CameraSettings CameraBottomRight { get; set; }
+      public CameraSettings CameraSetting { get; set; }
       public double WidthLeft { get; set; }
       public double WidthRight { get; set; }
       public double HeightTop { get; set; }
@@ -216,9 +216,9 @@ namespace FractalTerrain.ViewModel
             if ( result.Rating.AllSatisfied )
             {
                m_model = result.Model;
-               Update( true );
                var mapper = new ViewModelAndSettingsMapper();
                mapper.MapSettingsToViewModel( result.Settings, this );
+               Update( true );
             }
          }
       }
@@ -235,7 +235,7 @@ namespace FractalTerrain.ViewModel
 
       public void OnSave()
       {
-         var camera1 = Camera1;
+         var camera1 = CameraTopLeft;
          var widthLeft = WidthLeft;
          var widthRight = WidthRight;
          var heightTop = HeightTop;
@@ -254,7 +254,7 @@ namespace FractalTerrain.ViewModel
 
       public void OnSaveAs()
       {
-         this.Camera2 = new CameraSettings { AngleAxisEz = 90, AngleAxisEy = 90, Distance = 100 };
+         this.CameraTopRight = new CameraSettings { AngleAxisEz = 90, AngleAxisEy = 90, Distance = 100 };
          this.ColumnRatio = new GridLength(0.5,GridUnitType.Star);
 //         var writer = new FileWriter();
 //         var mapper = new ViewModelAndSettingsMapper();
@@ -275,21 +275,32 @@ namespace FractalTerrain.ViewModel
       private void Update( bool renderTerrain )
       {
          m_model.Update();
-         VisualModel.InitTerrain(m_model);
-         mAppleViews.ForEach(v => { v.Update(); });
-         mAppleViews.ForEach(v => { v.Render(); });
-         if( renderTerrain )
+         VisualModel.InitTerrain( m_model );
+         mAppleViews.ForEach( v => { v.Update(); } );
+         mAppleViews.ForEach( v => { v.Render(); } );
+         if ( renderTerrain )
          {
-            mTerrainViews.ForEach(v => { v.Update(); });
-            mTerrainViews.ForEach(v => { v.Render(); });
+            mTerrainViews.ForEach( v => { v.Update(); } );
+            mTerrainViews.ForEach( v => { v.Render(); } );
          }
-         OnPropertyChanged("GridSize");
-         OnPropertyChanged("AppleManXStartPosition");
-         OnPropertyChanged("AppleManYStartPosition");
-         OnPropertyChanged("AppleManSize");
-         OnPropertyChanged("AppleManMaximumSize");
-         OnPropertyChanged("AppleManMinimum");
-         OnPropertyChanged("AppleManMaximum");
+         OnPropertyChanged( "GridSize" );
+         OnPropertyChanged( "AppleManXStartPosition" );
+         OnPropertyChanged( "AppleManYStartPosition" );
+         OnPropertyChanged( "AppleManSize" );
+         OnPropertyChanged( "AppleManMaximumSize" );
+         OnPropertyChanged( "AppleManMinimum" );
+         OnPropertyChanged( "AppleManMaximum" );
+         OnPropertyChanged( "CameraTopLeft" );
+         OnPropertyChanged( "CameraTopRight" );
+         OnPropertyChanged( "CameraBottomLeft" );
+         OnPropertyChanged( "CameraBottomRight" );
+         OnPropertyChanged( "CameraSetting" );
+         OnPropertyChanged( "RowRatio" );
+         OnPropertyChanged( "ColumnRatio" );
+         OnPropertyChanged( "WidthLeft" );
+         OnPropertyChanged( "WidthRight" );
+         OnPropertyChanged( "HeightTop" );
+         OnPropertyChanged( "HeightBottom" );
       }
 
 

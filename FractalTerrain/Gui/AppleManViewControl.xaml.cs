@@ -27,81 +27,81 @@ namespace FractalTerrain.Gui
          appleImage.MouseDown += new System.Windows.Input.MouseButtonEventHandler(OnMouseDown);
       }
 
-      public static readonly DependencyProperty m_minimum = DependencyProperty.Register( "AppleManMinimum", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
+      public static readonly DependencyProperty AppleManMinimumProperty = DependencyProperty.Register( "AppleManMinimum", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManMinimum
       {
          get
          {
-            return (double)GetValue(m_minimum);
+            return (double)GetValue( AppleManMinimumProperty );
          }
          set
          {
-            SetValue(m_minimum, value);
+            SetValue( AppleManMinimumProperty, value );
          }
       }
 
-      public static readonly DependencyProperty m_maximum = DependencyProperty.Register( "AppleManMaximum", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
+      public static readonly DependencyProperty AppleManMaximumProperty = DependencyProperty.Register( "AppleManMaximum", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManMaximum
       {
          get
          {
-            return (double)GetValue(m_maximum);
+            return (double)GetValue( AppleManMaximumProperty );
          }
          set
          {
-            SetValue(m_maximum, value);
+            SetValue( AppleManMaximumProperty, value );
          }
       }
 
-      public static readonly DependencyProperty m_appleManMaximumSize = DependencyProperty.Register( "AppleManMaximumSize", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
+      public static readonly DependencyProperty AppleManMaximumSizeProperty = DependencyProperty.Register( "AppleManMaximumSize", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManMaximumSize
       {
          get
          {
-            return (double)GetValue(m_appleManMaximumSize);
+            return (double)GetValue( AppleManMaximumSizeProperty );
          }
          set
          {
-            SetValue(m_appleManMaximumSize, value);
+            SetValue( AppleManMaximumSizeProperty, value );
          }
       }
 
-      public static readonly DependencyProperty m_appleManSize = DependencyProperty.Register( "AppleManSize", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
+      public static readonly DependencyProperty AppleManSizeProperty = DependencyProperty.Register( "AppleManSize", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManSize
       {
          get
          {
-            return (double)GetValue(m_appleManSize);
+            return (double)GetValue( AppleManSizeProperty );
          }
          set
          {
-            SetValue(m_appleManSize, value);
+            SetValue( AppleManSizeProperty, value );
          }
       }
 
-      public static readonly DependencyProperty m_appleManXStartPosition = DependencyProperty.Register( "AppleManXStartPosition", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
+      public static readonly DependencyProperty AppleManXStartPositionProperty = DependencyProperty.Register( "AppleManXStartPosition", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManXStartPosition
       {
          get
          {
-            return (double)GetValue(m_appleManXStartPosition);
+            return (double)GetValue( AppleManXStartPositionProperty );
          }
          set
          {
-            SetValue(m_appleManXStartPosition, value);
+            SetValue( AppleManXStartPositionProperty, value );
          }
       }
 
-      public static readonly DependencyProperty m_appleManYStartPosition = DependencyProperty.Register( "AppleManYStartPosition", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
+      public static readonly DependencyProperty AppleManYStartPositionProperty = DependencyProperty.Register( "AppleManYStartPosition", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManYStartPosition
       {
          get
          {
-            return (double)GetValue(m_appleManYStartPosition);
+            return (double)GetValue( AppleManYStartPositionProperty );
          }
          set
          {
-            SetValue(m_appleManYStartPosition, value);
+            SetValue( AppleManYStartPositionProperty, value );
          }
       }
 

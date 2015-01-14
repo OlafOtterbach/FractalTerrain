@@ -9,11 +9,11 @@ namespace FractalTerrain.ViewModel
          {
             HoricontalRatio = 0.5,
             VerticalRatio = 0.5,
-            CameraTopLeft = new CameraSettings( viewModel.Camera1 ),
-            CameraTopRight = new CameraSettings( viewModel.Camera2 ),
-            CameraBottomLeft = new CameraSettings( viewModel.Camera3 ),
-            CameraBottomRight = new CameraSettings( viewModel.Camera4 ),
-            CameraSetting = new CameraSettings( viewModel.Camera5 )
+            CameraTopLeft = new CameraSettings( viewModel.CameraTopLeft ),
+            CameraTopRight = new CameraSettings( viewModel.CameraTopRight ),
+            CameraBottomLeft = new CameraSettings( viewModel.CameraBottomLeft ),
+            CameraBottomRight = new CameraSettings( viewModel.CameraBottomRight ),
+            CameraSetting = new CameraSettings( viewModel.CameraSetting )
          };
         
          return settings;
@@ -21,11 +21,11 @@ namespace FractalTerrain.ViewModel
 
       public ViewModelSettings MapSettingsToViewModel( ViewModelSettings settings, TerrainViewModel viewModel )
       {
-         viewModel.Camera1 = new CameraSettings( settings.CameraTopLeft );
-         viewModel.Camera2 = new CameraSettings( settings.CameraTopRight );
-         viewModel.Camera3 = new CameraSettings( settings.CameraBottomLeft );
-         viewModel.Camera4 = new CameraSettings( settings.CameraBottomRight );
-         viewModel.Camera5 = new CameraSettings( settings.CameraSetting );
+         viewModel.CameraTopLeft = new CameraSettings( settings.CameraTopLeft );
+         viewModel.CameraTopRight = new CameraSettings( settings.CameraTopRight );
+         viewModel.CameraBottomLeft = new CameraSettings( settings.CameraBottomLeft );
+         viewModel.CameraBottomRight = new CameraSettings( settings.CameraBottomRight );
+         viewModel.CameraSetting = new CameraSettings( settings.CameraSetting );
          viewModel.ColumnRatio = new System.Windows.GridLength(settings.HoricontalRatio, System.Windows.GridUnitType.Star );
          viewModel.RowRatio = new System.Windows.GridLength( settings.VerticalRatio, System.Windows.GridUnitType.Star );
          return settings;

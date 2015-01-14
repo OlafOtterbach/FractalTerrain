@@ -38,10 +38,10 @@
                 <ColumnDefinition Width="{Binding Path=ColumnRatio, Mode=TwoWay}"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <custom:TerrainViewControl Grid.Column="0" Grid.Row="0" Camera="{Binding Path=Camera1, Mode=TwoWay}" ElementActualWidth="{Binding Path=WidthLeft, Mode=OneWayToSource}"  />
-            <custom:TerrainViewControl Grid.Column="1" Grid.Row="0" Camera="{Binding Path=Camera2, Mode=TwoWay}" />
-            <custom:TerrainViewControl Grid.Column="1" Grid.Row="1" Camera="{Binding Path=Camera3, Mode=TwoWay}"  />
-            <custom:TerrainViewControl Grid.Column="0" Grid.Row="1" Camera="{Binding Path=Camera4, Mode=TwoWay}" />
+            <custom:TerrainViewControl Grid.Column="0" Grid.Row="0" Camera="{Binding Path=CameraTopLeft, Mode=TwoWay}" ElementActualWidth="{Binding Path=WidthLeft, Mode=OneWayToSource}"  />
+            <custom:TerrainViewControl Grid.Column="1" Grid.Row="0" Camera="{Binding Path=CameraTopRight, Mode=TwoWay}" />
+            <custom:TerrainViewControl Grid.Column="0" Grid.Row="1" Camera="{Binding Path=CameraBottomLeft, Mode=TwoWay}" />
+            <custom:TerrainViewControl Grid.Column="1" Grid.Row="1" Camera="{Binding Path=CameraBottomRight, Mode=TwoWay}"  />
             <GridSplitter ShowsPreview="true" PreviewStyle="{StaticResource  AdvancedGridSplitterPreview}" Background="White" BorderThickness="1" BorderBrush="Black"  Width="8" Grid.Row="0"  Grid.Column="0" Grid.RowSpan="2"  ResizeDirection="Columns" HorizontalAlignment="Right"  VerticalAlignment="Stretch" />
             <GridSplitter ShowsPreview="true" PreviewStyle="{StaticResource AdvancedGridSplitterPreview}" Background="White" BorderThickness="1" BorderBrush="Black" Height="8" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
         </Grid>
@@ -89,7 +89,7 @@
                         <Label Name="SizeLabel" Content="{Binding Path=GridSize}" />
                     </StackPanel>
                     <CheckBox IsChecked= "{ Binding Path=ParallelProcess }">Parallel</CheckBox>
-                    <custom:TerrainViewControl Width="Auto" Height="200" Camera="{Binding Path=Camera5, Mode=TwoWay}" />
+                    <custom:TerrainViewControl Width="Auto" Height="200" Camera="{Binding Path=CameraSetting, Mode=TwoWay}" />
                     <Button Command="{Binding Path=CommandStart}">Update</Button>
                 </StackPanel>
             </Border>

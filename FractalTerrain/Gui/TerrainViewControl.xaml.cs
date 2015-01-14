@@ -21,6 +21,7 @@ namespace FractalTerrain.Gui
          InitView();
       }
 
+
       private void InitView()
       {
          var parent = Application.Current.MainWindow;
@@ -66,17 +67,16 @@ namespace FractalTerrain.Gui
          }
       }
 
-      public static readonly DependencyProperty m_camera = DependencyProperty.Register( "Camera", typeof( CameraSettings ), typeof( TerrainViewControl ), new FrameworkPropertyMetadata( default( CameraSettings ), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnDependencyPropertyChanged ) );
+      public static readonly DependencyProperty CameraProperty = DependencyProperty.Register( "Camera", typeof( CameraSettings ), typeof( TerrainViewControl ), new FrameworkPropertyMetadata( default( CameraSettings ), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsRender, OnDependencyPropertyChanged ) );
       public CameraSettings Camera
       {
          get
          {
-            return (CameraSettings)GetValue( m_camera );
+            return (CameraSettings)GetValue( CameraProperty );
          }
          set
          {
-            SetValue( m_camera, value );
-            SetCamera( value );
+            SetValue( CameraProperty, value );
          }
       }
       private static void OnDependencyPropertyChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
@@ -84,8 +84,8 @@ namespace FractalTerrain.Gui
          var control = d as TerrainViewControl;
          if ( control != null )
          {
-            var settings = control.GetValue( m_camera ) as CameraSettings;
-            control.SetCamera( settings );            
+            var settings = control.GetValue( CameraProperty ) as CameraSettings;
+            control.SetCamera( settings );
          }
       }
 
