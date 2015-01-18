@@ -18,6 +18,8 @@ namespace FractalTerrain.ViewModel
    {
       public TerrainViewModel()
       {
+         FileName = "";
+
          CameraTopLeft = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
          CameraTopRight = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
          CameraBottomLeft = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
@@ -64,6 +66,8 @@ namespace FractalTerrain.ViewModel
          mAppleViews.Add(view);
       }
 
+      public bool ParallelProcess { get; set; }
+
       public CameraSettings CameraTopLeft { get; set; }
       public CameraSettings CameraTopRight { get; set; }
       public CameraSettings CameraBottomLeft { get; set; }
@@ -76,7 +80,43 @@ namespace FractalTerrain.ViewModel
       public GridLength ColumnRatio { get; set; }
       public GridLength RowRatio { get; set; }
 
-      public bool ParallelProcess { get; set; }
+      private string m_fileName;
+      public string FileName
+      {
+         get
+         {
+            return m_fileName;
+         }
+         set
+         {
+            m_fileName = value;
+            OnPropertyChanged( "Title" );
+         }
+      }
+
+      public string Title
+      {
+         get
+         {
+            var fullTitle = (m_fileName == string.Empty ) ? "FractalTerrain" : "FractalTerrain - " + m_fileName;
+            return fullTitle;
+         }
+      }
+
+
+      private bool m_isExpanded;
+      public bool IsExpanded 
+      {
+         get
+         {
+            return m_isExpanded;
+         }
+         set
+         {
+            m_isExpanded = value;
+            OnPropertyChanged( "IsExpanded" );
+         }
+      }
 
       public int GridSize
       {
@@ -218,31 +258,43 @@ namespace FractalTerrain.ViewModel
                m_model = result.Model;
                var mapper = new ViewModelAndSettingsMapper();
                mapper.MapSettingsToViewModel( result.Settings, this );
+               FileName = fileDialog.FileName;
+               IsExpanded = false;
                Update( true );
+            }
+            else
+            {
+               Message( result.Rating );
             }
          }
       }
 
       private void Message( Rating rating )
       {
-         //var messageBox = new Message
+         if( !rating.AllSatisfied)
+         {
+            var message = "";
+            if ( rating.CanNotOpenFile ) message = "Can not open file.";
+            else if ( rating.HasParseError ) message = "File is not a valid frac file.";
+            else if ( rating.HasUnkownVersion ) message = "Unknown file version.";
+            else if ( rating.HasMappingError ) message = "File is not loadable.";
+            if ( message != string.Empty )
+            {
+               MessageBoxResult result = MessageBox.Show( message );
+            }
+         }
       }
 
       public bool OnSaveCanBeExecuted()
       {
-         return true;
+         return ( FileName != string.Empty );
       }
 
       public void OnSave()
       {
-         var camera1 = CameraTopLeft;
-         var widthLeft = WidthLeft;
-         var widthRight = WidthRight;
-         var heightTop = HeightTop;
-         var heightBottom = HeightBottom;
          var writer = new FileWriter();
          var mapper = new ViewModelAndSettingsMapper();
-         writer.Write( m_model, mapper.CreateSettingsFromViewModel( this ), @"c:\tmp\test.frac" );
+         writer.Write( m_model, mapper.CreateSettingsFromViewModel( this ), FileName );
       }
 
 
@@ -254,11 +306,19 @@ namespace FractalTerrain.ViewModel
 
       public void OnSaveAs()
       {
-         this.CameraTopRight = new CameraSettings { AngleAxisEz = 90, AngleAxisEy = 90, Distance = 100 };
-         this.ColumnRatio = new GridLength(0.5,GridUnitType.Star);
-//         var writer = new FileWriter();
-//         var mapper = new ViewModelAndSettingsMapper();
-//         writer.Write( m_model, mapper.CreateSettingsFromViewModel( this ), @"c:\tmp\test.frac" );
+         SaveFileDialog saveFileDialog = new SaveFileDialog();
+         saveFileDialog.Filter = "frac files (*.frac)|*.frac|All files (*.*)|*.*";
+         saveFileDialog.FilterIndex = 2;
+         saveFileDialog.RestoreDirectory = true;
+         if ( saveFileDialog.ShowDialog() == true )
+         {
+            var fileName = saveFileDialog.FileName;
+            var writer = new FileWriter();
+            var mapper = new ViewModelAndSettingsMapper();
+            writer.Write( m_model, mapper.CreateSettingsFromViewModel( this ), fileName );
+            FileName = fileName;
+            IsExpanded = false;
+         }
       }
 
 

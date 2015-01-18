@@ -1,0 +1,21 @@
+[Header]
+FileType FractalTerrain
+Version V1.1
+
+[Data]
+MapSize 33
+AppleManMinimalPosition -2
+AppleManMaximalPosition 2
+AppleManMinimalSize 0.0005
+AppleManSize 0.316659348799488
+AppleManXStartPosition -0.290468844875465
+AppleManYStartPosition 0.796910094083914
+
+[Settings]
+HoricontalRatio 0.318957193434181
+VerticalRatio 0.5
+CameraTopLeft (79,19,150)
+CameraTopRight (64,23,150)
+CameraBottomLeft (-134,70,150)
+CameraBottomRight (14.3333333333334,21,150)
+CameraSetting (95,70,150)

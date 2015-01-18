@@ -67,6 +67,36 @@ namespace FractalTerrain.Gui
          }
       }
 
+
+      private static DependencyProperty ElementActualHeightProperty
+         = DependencyProperty.Register( "ElementActualHeight",
+                                        typeof( double ),
+                                        typeof( TerrainViewControl ),
+                                        new FrameworkPropertyMetadata
+                                        (
+                                            default( double ),
+                                            FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                                            OnActualHeightChanged
+                                        )
+                                      );
+      public double ElementActualHeight
+      {
+         get { return (double)GetValue( ElementActualHeightProperty ); }
+         set { var a = 0; a++; }
+      }
+      private void SetActualHeight( double value )
+      {
+         SetValue( ElementActualHeightProperty, value );
+      }
+      private static void OnActualHeightChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
+      {
+         var control = d as TerrainViewControl;
+         if ( control != null )
+         {
+            control.SetActualHeight( control.ActualHeight );
+         }
+      }
+
       public static readonly DependencyProperty CameraProperty = DependencyProperty.Register( "Camera", typeof( CameraSettings ), typeof( TerrainViewControl ), new FrameworkPropertyMetadata( default( CameraSettings ), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsRender, OnDependencyPropertyChanged ) );
       public CameraSettings Camera
       {
@@ -92,6 +122,7 @@ namespace FractalTerrain.Gui
       private void SetCamera( CameraSettings settings )
       {
          m_view3D.Camera.SetCamera( settings.AngleAxisEz, settings.AngleAxisEy, settings.Distance );
+         m_view3D.Render();
       }
 
       private void WriteCameraSettings()
@@ -106,6 +137,8 @@ namespace FractalTerrain.Gui
          {
             m_view3D.Resize();
             m_view3D.Render();
+            SetActualWidth( ActualWidth );
+            SetActualHeight( ActualHeight );
          }
       }
 
@@ -136,7 +169,6 @@ namespace FractalTerrain.Gui
                   m_view3D.Camera.OrbitYZ(dy);
                   m_view3D.Camera.OrbitXY(dx);
                   WriteCameraSettings();
-                  m_view3D.Render();
                }
             }
             if( ( inputEvent.RightButton == MouseButtonState.Pressed ) && ( inputEvent.LeftButton == MouseButtonState.Released ) )
@@ -146,7 +178,6 @@ namespace FractalTerrain.Gui
                {
                   m_view3D.Camera.Zoom(dy);
                   WriteCameraSettings();
-                  m_view3D.Render();
                }
             }
          }

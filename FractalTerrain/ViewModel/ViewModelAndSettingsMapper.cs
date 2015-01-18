@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
+
 namespace FractalTerrain.ViewModel
 {
    public class ViewModelAndSettingsMapper
@@ -7,15 +9,14 @@ namespace FractalTerrain.ViewModel
       {
          var settings = new ViewModelSettings
          {
-            HoricontalRatio = 0.5,
-            VerticalRatio = 0.5,
             CameraTopLeft = new CameraSettings( viewModel.CameraTopLeft ),
             CameraTopRight = new CameraSettings( viewModel.CameraTopRight ),
             CameraBottomLeft = new CameraSettings( viewModel.CameraBottomLeft ),
             CameraBottomRight = new CameraSettings( viewModel.CameraBottomRight ),
-            CameraSetting = new CameraSettings( viewModel.CameraSetting )
+            CameraSetting = new CameraSettings( viewModel.CameraSetting ),
+            HoricontalRatio = viewModel.WidthLeft / viewModel.WidthRight,
+            VerticalRatio = viewModel.HeightTop / viewModel.HeightBottom,
          };
-        
          return settings;
       }
 
@@ -26,8 +27,8 @@ namespace FractalTerrain.ViewModel
          viewModel.CameraBottomLeft = new CameraSettings( settings.CameraBottomLeft );
          viewModel.CameraBottomRight = new CameraSettings( settings.CameraBottomRight );
          viewModel.CameraSetting = new CameraSettings( settings.CameraSetting );
-         viewModel.ColumnRatio = new System.Windows.GridLength(settings.HoricontalRatio, System.Windows.GridUnitType.Star );
-         viewModel.RowRatio = new System.Windows.GridLength( settings.VerticalRatio, System.Windows.GridUnitType.Star );
+         viewModel.ColumnRatio = new GridLength(settings.HoricontalRatio, System.Windows.GridUnitType.Star );
+         viewModel.RowRatio = new GridLength( settings.VerticalRatio, System.Windows.GridUnitType.Star );
          return settings;
       }
    }

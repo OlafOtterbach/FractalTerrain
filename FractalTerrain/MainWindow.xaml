@@ -4,7 +4,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:FractalTerrain.ViewModel"
         xmlns:custom="clr-namespace:FractalTerrain.Gui"
-        Title="MainWindow"  WindowState="Maximized">
+        Title="{Binding Path=Title, Mode=OneWay}"  WindowState="Maximized">
     <Window.Resources>
         <Style TargetType="{x:Type Control}" x:Key="AdvancedGridSplitterPreview">
             <Setter Property="Template">
@@ -38,14 +38,18 @@
                 <ColumnDefinition Width="{Binding Path=ColumnRatio, Mode=TwoWay}"/>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <custom:TerrainViewControl Grid.Column="0" Grid.Row="0" Camera="{Binding Path=CameraTopLeft, Mode=TwoWay}" ElementActualWidth="{Binding Path=WidthLeft, Mode=OneWayToSource}"  />
-            <custom:TerrainViewControl Grid.Column="1" Grid.Row="0" Camera="{Binding Path=CameraTopRight, Mode=TwoWay}" />
-            <custom:TerrainViewControl Grid.Column="0" Grid.Row="1" Camera="{Binding Path=CameraBottomLeft, Mode=TwoWay}" />
+            <custom:TerrainViewControl Grid.Column="0" Grid.Row="0" Camera="{Binding Path=CameraTopLeft, Mode=TwoWay}" ElementActualWidth="{Binding Path=WidthLeft, Mode=OneWayToSource}" ElementActualHeight="{Binding Path=HeightTop, Mode=OneWayToSource}"  />
+            <custom:TerrainViewControl Grid.Column="1" Grid.Row="0" Camera="{Binding Path=CameraTopRight, Mode=TwoWay}" ElementActualWidth="{Binding Path=WidthRight, Mode=OneWayToSource}" />
+            <custom:TerrainViewControl Grid.Column="0" Grid.Row="1" Camera="{Binding Path=CameraBottomLeft, Mode=TwoWay}" ElementActualHeight="{Binding Path=HeightBottom, Mode=OneWayToSource}" />
             <custom:TerrainViewControl Grid.Column="1" Grid.Row="1" Camera="{Binding Path=CameraBottomRight, Mode=TwoWay}"  />
             <GridSplitter ShowsPreview="true" PreviewStyle="{StaticResource  AdvancedGridSplitterPreview}" Background="White" BorderThickness="1" BorderBrush="Black"  Width="8" Grid.Row="0"  Grid.Column="0" Grid.RowSpan="2"  ResizeDirection="Columns" HorizontalAlignment="Right"  VerticalAlignment="Stretch" />
             <GridSplitter ShowsPreview="true" PreviewStyle="{StaticResource AdvancedGridSplitterPreview}" Background="White" BorderThickness="1" BorderBrush="Black" Height="8" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" ResizeDirection="Rows" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
         </Grid>
-        <Expander BorderThickness="2" BorderBrush="White" Background="White" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" ExpandDirection="Down" Width="Auto" Height="Auto" Panel.ZIndex="1000" Header="Settings" >
+        <Expander BorderThickness="2" BorderBrush="White" 
+                  Background="White" FontSize="16" 
+                  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                  ExpandDirection="Down" Width="Auto" Height="Auto" 
+                  Panel.ZIndex="1000" Header="Settings" IsExpanded="{Binding Path=IsExpanded, Mode=TwoWay}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Collapsed" >
                     <i:InvokeCommandAction Command="{Binding Path=CommandStart}" />

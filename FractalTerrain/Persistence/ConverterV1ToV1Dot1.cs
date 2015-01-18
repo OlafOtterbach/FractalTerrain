@@ -9,7 +9,7 @@ namespace FractalTerrain.Persistence
       public override Context Convert( Context ctx )
       {
          var dataV1 = ctx.Data as DataV1;
-         var dataV1DotNet = new DataV1Dot1
+         ctx.Data = new DataV1Dot1
          {
             MapSize = dataV1.MapSize,
             AppleManXStartPosition = dataV1.AppleManXStartPosition,
@@ -18,11 +18,11 @@ namespace FractalTerrain.Persistence
             AppleManMinimalPosition = dataV1.AppleManMinimalPosition,
             AppleManMaximalPosition = dataV1.AppleManMaximalPosition,
             AppleManMinimalSize = dataV1.AppleManMinimalSize,
-            CameraTopLeft = new CameraSettings(),
-            CameraTopRight = new CameraSettings(),
-            CameraBottomLeft = new CameraSettings(),
-            CameraBottomRight = new CameraSettings(),
-            CameraSetting = new CameraSettings(),
+            CameraTopLeft     = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 },
+            CameraTopRight    = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 },
+            CameraBottomLeft  = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 },
+            CameraBottomRight = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 },
+            CameraSetting     = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 },
             HoricontalRatio = 1.0,
             VerticalRatio = 1.0
          };
