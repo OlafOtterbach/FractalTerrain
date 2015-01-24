@@ -98,5 +98,8 @@
                 </StackPanel>
             </Border>
         </Expander>
+        <Viewbox Name="Clock" Stretch="None" Visibility="Visible">
+            <custom:ClockViewControl IsActive="{Binding Path=ActiveClock}"/>
+        </Viewbox>
     </Grid>
 </Window>

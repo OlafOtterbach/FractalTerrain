@@ -67,6 +67,9 @@
     <Compile Include="Gui\TerrainViewControl.xaml.cs">
       <DependentUpon>TerrainViewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\ClockViewControl.xaml.cs">
+      <DependentUpon>ClockViewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Math\VectorInt.cs" />
     <Compile Include="Model\AppleManDataGenerator.cs" />
     <Compile Include="Model\AppleManData.cs" />
@@ -121,6 +124,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Gui\TerrainViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\ClockViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

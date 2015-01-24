@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="FractalTerrain.Gui.ClockViewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <BeginStoryboard x:Key="StoryBoard">
+            <Storyboard TargetName="ClockStoryBoard" TargetProperty="RenderTransform.(RotateTransform.Angle)">
+                <DoubleAnimation From="0" To="360" Duration="00:00:05" RepeatBehavior="Forever" />
+            </Storyboard>
+        </BeginStoryboard>
+    </UserControl.Resources>
+        <Canvas Width="204" Height="204">
+            <Path Stroke="Black" StrokeThickness="8" Fill="White" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                <Path.Data>
+                    <GeometryGroup>
+                        <EllipseGeometry RadiusX="100" RadiusY="100" Center="105,105" />
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+            <Path Stroke="White" StrokeThickness="1" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                <Path.Data>
+                    <GeometryGroup>
+                        <EllipseGeometry RadiusX="104" RadiusY="104" Center="105,105" />
+                    </GeometryGroup>
+                </Path.Data>
+            </Path>
+            <Path Name="ClockView1" Stroke="Black" StrokeThickness="8" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+        Data="M 105 5 V 15  M 5 105 H 15 M 105 205 V 195 M 205 105 H 195">
+                <Path.RenderTransform>
+                    <RotateTransform CenterX="105" CenterY="105" Angle="0" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Name="ClockView2" Stroke="Black" StrokeThickness="8" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+        Data="M 105 5 V 15  M 5 105 H 15 M 105 205 V 195 M 205 105 H 195">
+                <Path.RenderTransform>
+                    <RotateTransform CenterX="105" CenterY="105" Angle="30" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Name="ClockView3" Stroke="Black" StrokeThickness="8" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                    Data="M 105 5 V 15  M 5 105 H 15 M 105 205 V 195 M 205 105 H 195">
+                <Path.RenderTransform>
+                    <RotateTransform CenterX="105" CenterY="105" Angle="60" />
+                </Path.RenderTransform>
+            </Path>
+            <Path Name="ClockPointer" Stroke="Black" StrokeThickness="8" Fill="White" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                <Path.Data>
+                    <GeometryGroup>
+                        <LineGeometry StartPoint="105,105" EndPoint="105,25" />
+                    </GeometryGroup>
+                </Path.Data>
+                <Path.RenderTransform>
+                    <RotateTransform CenterX="105" CenterY="105" Angle="0" />
+                </Path.RenderTransform>
+            </Path>
+        </Canvas>
+</UserControl>

@@ -66,6 +66,20 @@ namespace FractalTerrain.ViewModel
          mAppleViews.Add(view);
       }
 
+      public bool ActiveClock 
+      { 
+         get
+         {
+            return m_ActiveClock;
+         }
+         set
+         {
+            m_ActiveClock = value;
+            OnPropertyChanged( "ActiveClock" );
+         }
+      }
+      private bool m_ActiveClock;
+
       public bool ParallelProcess { get; set; }
 
       public CameraSettings CameraTopLeft { get; set; }
