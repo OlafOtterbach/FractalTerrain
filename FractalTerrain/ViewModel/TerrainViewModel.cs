@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System;
 using System.Windows;
+using System.IO;
 
 namespace FractalTerrain.ViewModel
 {
@@ -355,17 +356,23 @@ namespace FractalTerrain.ViewModel
 
       private void Update( bool renderTerrain )
       {
-         if ( !m_backWorker.IsBusy )
+         if ( renderTerrain )
          {
-            IsRenderTerrain = renderTerrain;
-            ActiveClock = true;
-            m_backWorker.RunWorkerAsync();
+            if ( !m_backWorker.IsBusy )
+            {
+               ActiveClock = true;
+               m_backWorker.RunWorkerAsync();
+            }
+         }
+         else
+         {
+            m_model.UpdateAppleMan();
+            mAppleViews.ForEach( v => { v.Update(); } );
+            mAppleViews.ForEach( v => { v.Render(); } );
+            PropertiesChanged();
          }
       }
 
-      private bool IsRenderTerrain { get; set; }
-
-      private BackgroundWorker m_backWorker;
       private void DoCalculate( object sender, DoWorkEventArgs e)
       {
          m_model.Update();
@@ -377,11 +384,13 @@ namespace FractalTerrain.ViewModel
          ActiveClock = false;
          mAppleViews.ForEach( v => { v.Update(); } );
          mAppleViews.ForEach( v => { v.Render(); } );
-         if ( IsRenderTerrain )
-         {
-            mTerrainViews.ForEach( v => { v.Update(); } );
-            mTerrainViews.ForEach( v => { v.Render(); } );
-         }
+         mTerrainViews.ForEach( v => { v.Update(); } );
+         mTerrainViews.ForEach( v => { v.Render(); } );
+         PropertiesChanged();
+      }
+
+      private void PropertiesChanged()
+      {
          OnPropertyChanged( "GridSize" );
          OnPropertyChanged( "AppleManXStartPosition" );
          OnPropertyChanged( "AppleManYStartPosition" );
@@ -418,5 +427,7 @@ namespace FractalTerrain.ViewModel
       }
 
       private TerrainModel m_model;
+
+      private BackgroundWorker m_backWorker;
    }
 }

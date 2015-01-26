@@ -44,8 +44,7 @@ namespace FractalTerrain.View
             DrawAppleMan();
          }
       }
-
-
+      
       private void Resize(int width, int height, int alignWidth)
       {
          m_width = width;
