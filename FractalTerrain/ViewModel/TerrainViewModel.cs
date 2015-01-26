@@ -18,6 +18,10 @@ namespace FractalTerrain.ViewModel
    {
       public TerrainViewModel()
       {
+         m_backWorker = new BackgroundWorker();
+         m_backWorker.DoWork += new DoWorkEventHandler( DoCalculate );
+         m_backWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackCompleted);
+
          FileName = "";
 
          CameraTopLeft = new CameraSettings { AngleAxisEz = 45.0, AngleAxisEy = 25.0, Distance = 150.0 };
@@ -38,6 +42,8 @@ namespace FractalTerrain.ViewModel
          CommandOpen = new GuiButtonCommand(() => OnOpen(), () => OnOpenCanBeExecuted());
          CommandSave = new GuiButtonCommand(() => OnSave(), () => OnSaveCanBeExecuted());
          CommandSaveAs = new GuiButtonCommand(() => OnSaveAs(), () => OnSaveAsCanBeExecuted());
+
+         ActiveClock = false;
       }
 
       public event PropertyChangedEventHandler PropertyChanged;
@@ -333,6 +339,7 @@ namespace FractalTerrain.ViewModel
             FileName = fileName;
             IsExpanded = false;
          }
+
       }
 
 
@@ -348,11 +355,29 @@ namespace FractalTerrain.ViewModel
 
       private void Update( bool renderTerrain )
       {
+         if ( !m_backWorker.IsBusy )
+         {
+            IsRenderTerrain = renderTerrain;
+            ActiveClock = true;
+            m_backWorker.RunWorkerAsync();
+         }
+      }
+
+      private bool IsRenderTerrain { get; set; }
+
+      private BackgroundWorker m_backWorker;
+      private void DoCalculate( object sender, DoWorkEventArgs e)
+      {
          m_model.Update();
          VisualModel.InitTerrain( m_model );
+      }
+
+      private void BackCompleted( object sender, RunWorkerCompletedEventArgs e)
+      {
+         ActiveClock = false;
          mAppleViews.ForEach( v => { v.Update(); } );
          mAppleViews.ForEach( v => { v.Render(); } );
-         if ( renderTerrain )
+         if ( IsRenderTerrain )
          {
             mTerrainViews.ForEach( v => { v.Update(); } );
             mTerrainViews.ForEach( v => { v.Render(); } );
@@ -376,7 +401,6 @@ namespace FractalTerrain.ViewModel
          OnPropertyChanged( "HeightTop" );
          OnPropertyChanged( "HeightBottom" );
       }
-
 
       private void RenderTerrain()
       {

@@ -6,11 +6,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <BeginStoryboard x:Key="StoryBoard">
-            <Storyboard TargetName="ClockStoryBoard" TargetProperty="RenderTransform.(RotateTransform.Angle)">
-                <DoubleAnimation From="0" To="360" Duration="00:00:05" RepeatBehavior="Forever" />
-            </Storyboard>
-        </BeginStoryboard>
+        <Storyboard x:Key="ClockStoryBoard" TargetName="ClockPointer" TargetProperty="RenderTransform.(RotateTransform.Angle)">
+            <DoubleAnimation From="0" To="360" Duration="00:00:05" RepeatBehavior="Forever" />
+        </Storyboard>
     </UserControl.Resources>
         <Canvas Width="204" Height="204">
             <Path Stroke="Black" StrokeThickness="8" Fill="White" StrokeStartLineCap="Round" StrokeEndLineCap="Round">

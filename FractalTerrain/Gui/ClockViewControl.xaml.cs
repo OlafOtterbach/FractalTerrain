@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -58,11 +59,21 @@ namespace FractalTerrain.Gui
       private void ShowClock()
       {
          this.Visibility = Visibility.Visible;
+         Storyboard storyboard = this.TryFindResource( "ClockStoryBoard" ) as Storyboard;
+         if( storyboard != null )
+         {
+            storyboard.Begin();
+         }
       }
 
       private void HideClock()
       {
          this.Visibility = Visibility.Hidden;
+         Storyboard storyboard = this.TryFindResource( "ClockStoryBoard" ) as Storyboard;
+         if ( storyboard != null )
+         {
+            storyboard.Stop();
+         }
       }
    }
 }
