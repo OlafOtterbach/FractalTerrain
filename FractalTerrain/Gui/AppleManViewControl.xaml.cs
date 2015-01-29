@@ -27,6 +27,32 @@ namespace FractalTerrain.Gui
          appleImage.MouseDown += new System.Windows.Input.MouseButtonEventHandler(OnMouseDown);
       }
 
+      public static readonly DependencyProperty AppleManSettingsProperty = DependencyProperty.Register( "AppleManSettings", typeof( AppleManSettings ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
+      public AppleManSettings AppleManSettings
+      {
+         get
+         {
+            return (AppleManSettings)GetValue( AppleManSettingsProperty );
+         }
+         set
+         {
+            SetValue( AppleManSettingsProperty, value );
+         }
+      }
+      private static void OnAppleManSettingsChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
+      {
+         var control = d as AppleManViewControl;
+         if ( control != null )
+         {
+            control.SetAppleManSettings( control.AppleManSettings );
+         }
+      }
+      private void SetAppleManSettings( AppleManSettings settings )
+      {
+         AppleManMinimum = settings.AppleManMinimalPosition;
+      }
+
+
       public static readonly DependencyProperty AppleManMinimumProperty = DependencyProperty.Register( "AppleManMinimum", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManMinimum
       {

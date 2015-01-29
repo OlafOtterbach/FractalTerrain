@@ -34,7 +34,6 @@ namespace FractalTerrain.Model
          set
          {
             m_mapSize = value;
-//            CleanUp();
          }
       }
 
