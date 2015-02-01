@@ -104,7 +104,7 @@
     <Compile Include="ViewModel\ViewModelAndSettingsMapper.cs" />
     <Compile Include="ViewModel\ViewModelSettings.cs" />
     <Compile Include="View\AppleManSettings.cs" />
-    <Compile Include="View\AppleManViewWpf.cs" />
+    <Compile Include="View\AppleManView.cs" />
     <Compile Include="View\Canvas2D.cs" />
     <Compile Include="View\Canvas2DWpf.cs" />
     <Compile Include="Math\DoubleExtensions.cs" />

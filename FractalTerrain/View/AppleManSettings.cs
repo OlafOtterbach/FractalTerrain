@@ -2,7 +2,22 @@
 {
    public class AppleManSettings
    {
-      public double[,] Map { get; private set; }
+      public AppleManSettings()
+      {}
+
+      public AppleManSettings( AppleManSettings settings )
+      {
+         Map = settings.Map;
+         MapSize = settings.MapSize;
+         AppleManXStartPosition = settings.AppleManXStartPosition;
+         AppleManYStartPosition = settings.AppleManYStartPosition;
+         AppleManSize = settings.AppleManSize;
+         AppleManMinimalSize = settings.AppleManMinimalSize;
+         AppleManMinimalPosition = settings.AppleManMinimalPosition;
+         AppleManMaximalPosition = settings.AppleManMaximalPosition;
+      }
+
+      public double[,] Map { get; set; }
 
       public int MapSize { get; set; }
 

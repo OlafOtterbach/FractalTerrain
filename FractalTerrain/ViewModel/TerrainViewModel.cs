@@ -34,7 +34,6 @@ namespace FractalTerrain.ViewModel
          RowRatio = new GridLength( 1, GridUnitType.Star );
 
          mTerrainViews = new List<TerrainView3D>();
-         mAppleViews = new List<AppleManViewWpf>();
          VisualModel = new VisualModel();
 
          CreateTerrainModel();
@@ -62,15 +61,6 @@ namespace FractalTerrain.ViewModel
       public void Register(TerrainView3D view)
       {
          mTerrainViews.Add(view);
-      }
-
-      private List<AppleManViewWpf> AppleViews { get { return mAppleViews; } }
-
-      private List<AppleManViewWpf> mAppleViews;
-
-      public void Register(AppleManViewWpf view)
-      {
-         mAppleViews.Add(view);
       }
 
       public bool ActiveClock 
@@ -147,79 +137,42 @@ namespace FractalTerrain.ViewModel
          }
          set
          {
-            var save = value;
-            m_model.MapSize = save;
+            m_model.MapSize = value;
             OnPropertyChanged("GridSize");
             Update(ParallelProcess);
          }
       }
 
-
-      public double AppleManMaximumSize
+      public AppleManSettings AppleManSettings
       {
          get
          {
-            return m_model.AppleManMaximalPosition + m_model.AppleManMinimalSize - m_model.AppleManMinimalPosition;
-         }
-      }
-
-      public double AppleManMinimum
-      {
-         get
-         {
-            return m_model.AppleManMinimalPosition;
-         }
-      }
-
-      public double AppleManMaximum
-      {
-         get
-         {
-            return m_model.AppleManMaximalPosition;
-         }
-      }
-
-      public double AppleManSize
-      {
-         get
-         {
-            return m_model.AppleManSize;
+            var settings = new AppleManSettings
+            {
+               Map = m_model.AppleManData.Map,
+               MapSize = m_model.AppleManData.Size,
+               AppleManXStartPosition = m_model.AppleManXStartPosition,
+               AppleManYStartPosition = m_model.AppleManYStartPosition,
+               AppleManSize = m_model.AppleManSize,
+               AppleManMinimalSize = m_model.AppleManMinimalSize,
+               AppleManMinimalPosition = m_model.AppleManMinimalPosition,
+               AppleManMaximalPosition = m_model.AppleManMaximalPosition
+            };
+            return settings;
          }
          set
          {
-            m_model.AppleManSize = value;
+            var settings = value;
+            m_model.AppleManXStartPosition = settings.AppleManXStartPosition;
+            m_model.AppleManYStartPosition = settings.AppleManYStartPosition;
+            m_model.AppleManSize = settings.AppleManSize;
+            m_model.AppleManMinimalSize = settings.AppleManMinimalSize;
+            m_model.AppleManMinimalPosition = settings.AppleManMinimalPosition;
+            m_model.AppleManMaximalPosition = settings.AppleManMaximalPosition;
             Update(ParallelProcess);
+            OnPropertyChanged("AppleManSettings");
          }
       }
-
-
-      public double AppleManXStartPosition
-      {
-         get
-         {
-            return m_model.AppleManXStartPosition;
-         }
-         set
-         {
-            m_model.AppleManXStartPosition = value;
-            Update(ParallelProcess);
-         }
-      }
-
-
-      public double AppleManYStartPosition
-      {
-         get
-         {
-            return m_model.AppleManYStartPosition;
-         }
-         set
-         {
-            m_model.AppleManYStartPosition = value;
-            Update(ParallelProcess);
-         }
-      }
-
 
 
       public void Resize()
@@ -344,7 +297,6 @@ namespace FractalTerrain.ViewModel
       }
 
 
-      // Create the OnPropertyChanged method to raise the event
       protected void OnPropertyChanged(string name)
       {
          PropertyChangedEventHandler handler = PropertyChanged;
@@ -367,8 +319,6 @@ namespace FractalTerrain.ViewModel
          else
          {
             m_model.UpdateAppleMan();
-            mAppleViews.ForEach( v => { v.Update(); } );
-            mAppleViews.ForEach( v => { v.Render(); } );
             PropertiesChanged();
          }
       }
@@ -382,8 +332,6 @@ namespace FractalTerrain.ViewModel
       private void BackCompleted( object sender, RunWorkerCompletedEventArgs e)
       {
          ActiveClock = false;
-         mAppleViews.ForEach( v => { v.Update(); } );
-         mAppleViews.ForEach( v => { v.Render(); } );
          mTerrainViews.ForEach( v => { v.Update(); } );
          mTerrainViews.ForEach( v => { v.Render(); } );
          PropertiesChanged();
@@ -391,13 +339,8 @@ namespace FractalTerrain.ViewModel
 
       private void PropertiesChanged()
       {
+         OnPropertyChanged("AppleManSettings");
          OnPropertyChanged( "GridSize" );
-         OnPropertyChanged( "AppleManXStartPosition" );
-         OnPropertyChanged( "AppleManYStartPosition" );
-         OnPropertyChanged( "AppleManSize" );
-         OnPropertyChanged( "AppleManMaximumSize" );
-         OnPropertyChanged( "AppleManMinimum" );
-         OnPropertyChanged( "AppleManMaximum" );
          OnPropertyChanged( "CameraTopLeft" );
          OnPropertyChanged( "CameraTopRight" );
          OnPropertyChanged( "CameraBottomLeft" );

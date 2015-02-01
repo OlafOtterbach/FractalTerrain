@@ -2,7 +2,6 @@
 /// <author>Olaf Otterbach</author>
 
 using FractalTerrain.View;
-using FractalTerrain.ViewModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,24 +9,32 @@ using System.Windows.Input;
 
 namespace FractalTerrain.Gui
 {
-   public partial class AppleManViewControl : UserControl
+   public partial class AppleManViewControl : UserControl, INotifyPropertyChanged
    {
       public AppleManViewControl()
       {
          InitializeComponent();
-         var parent = Application.Current.MainWindow;
-         m_viewModel = parent.DataContext as TerrainViewModel;
 
          var appleImage = this.AppleImage;
-         var appleManView = new AppleManViewWpf(appleImage);
-         m_viewModel.Register( appleManView );
-         appleManView.ViewModel = m_viewModel;
-
+         m_appleManView = new AppleManView(appleImage);
          appleImage.MouseMove += new System.Windows.Input.MouseEventHandler(OnMouseMove);
          appleImage.MouseDown += new System.Windows.Input.MouseButtonEventHandler(OnMouseDown);
       }
 
-      public static readonly DependencyProperty AppleManSettingsProperty = DependencyProperty.Register( "AppleManSettings", typeof( AppleManSettings ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
+      private AppleManView m_appleManView;
+
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      protected void OnPropertyChanged( string name )
+      {
+         PropertyChangedEventHandler handler = PropertyChanged;
+         if ( handler != null )
+         {
+            handler( this, new PropertyChangedEventArgs( name ) );
+         }
+      }
+
+      public static readonly DependencyProperty AppleManSettingsProperty = DependencyProperty.Register("AppleManSettings", typeof(AppleManSettings), typeof(AppleManViewControl), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsRender, OnAppleManSettingsChanged));
       public AppleManSettings AppleManSettings
       {
          get
@@ -44,90 +51,118 @@ namespace FractalTerrain.Gui
          var control = d as AppleManViewControl;
          if ( control != null )
          {
-            control.SetAppleManSettings( control.AppleManSettings );
+            control.UpdateControl();
          }
       }
-      private void SetAppleManSettings( AppleManSettings settings )
+
+
+      private void UpdateControl()
       {
-         AppleManMinimum = settings.AppleManMinimalPosition;
+         OnPropertyChanged("AppleManMinimalSize");
+         OnPropertyChanged("AppleManMaximumSize");
+         OnPropertyChanged("AppleManMinimum");
+         OnPropertyChanged("AppleManMaximum");
+         OnPropertyChanged("AppleManSize");
+         OnPropertyChanged("AppleManXStartPosition");
+         OnPropertyChanged("AppleManYStartPosition");
+         m_appleManView.Update(AppleManSettings);
+         m_appleManView.Render();
       }
 
+      private void UpdateSettings()
+      {
+         AppleManSettings = new AppleManSettings(AppleManSettings);
+      }
 
-      public static readonly DependencyProperty AppleManMinimumProperty = DependencyProperty.Register( "AppleManMinimum", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManMinimum
       {
          get
          {
-            return (double)GetValue( AppleManMinimumProperty );
+            return AppleManSettings.AppleManMinimalPosition;
          }
          set
          {
-            SetValue( AppleManMinimumProperty, value );
+            AppleManSettings.AppleManMinimalPosition = value;
+            OnPropertyChanged( "AppleManMinimum" );
+            UpdateSettings();
          }
       }
 
-      public static readonly DependencyProperty AppleManMaximumProperty = DependencyProperty.Register( "AppleManMaximum", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManMaximum
       {
          get
          {
-            return (double)GetValue( AppleManMaximumProperty );
+            return AppleManSettings.AppleManMaximalPosition;
          }
          set
          {
-            SetValue( AppleManMaximumProperty, value );
+            AppleManSettings.AppleManMaximalPosition = value;
+            OnPropertyChanged( "AppleManMaximum" );
+            UpdateSettings();
          }
       }
 
-      public static readonly DependencyProperty AppleManMaximumSizeProperty = DependencyProperty.Register( "AppleManMaximumSize", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
+      public double AppleManMinimalSize 
+      {
+         get
+         {
+            return AppleManSettings.AppleManMinimalSize;
+         }
+         set
+         {
+            AppleManSettings.AppleManMinimalSize = value;
+            OnPropertyChanged("AppleManMinimalSize");
+            UpdateSettings();
+         }
+      }
+
       public double AppleManMaximumSize
       {
          get
          {
-            return (double)GetValue( AppleManMaximumSizeProperty );
-         }
-         set
-         {
-            SetValue( AppleManMaximumSizeProperty, value );
+            return AppleManSettings.AppleManMaximalPosition + AppleManSettings.AppleManMinimalSize - AppleManSettings.AppleManMinimalPosition;
          }
       }
 
-      public static readonly DependencyProperty AppleManSizeProperty = DependencyProperty.Register( "AppleManSize", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManSize
       {
          get
          {
-            return (double)GetValue( AppleManSizeProperty );
+            return AppleManSettings.AppleManSize;
          }
          set
          {
-            SetValue( AppleManSizeProperty, value );
+            AppleManSettings.AppleManSize = value;
+            OnPropertyChanged( "AppleManSize" );
+            UpdateSettings();
          }
       }
 
-      public static readonly DependencyProperty AppleManXStartPositionProperty = DependencyProperty.Register( "AppleManXStartPosition", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManXStartPosition
       {
          get
          {
-            return (double)GetValue( AppleManXStartPositionProperty );
+            return AppleManSettings.AppleManXStartPosition;
          }
          set
          {
-            SetValue( AppleManXStartPositionProperty, value );
+            AppleManSettings.AppleManXStartPosition = value;
+            OnPropertyChanged( "AppleManXStartPosition" );
+            UpdateSettings();
          }
       }
 
-      public static readonly DependencyProperty AppleManYStartPositionProperty = DependencyProperty.Register( "AppleManYStartPosition", typeof( double ), typeof( AppleManViewControl ), new FrameworkPropertyMetadata( 1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault ) );
       public double AppleManYStartPosition
       {
          get
          {
-            return (double)GetValue( AppleManYStartPositionProperty );
+            return AppleManSettings.AppleManYStartPosition;
          }
          set
          {
-            SetValue( AppleManYStartPositionProperty, value );
+            AppleManSettings.AppleManYStartPosition = value;
+            OnPropertyChanged( "AppleManYStartPosition" );
+            UpdateSettings();
          }
       }
 
@@ -156,35 +191,34 @@ namespace FractalTerrain.Gui
 
       private void Move(Vector deltaMovement)
       {
-         var parent = Application.Current.MainWindow;
-         var viewModel = parent.DataContext as TerrainViewModel;
          var appleImage = this.AppleImage;
-
-         var size = viewModel.AppleManSize;
+         var size = AppleManSize;
          var width = appleImage.ActualWidth;
          var height = appleImage.ActualHeight;
          var deltaX = deltaMovement.X * ( size / width );
          var deltaY = deltaMovement.Y * ( size / height );
-         var xpos = viewModel.AppleManXStartPosition - deltaX;
-         var ypos = viewModel.AppleManYStartPosition - deltaY;
+         var xpos = AppleManXStartPosition - deltaX;
+         var ypos = AppleManYStartPosition - deltaY;
 
-         viewModel.AppleManXStartPosition = xpos;
-         viewModel.AppleManYStartPosition = ypos;
+         AppleManSettings.AppleManXStartPosition = xpos;
+         AppleManSettings.AppleManYStartPosition = ypos;
+         OnPropertyChanged( "AppleManXStartPosition" );
+         OnPropertyChanged( "AppleManYStartPosition" );
+         UpdateSettings();
       }
 
       private void Zoom(Vector deltaZoom)
       {
-         var parent = Application.Current.MainWindow;
-         var viewModel = parent.DataContext as TerrainViewModel;
          const double factor = 0.1;
          var sign = deltaZoom.Y > 0.0 ? 1.0 : -1.0;
-         var size = viewModel.AppleManSize;
+         var size = AppleManSettings.AppleManSize;
          size = size * ( 1.0 - sign * factor );
-         viewModel.AppleManSize = size;
+         AppleManSettings.AppleManSize = size;
+
+         OnPropertyChanged( "AppleManSize" );
+         UpdateSettings();
       }
 
       private Point m_mousePosition;
-
-      private TerrainViewModel m_viewModel;
    }
 }
