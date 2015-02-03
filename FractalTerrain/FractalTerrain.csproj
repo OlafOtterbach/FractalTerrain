@@ -118,7 +118,8 @@
     <Compile Include="Math\Vector3DExtensions.cs" />
     <Compile Include="View\ViewCamera.cs" />
     <Compile Include="View\VisualLine.cs" />
-    <Compile Include="View\VisualModel.cs" />
+    <Compile Include="View\VisualTerrainModel.cs" />
+    <Compile Include="View\VisualTerrainModelCreator.cs" />
     <Compile Include="View\VisualVertex.cs" />
     <Page Include="Gui\AppleManViewControl.xaml">
       <SubType>Designer</SubType>

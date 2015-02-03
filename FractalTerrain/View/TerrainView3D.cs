@@ -60,7 +60,7 @@ namespace FractalTerrain.View
          {
             return;
          }
-         var middle = ViewModel.VisualModel.Minimum + ( ViewModel.VisualModel.Maximum - ViewModel.VisualModel.Minimum ) / 2.0;
+         var middle = ViewModel.VisualTerrainModel.Minimum + (ViewModel.VisualTerrainModel.Maximum - ViewModel.VisualTerrainModel.Minimum) / 2.0;
          Camera.MoveTo(middle);
       }
 
@@ -72,14 +72,43 @@ namespace FractalTerrain.View
       }
 
 
-      public void DrawTerrain()
+      public void Update(VisualTerrainModel visualModel)
       {
-         if( ( ViewModel == null ) || ( !ViewModel.VisualModel.IsValid ) )
+         if (visualModel == null)
+         {
+            return;
+         }
+         var middle = visualModel.Minimum + (visualModel.Maximum - visualModel.Minimum) / 2.0;
+         Camera.MoveTo(middle);
+      }
+
+
+      public void Render(VisualTerrainModel visualModel)
+      {
+         DrawTerrain(visualModel);
+         m_canvas.Refresh();
+      }
+
+
+      public void DrawTerrain(VisualTerrainModel visualModel)
+      {
+         if ((visualModel == null) || (!visualModel.IsValid))
          {
             return;
          }
          m_canvas.Clear();
-         ViewModel.VisualModel.GetGeometryLines(Camera).ToList().ForEach(DrawLine);
+         visualModel.GetGeometryLines(Camera).ToList().ForEach(DrawLine);
+      }
+
+
+      public void DrawTerrain()
+      {
+         if ((ViewModel.VisualTerrainModel == null) || (!ViewModel.VisualTerrainModel.IsValid))
+         {
+            return;
+         }
+         m_canvas.Clear();
+         ViewModel.VisualTerrainModel.GetGeometryLines(Camera).ToList().ForEach(DrawLine);
       }
 
 

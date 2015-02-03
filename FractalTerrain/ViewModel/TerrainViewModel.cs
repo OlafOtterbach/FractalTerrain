@@ -34,7 +34,6 @@ namespace FractalTerrain.ViewModel
          RowRatio = new GridLength( 1, GridUnitType.Star );
 
          mTerrainViews = new List<TerrainView3D>();
-         VisualModel = new VisualModel();
 
          CreateTerrainModel();
          CommandStart = new GuiButtonCommand(() => OnStart(), () => OnStartCanBeExecuted());
@@ -174,6 +173,20 @@ namespace FractalTerrain.ViewModel
          }
       }
 
+      private VisualTerrainModel m_visualTerrainModel;
+      public VisualTerrainModel VisualTerrainModel
+      { 
+         get
+         {
+            return m_visualTerrainModel;
+         }
+         set
+         {
+            m_visualTerrainModel = value;
+            OnPropertyChanged("VisualTerrainModel");
+         }
+      }
+
 
       public void Resize()
       {
@@ -181,7 +194,6 @@ namespace FractalTerrain.ViewModel
          mTerrainViews.ForEach(v => { v.Render(); });
       }
 
-      public VisualModel VisualModel { get; private set; }
 
       public TerrainModel ActualModel
       {
@@ -326,14 +338,15 @@ namespace FractalTerrain.ViewModel
       private void DoCalculate( object sender, DoWorkEventArgs e)
       {
          m_model.Update();
-         VisualModel.InitTerrain( m_model );
+//         VisualTerrainModel.InitTerrain(m_model);
       }
 
       private void BackCompleted( object sender, RunWorkerCompletedEventArgs e)
       {
          ActiveClock = false;
-         mTerrainViews.ForEach( v => { v.Update(); } );
-         mTerrainViews.ForEach( v => { v.Render(); } );
+         VisualTerrainModel = VisualTerrainModelCreator.CreateVisualModel(m_model);
+         mTerrainViews.ForEach(v => { v.Update(VisualTerrainModel); });
+         mTerrainViews.ForEach(v => { v.Render(VisualTerrainModel); });
          PropertiesChanged();
       }
 
