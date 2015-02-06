@@ -54,24 +54,6 @@ namespace FractalTerrain.View
       }
 
 
-      public void Update()
-      {
-         if( ViewModel == null || ViewModel == null)
-         {
-            return;
-         }
-         var middle = ViewModel.VisualTerrainModel.Minimum + (ViewModel.VisualTerrainModel.Maximum - ViewModel.VisualTerrainModel.Minimum) / 2.0;
-         Camera.MoveTo(middle);
-      }
-
-
-      public void Render()
-      {
-         DrawTerrain();
-         m_canvas.Refresh();
-      }
-
-
       public void Update(VisualTerrainModel visualModel)
       {
          if (visualModel == null)
@@ -90,7 +72,7 @@ namespace FractalTerrain.View
       }
 
 
-      public void DrawTerrain(VisualTerrainModel visualModel)
+      private void DrawTerrain(VisualTerrainModel visualModel)
       {
          if ((visualModel == null) || (!visualModel.IsValid))
          {
@@ -98,17 +80,6 @@ namespace FractalTerrain.View
          }
          m_canvas.Clear();
          visualModel.GetGeometryLines(Camera).ToList().ForEach(DrawLine);
-      }
-
-
-      public void DrawTerrain()
-      {
-         if ((ViewModel.VisualTerrainModel == null) || (!ViewModel.VisualTerrainModel.IsValid))
-         {
-            return;
-         }
-         m_canvas.Clear();
-         ViewModel.VisualTerrainModel.GetGeometryLines(Camera).ToList().ForEach(DrawLine);
       }
 
 
@@ -139,52 +110,6 @@ namespace FractalTerrain.View
       }
 
 
-      /// <summary>
-      /// Gets the projection of a point in space.
-      /// </summary>
-      /// <param name="canvasWidth">Width of the canvas</param>
-      /// <param name="canvasHeight">Height of the canvas</param>
-      /// <param name="nearPlaneDist">Distance from camera origin to projection plane</param>
-      /// <param name="point">Point in camera frame</param>
-      /// <returns>Point on projection plane</returns>
-      /*
-      public static Point GetProjectionOfPoint(double canvasWidth, double canvasHeight, double nearPlaneDist, Point3D point)
-      {
-         // Create projection matrix
-         double width = canvasWidth; ;
-         double height = canvasHeight;
-         double ratio = width / height;
-         if (ratio <= 0.0)
-         {
-            ratio = 1.0;
-         }
-         double ypos = point.Y;
-         double xpos = point.X;
-         double zpos = point.Z;
-         double x = (nearPlaneDist / ypos) * xpos;
-         double y = (nearPlaneDist / ypos) * zpos;
-         x = x * width + width / 2.0;
-         y = y * width / ratio + height / 2.0;
-
-         double ratio = width / height;
-         if( ratio <= 0.0 )
-         {
-            ratio = 1.0;
-         }
-         double projectionHeight = t_projectionWidth / ratio;
-         x = x + t_projectionWidth / 2.0;
-         y = y + projectionHeight / 2.0;
-         x = x * width / t_projectionWidth;
-         y = y * height / projectionHeight;
-         t_xwin = (int)x;
-         t_ywin = t_height - 1 - (int)( y );
-  
-
-
-         return new Point(x, y);
-      }
-*/
-
       public static Point GetProjectionOfPoint(double canvasWidth, double canvasHeight, double nearPlaneDist, Point3D point)
       {
          // Create projection matrix
@@ -205,7 +130,6 @@ namespace FractalTerrain.View
          y = y * size + height / 2.0;
          return new Point(x, y);
       }
-
 
 
       /// <summary>

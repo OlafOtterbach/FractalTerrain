@@ -26,15 +26,26 @@ namespace FractalTerrain.View
 
       public VisualVertex[] Vertices{get; set;}
 
-      public double Size{ get; set;}
+      public int MapSize
+      {
+         get
+         {
+            return m_mapSize;
+         }
+         set
+         {
+            m_mapSize = value;
+         }
+      }
 
       public IEnumerable<VisualLine> GetGeometryLines( ViewCamera camera )
       {
+         var mapSize = MapSize;
          var cameraOffset = camera.Offset.Offset();
          var offset = new Point3D(cameraOffset.X, cameraOffset.Y, 0.0);
-         var max = Size - 1;
+         var max = m_mapSize - 1;
          var positions = new List<VectorInt>() { new VectorInt(0, 0), new VectorInt(max, 0), new VectorInt(0, max), new VectorInt(max, max) };
-         var positionAndVertex = positions.Select(pos => new { Position = pos, Vertex = Vertices[pos.Y * Size + pos.X].Vertex }).ToList();
+         var positionAndVertex = positions.Select(pos => new { Position = pos, Vertex = Vertices[pos.Y *m_mapSize + pos.X].Vertex }).ToList();
          var positionAndDistance = positionAndVertex.Select(x => new { Position = x.Position, Distance = ( x.Vertex - offset ).Length }).OrderBy( x => x.Distance ).ToList();
          var start = positionAndDistance[0].Position;
          var xEnd = positionAndDistance[1].Position;
@@ -54,15 +65,15 @@ namespace FractalTerrain.View
       {
          var xDirection = GetDirection(xDirectionVector);
          var yDirection = GetDirection(yDirectionVector);
-         var count = Size * Size * 2;
+         var count = m_mapSize * m_mapSize * 2;
          var lines = new VisualLine[count];
-         Parallel.For( 0, Size, y =>
+         Parallel.For(0, m_mapSize, y =>
          {
             var pos = start + y * yDirectionVector;
-            for( int x = 0; x < Size; x++ )
+            for (int x = 0; x < m_mapSize; x++)
             {
-               var index = pos.Y * Size + pos.X;
-               var lineIndex = 2 * (y * Size + x );
+               var index = pos.Y * m_mapSize + pos.X;
+               var lineIndex = 2 * (y * m_mapSize + x);
                lines[lineIndex] = ( Vertices[index].GetLineOfDirection(xDirection) );
                lines[lineIndex + 1] = ( Vertices[index].GetLineOfDirection(yDirection) );
                pos = pos + xDirectionVector;
@@ -88,5 +99,7 @@ namespace FractalTerrain.View
          }
          return direction;
       }
+
+      private int m_mapSize;
    }
 }

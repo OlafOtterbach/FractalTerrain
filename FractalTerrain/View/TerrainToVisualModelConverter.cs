@@ -1,16 +1,14 @@
 ﻿using FractalTerrain.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 
 namespace FractalTerrain.View
 {
-   static class VisualTerrainModelCreator
+   static class TerrainToVisualModelConverter
    {
-      public static VisualTerrainModel CreateVisualModel(TerrainModel model)
+      public static VisualTerrainModel Convert(TerrainModel model)
       {
          var terrainModel = model.TerrainModelData;
          var visualTerrainModel = new VisualTerrainModel(100.0);
@@ -26,17 +24,18 @@ namespace FractalTerrain.View
          var vertices = new VisualVertex[terrainModel.Size * terrainModel.Size];
          var height = visualTerrainModel.HeightFactor;
          var size = 100.0;
-         var step = size / (terrainModel.Size - 1);
-         Parallel.For(0, terrainModel.Size, y =>
+         var mapSize = terrainModel.Size;
+         var step = size / (mapSize - 1);
+         Parallel.For(0, mapSize, y =>
          {
-            for (var x = 0; x < terrainModel.Size; x++)
+            for (var x = 0; x < mapSize; x++)
             {
-               var index = x + y * terrainModel.Size;
+               var index = x + y * mapSize;
                vertices[index] = new VisualVertex();
                vertices[index].Vertex = new Point3D(x * step - size / 2.0, y * step - size / 2.0, terrainModel.Terrain[x, y] * height);
             }
          });
-         visualTerrainModel.Size = size;
+         visualTerrainModel.MapSize = mapSize;
          visualTerrainModel.Vertices = vertices;
       }
 

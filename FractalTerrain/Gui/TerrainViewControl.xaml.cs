@@ -37,6 +37,33 @@ namespace FractalTerrain.Gui
       }
 
 
+      public static readonly DependencyProperty VisualModelProperty = DependencyProperty.Register("VisualModel", typeof(VisualTerrainModel), typeof(TerrainViewControl), new FrameworkPropertyMetadata(default(CameraSettings), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsRender, OnCameraPropertyChanged));
+      public VisualTerrainModel VisualModel
+      {
+         get
+         {
+            return (VisualTerrainModel)GetValue(VisualModelProperty);
+         }
+         set
+         {
+            SetValue(VisualModelProperty, value);
+         }
+      }
+      private static void OnVisualModelPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+      {
+         var control = d as TerrainViewControl;
+         if (control != null)
+         {
+            control.Update(control.VisualModel);
+         }
+      }
+
+      private void Update( VisualTerrainModel visualModel )
+      {
+         m_view3D.Update(visualModel);
+         m_view3D.Render(visualModel);
+      }
+
 
       private static DependencyProperty ElementActualWidthProperty
          = DependencyProperty.Register( "ElementActualWidth",
@@ -122,7 +149,7 @@ namespace FractalTerrain.Gui
       private void SetCamera( CameraSettings settings )
       {
          m_view3D.Camera.SetCamera( settings.AngleAxisEz, settings.AngleAxisEy, settings.Distance );
-         m_view3D.Render();
+         m_view3D.Render(VisualModel);
       }
 
       private void WriteCameraSettings()
@@ -136,7 +163,7 @@ namespace FractalTerrain.Gui
          if( m_view3D != null )
          {
             m_view3D.Resize();
-            m_view3D.Render();
+            m_view3D.Render(VisualModel);
             SetActualWidth( ActualWidth );
             SetActualHeight( ActualHeight );
          }

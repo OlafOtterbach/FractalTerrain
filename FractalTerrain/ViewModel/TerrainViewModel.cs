@@ -188,13 +188,6 @@ namespace FractalTerrain.ViewModel
       }
 
 
-      public void Resize()
-      {
-         mTerrainViews.ForEach(v => { v.Resize(); });
-         mTerrainViews.ForEach(v => { v.Render(); });
-      }
-
-
       public TerrainModel ActualModel
       {
          get
@@ -338,20 +331,18 @@ namespace FractalTerrain.ViewModel
       private void DoCalculate( object sender, DoWorkEventArgs e)
       {
          m_model.Update();
-//         VisualTerrainModel.InitTerrain(m_model);
       }
 
       private void BackCompleted( object sender, RunWorkerCompletedEventArgs e)
       {
          ActiveClock = false;
-         VisualTerrainModel = VisualTerrainModelCreator.CreateVisualModel(m_model);
-         mTerrainViews.ForEach(v => { v.Update(VisualTerrainModel); });
-         mTerrainViews.ForEach(v => { v.Render(VisualTerrainModel); });
+         VisualTerrainModel = TerrainToVisualModelConverter.Convert(m_model);
          PropertiesChanged();
       }
 
       private void PropertiesChanged()
       {
+         OnPropertyChanged("VisualTerrainModel");
          OnPropertyChanged("AppleManSettings");
          OnPropertyChanged( "GridSize" );
          OnPropertyChanged( "CameraTopLeft" );
@@ -367,10 +358,6 @@ namespace FractalTerrain.ViewModel
          OnPropertyChanged( "HeightBottom" );
       }
 
-      private void RenderTerrain()
-      {
-         mTerrainViews.ForEach(v => { v.Render(); });
-      }
 
       private void CreateTerrainModel()
       {
