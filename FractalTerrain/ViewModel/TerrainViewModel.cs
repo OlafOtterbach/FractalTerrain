@@ -33,8 +33,6 @@ namespace FractalTerrain.ViewModel
          ColumnRatio = new GridLength(1, GridUnitType.Star );
          RowRatio = new GridLength( 1, GridUnitType.Star );
 
-         mTerrainViews = new List<TerrainView3D>();
-
          CreateTerrainModel();
          CommandStart = new GuiButtonCommand(() => OnStart(), () => OnStartCanBeExecuted());
          CommandNew = new GuiButtonCommand(() => OnNew(), () => OnNewCanBeExecuted());
@@ -52,15 +50,6 @@ namespace FractalTerrain.ViewModel
       public ICommand CommandOpen { get; private set; }
       public ICommand CommandSave { get; private set; }
       public ICommand CommandSaveAs { get; private set; }
-
-      public IEnumerable<TerrainView3D> TerrainViews { get { return mTerrainViews; } }
-
-      private List<TerrainView3D> mTerrainViews;
-
-      public void Register(TerrainView3D view)
-      {
-         mTerrainViews.Add(view);
-      }
 
       public bool ActiveClock 
       { 

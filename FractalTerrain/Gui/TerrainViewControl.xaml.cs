@@ -25,11 +25,8 @@ namespace FractalTerrain.Gui
       private void InitView()
       {
          var parent = Application.Current.MainWindow;
-         var viewModel = parent.DataContext as TerrainViewModel;
          var canvas2D = new Canvas2DWpf(this.ControlCanvas);
          m_view3D = new TerrainView3D(canvas2D);
-         viewModel.Register(m_view3D);
-         m_view3D.ViewModel = viewModel;
 
          this.ControlCanvas.MouseMove += new System.Windows.Input.MouseEventHandler(OnMouseMove);
          this.ControlCanvas.MouseDown += new System.Windows.Input.MouseButtonEventHandler(OnMouseDown);

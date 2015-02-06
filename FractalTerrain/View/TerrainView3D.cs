@@ -3,7 +3,9 @@
 
 using FractalTerrain.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Media3D;
 
@@ -79,7 +81,74 @@ namespace FractalTerrain.View
             return;
          }
          m_canvas.Clear();
-         visualModel.GetGeometryLines(Camera).ToList().ForEach(DrawLine);
+         GetGeometryLines(visualModel, Camera).ToList().ForEach(DrawLine);
+      }
+
+
+
+      public IEnumerable<VisualLine> GetGeometryLines(VisualTerrainModel visualModel,ViewCamera camera)
+      {
+         var mapSize = visualModel.MapSize;
+         var vertices = visualModel.Vertices;
+         var cameraOffset = camera.Offset.Offset();
+         var offset = new Point3D(cameraOffset.X, cameraOffset.Y, 0.0);
+         var max = mapSize - 1;
+         var positions = new List<VectorInt>() { new VectorInt(0, 0), new VectorInt(max, 0), new VectorInt(0, max), new VectorInt(max, max) };
+         var positionAndVertex = positions.Select(pos => new { Position = pos, Vertex = vertices[pos.Y * mapSize + pos.X].Vertex }).ToList();
+         var positionAndDistance = positionAndVertex.Select(x => new { Position = x.Position, Distance = (x.Vertex - offset).Length }).OrderBy(x => x.Distance).ToList();
+         var start = positionAndDistance[0].Position;
+         var xEnd = positionAndDistance[1].Position;
+         var p3 = positionAndDistance[2].Position;
+         var p4 = positionAndDistance[3].Position;
+         var xDirection = (xEnd - start).Normalized;
+         var yDirection = (p3 - start).Normalized;
+         if ((yDirection.X != 0) && (yDirection.Y != 0))
+         {
+            yDirection = (p4 - start).Normalized;
+         }
+         return GetLines(visualModel,start, xDirection, yDirection);
+      }
+
+
+      private IEnumerable<VisualLine> GetLines(VisualTerrainModel visualModel,VectorInt start, VectorInt xDirectionVector, VectorInt yDirectionVector)
+      {
+         var mapSize = visualModel.MapSize;
+         var vertices = visualModel.Vertices;
+         var xDirection = GetDirection(xDirectionVector);
+         var yDirection = GetDirection(yDirectionVector);
+         var count = mapSize * mapSize * 2;
+         var lines = new VisualLine[count];
+         Parallel.For(0, mapSize, y =>
+         {
+            var pos = start + y * yDirectionVector;
+            for (int x = 0; x < mapSize; x++)
+            {
+               var index = pos.Y * mapSize + pos.X;
+               var lineIndex = 2 * (y * mapSize + x);
+               lines[lineIndex] = (vertices[index].GetLineOfDirection(xDirection));
+               lines[lineIndex + 1] = (vertices[index].GetLineOfDirection(yDirection));
+               pos = pos + xDirectionVector;
+            };
+         });
+         var validLines = lines.Where(x => x != null).ToList();
+         return validLines;
+      }
+
+
+      private VisualVertex.Direction GetDirection(VectorInt directionVector)
+      {
+         var direction = VisualVertex.Direction.e_east;
+         var x = directionVector.X;
+         var y = directionVector.Y;
+         if (x != 0)
+         {
+            direction = (x >= 1) ? VisualVertex.Direction.e_east : VisualVertex.Direction.e_west;
+         }
+         else
+         {
+            direction = (y >= 1) ? VisualVertex.Direction.e_north : VisualVertex.Direction.e_south;
+         }
+         return direction;
       }
 
 
