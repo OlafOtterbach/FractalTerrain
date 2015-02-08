@@ -101,6 +101,7 @@
     <Compile Include="Persistence\ModelValidator.cs" />
     <Compile Include="Persistence\Writer.cs" />
     <Compile Include="ViewModel\CameraSettings.cs" />
+    <Compile Include="ViewModel\TerrainBackgroundCalculator.cs" />
     <Compile Include="ViewModel\ViewModelAndSettingsMapper.cs" />
     <Compile Include="ViewModel\ViewModelSettings.cs" />
     <Compile Include="View\AppleManSettings.cs" />

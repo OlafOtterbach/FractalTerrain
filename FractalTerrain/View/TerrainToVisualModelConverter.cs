@@ -11,7 +11,7 @@ namespace FractalTerrain.View
       public static VisualTerrainModel Convert(TerrainModel model)
       {
          var terrainModel = model.TerrainModelData;
-         var visualTerrainModel = new VisualTerrainModel(100.0);
+         var visualTerrainModel = new VisualTerrainModel { HeightFactor = 100.0 };
          CreateVisualVertices(terrainModel, visualTerrainModel);
          CreateBoundedBox(visualTerrainModel);
          CreateVisualLines( terrainModel,  visualTerrainModel);

@@ -19,9 +19,7 @@ namespace FractalTerrain.ViewModel
    {
       public TerrainViewModel()
       {
-         m_backWorker = new BackgroundWorker();
-         m_backWorker.DoWork += new DoWorkEventHandler( DoCalculate );
-         m_backWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackCompleted);
+         m_backWorker = new TerrainBackgroundCalculator();
 
          FileName = "";
 
@@ -307,7 +305,12 @@ namespace FractalTerrain.ViewModel
             if ( !m_backWorker.IsBusy )
             {
                ActiveClock = true;
-               m_backWorker.RunWorkerAsync();
+               m_backWorker.Calculate(m_model, (VisualTerrainModel visualModel) =>
+               {
+                  ActiveClock = false;
+                  VisualTerrainModel = visualModel;
+                  PropertiesChanged();
+               });
             }
          }
          else
@@ -317,17 +320,6 @@ namespace FractalTerrain.ViewModel
          }
       }
 
-      private void DoCalculate( object sender, DoWorkEventArgs e)
-      {
-         m_model.Update();
-      }
-
-      private void BackCompleted( object sender, RunWorkerCompletedEventArgs e)
-      {
-         ActiveClock = false;
-         VisualTerrainModel = TerrainToVisualModelConverter.Convert(m_model);
-         PropertiesChanged();
-      }
 
       private void PropertiesChanged()
       {
@@ -360,6 +352,6 @@ namespace FractalTerrain.ViewModel
 
       private TerrainModel m_model;
 
-      private BackgroundWorker m_backWorker;
+      private TerrainBackgroundCalculator m_backWorker;
    }
 }

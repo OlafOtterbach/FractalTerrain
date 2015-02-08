@@ -51,7 +51,7 @@ namespace FractalTerrain.Gui
          var control = d as TerrainViewControl;
          if (control != null)
          {
-            control.Update(control.VisualModel);
+            //control.Update(control.VisualModel);
          }
       }
 

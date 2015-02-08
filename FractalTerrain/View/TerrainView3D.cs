@@ -70,23 +70,26 @@ namespace FractalTerrain.View
       public void Render(VisualTerrainModel visualModel)
       {
          DrawTerrain(visualModel);
-         m_canvas.Refresh();
       }
 
 
-      private void DrawTerrain(VisualTerrainModel visualModel)
+      private async void DrawTerrain(VisualTerrainModel visualModel)
       {
          if ((visualModel == null) || (!visualModel.IsValid))
          {
             return;
          }
          m_canvas.Clear();
-         GetGeometryLines(visualModel, Camera).ToList().ForEach(DrawLine);
+
+         Task<IEnumerable<VisualLine>> future = Task.Factory.StartNew<IEnumerable<VisualLine>>(() => GetGeometryLines(visualModel, Camera));
+         var lines = await future;
+         lines.ToList().ForEach(DrawLine);
+         m_canvas.Refresh();
       }
 
 
 
-      public IEnumerable<VisualLine> GetGeometryLines(VisualTerrainModel visualModel,ViewCamera camera)
+      public IEnumerable<VisualLine> GetGeometryLines(VisualTerrainModel visualModel, ViewCamera camera)
       {
          var mapSize = visualModel.MapSize;
          var vertices = visualModel.Vertices;
