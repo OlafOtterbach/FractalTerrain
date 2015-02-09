@@ -13,7 +13,7 @@ namespace FractalTerrain.Gui
    /// <summary>
    /// Interaction logic for TerrainViewControl.xaml
    /// </summary>
-   public partial class TerrainViewControl : UserControl
+   public partial class TerrainViewControl : UserControl, INotifyPropertyChanged
    {
       public TerrainViewControl()
       {
@@ -21,6 +21,16 @@ namespace FractalTerrain.Gui
          InitView();
       }
 
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      protected void OnPropertyChanged(string name)
+      {
+         PropertyChangedEventHandler handler = PropertyChanged;
+         if (handler != null)
+         {
+            handler(this, new PropertyChangedEventArgs(name));
+         }
+      }
 
       private void InitView()
       {
@@ -33,6 +43,19 @@ namespace FractalTerrain.Gui
          this.ControlCanvas.SizeChanged += new SizeChangedEventHandler(OnResize);
       }
 
+      public bool ActiveClock
+      {
+         get
+         {
+            return m_ActiveClock;
+         }
+         set
+         {
+            m_ActiveClock = value;
+            OnPropertyChanged("ActiveClock");
+         }
+      }
+      private bool m_ActiveClock;
 
       public static readonly DependencyProperty VisualModelProperty = DependencyProperty.Register("VisualModel", typeof(VisualTerrainModel), typeof(TerrainViewControl), new FrameworkPropertyMetadata(default(CameraSettings), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsRender, OnCameraPropertyChanged));
       public VisualTerrainModel VisualModel
@@ -145,8 +168,10 @@ namespace FractalTerrain.Gui
 
       private void SetCamera( CameraSettings settings )
       {
-         m_view3D.Camera.SetCamera( settings.AngleAxisEz, settings.AngleAxisEy, settings.Distance );
+         m_view3D.Camera.SetCamera(settings.AngleAxisEz, settings.AngleAxisEy, settings.Distance);
+         ActiveClock = true;
          m_view3D.Render(VisualModel);
+         ActiveClock = false;
       }
 
       private void WriteCameraSettings()
