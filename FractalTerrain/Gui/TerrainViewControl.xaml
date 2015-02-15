@@ -10,8 +10,10 @@
         <Canvas x:Name="ControlCanvas" Background="Black" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                Width="{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=ElementActualWidth,Mode=OneWayToSource}">
         </Canvas>
-        <Viewbox Name="Clock" Stretch="None">
-            <custom:ClockViewControl IsActive="{Binding RelativeSource={RelativeSource  AncestorType=UserControl},Path=ActiveClock, Mode=OneWay}"/>
-        </Viewbox>
+        <Canvas Name="Clock">
+            <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+            <custom:ClockViewControl SizeFactor="{Binding RelativeSource={RelativeSource  AncestorType=UserControl},Path=ActualHeight, Mode=OneWay}" IsActive="{Binding RelativeSource={RelativeSource  AncestorType=UserControl},Path=ActiveClock, Mode=OneWay}"/>
+            </Viewbox>
+        </Canvas>
     </Grid>
 </UserControl>

@@ -27,6 +27,7 @@ namespace FractalTerrain.View
          Camera.NearPlane = 1.0;
 
          m_canvas = canvas;
+         m_geometry = new List<VisualLine>();
       }
 
 
@@ -56,7 +57,7 @@ namespace FractalTerrain.View
       }
 
 
-      public void Update(VisualTerrainModel visualModel)
+      public void Render(VisualTerrainModel visualModel)
       {
          if (visualModel == null)
          {
@@ -64,32 +65,18 @@ namespace FractalTerrain.View
          }
          var middle = visualModel.Minimum + (visualModel.Maximum - visualModel.Minimum) / 2.0;
          Camera.MoveTo(middle);
-      }
-
-
-      public void Render(VisualTerrainModel visualModel)
-      {
-         DrawTerrain(visualModel);
-      }
-
-
-      private async void DrawTerrain(VisualTerrainModel visualModel)
-      {
-         if ((visualModel == null) || (!visualModel.IsValid))
-         {
-            return;
-         }
+         var geometry = GetGeometryLines(visualModel, Camera).ToList();
          m_canvas.Clear();
+         geometry.ForEach(DrawLine);
+      }
 
-         Task<IEnumerable<VisualLine>> future = Task.Factory.StartNew<IEnumerable<VisualLine>>(() => GetGeometryLines(visualModel, Camera));
-         var lines = await future;
-         lines.ToList().ForEach(DrawLine);
+      public void Redraw()
+      {
          m_canvas.Refresh();
       }
 
 
-
-      public IEnumerable<VisualLine> GetGeometryLines(VisualTerrainModel visualModel, ViewCamera camera)
+     private IEnumerable<VisualLine> GetGeometryLines(VisualTerrainModel visualModel, ViewCamera camera)
       {
          var mapSize = visualModel.MapSize;
          var vertices = visualModel.Vertices;
@@ -243,5 +230,7 @@ namespace FractalTerrain.View
       /// Canvas of the view for drawing on.
       /// </summary>
       private ICanvas2D m_canvas;
+
+      List<VisualLine> m_geometry;
    }
 }

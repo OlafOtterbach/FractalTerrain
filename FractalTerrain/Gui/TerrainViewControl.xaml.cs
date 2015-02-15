@@ -4,6 +4,7 @@
 using FractalTerrain.View;
 using FractalTerrain.ViewModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -78,12 +79,6 @@ namespace FractalTerrain.Gui
          }
       }
 
-      private void Update( VisualTerrainModel visualModel )
-      {
-         m_view3D.Update(visualModel);
-         m_view3D.Render(visualModel);
-      }
-
 
       private static DependencyProperty ElementActualWidthProperty
          = DependencyProperty.Register( "ElementActualWidth",
@@ -144,7 +139,14 @@ namespace FractalTerrain.Gui
          }
       }
 
-      public static readonly DependencyProperty CameraProperty = DependencyProperty.Register("Camera", typeof(CameraSettings), typeof(TerrainViewControl), new FrameworkPropertyMetadata(default(CameraSettings), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsRender, OnCameraPropertyChanged));
+      public static readonly DependencyProperty CameraProperty
+         = DependencyProperty.Register("Camera", 
+                                       typeof(CameraSettings),
+                                       typeof(TerrainViewControl),
+                                       new FrameworkPropertyMetadata
+                                          (default(CameraSettings), 
+                                           FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, 
+                                           OnCameraPropertyChanged));
       public CameraSettings Camera
       {
          get
@@ -169,14 +171,25 @@ namespace FractalTerrain.Gui
       private void SetCamera( CameraSettings settings )
       {
          m_view3D.Camera.SetCamera(settings.AngleAxisEz, settings.AngleAxisEy, settings.Distance);
-         ActiveClock = true;
-         m_view3D.Render(VisualModel);
-         ActiveClock = false;
+         RenderView(VisualModel);
       }
+
+
+      private async void RenderView(VisualTerrainModel visualModel)
+      {
+         ActiveClock = (!m_silent) && true;
+         Task future = Task.Factory.StartNew(()=>m_view3D.Render(visualModel));
+         await future;
+         ActiveClock = false;
+         m_view3D.Redraw();
+      }
+
 
       private void WriteCameraSettings()
       {
+         m_silent = true;
          Camera = new CameraSettings { AngleAxisEz = m_view3D.Camera.AngleAxisEz, AngleAxisEy = m_view3D.Camera.AngleAxisEy, Distance = m_view3D.Camera.Distance };
+         m_silent = false;
       }
 
 
@@ -185,8 +198,8 @@ namespace FractalTerrain.Gui
          if( m_view3D != null )
          {
             m_view3D.Resize();
-            m_view3D.Render(VisualModel);
-            SetActualWidth( ActualWidth );
+            RenderView(VisualModel);
+            SetActualWidth(ActualWidth);
             SetActualHeight( ActualHeight );
          }
       }
@@ -234,8 +247,10 @@ namespace FractalTerrain.Gui
 
       private TerrainView3D m_view3D;
 
-      double m_mouseX = 0;
+      private double m_mouseX = 0;
 
-      double m_mouseY = 0;
+      private double m_mouseY = 0;
+
+      private bool m_silent = false;
    }
 }

@@ -1,29 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FractalTerrain.Gui
 {
    /// <summary>
    /// Interaction logic for ClockViewControl.xaml
    /// </summary>
-   public partial class ClockViewControl : UserControl
+   public partial class ClockViewControl : UserControl, INotifyPropertyChanged
    {
       public ClockViewControl()
       {
          InitializeComponent();
+         ScaleFactor = 0.5;
+      }
+
+      public event PropertyChangedEventHandler PropertyChanged;
+
+      protected void OnPropertyChanged(string name)
+      {
+         PropertyChangedEventHandler handler = PropertyChanged;
+         if (handler != null)
+         {
+            handler(this, new PropertyChangedEventArgs(name));
+         }
+      }
+
+      public double ScaleFactor
+      {
+         get
+         {
+            return m_scaleFactor;
+         }
+         set
+         {
+            m_scaleFactor = value;
+            OnPropertyChanged("ScaleFactor");
+         }
+      }
+
+      public static readonly DependencyProperty SizeFactorProperty = DependencyProperty.Register("SizeFactor", typeof(double), typeof(ClockViewControl), new FrameworkPropertyMetadata(200.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSizeFactorChanged));
+      public double SizeFactor
+      {
+         get
+         {
+            return (double)GetValue(SizeFactorProperty);
+         }
+         set
+         {
+            SetValue(SizeFactorProperty, value);
+         }
+      }
+      private static void OnSizeFactorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+      {
+         var control = d as ClockViewControl;
+         if (control != null)
+         {
+            control.SetSizeFactor((double)e.NewValue);
+         }
+      }
+
+      private void SetSizeFactor( double sizeFactor )
+      {
+         const double originalSize = 200.0;
+         var newSize = sizeFactor / 3.0;
+         ScaleFactor = newSize / originalSize; 
       }
 
       public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register( "IsActive", typeof( bool ), typeof( ClockViewControl ), new FrameworkPropertyMetadata( true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsActiveChanged ) );
@@ -75,5 +117,7 @@ namespace FractalTerrain.Gui
             storyboard.Stop();
          }
       }
+
+      private double m_scaleFactor;
    }
 }

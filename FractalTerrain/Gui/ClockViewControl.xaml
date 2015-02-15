@@ -10,28 +10,32 @@
             <DoubleAnimation From="0" To="360" Duration="00:00:05" RepeatBehavior="Forever" />
         </Storyboard>
     </UserControl.Resources>
-        <Canvas Width="204" Height="204">
-            <Path Stroke="Black" StrokeThickness="8" Fill="White" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
-                <Path.Data>
-                    <GeometryGroup>
-                        <EllipseGeometry RadiusX="100" RadiusY="100" Center="105,105" />
-                    </GeometryGroup>
-                </Path.Data>
-            </Path>
-            <Path Stroke="White" StrokeThickness="1" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
-                <Path.Data>
-                    <GeometryGroup>
-                        <EllipseGeometry RadiusX="104" RadiusY="104" Center="105,105" />
-                    </GeometryGroup>
-                </Path.Data>
-            </Path>
-            <Path Name="ClockView1" Stroke="Black" StrokeThickness="8" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+    <Canvas Width="204" Height="204">
+        <Canvas.RenderTransform>
+            <ScaleTransform ScaleX="{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=ScaleFactor,Mode=OneWay}" 
+                            ScaleY="{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=ScaleFactor,Mode=OneWay}"/>
+        </Canvas.RenderTransform>
+        <Path Stroke="Black" StrokeThickness="8" Fill="White" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+            <Path.Data>
+                <GeometryGroup>
+                    <EllipseGeometry RadiusX="100" RadiusY="100" Center="105,105" />
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+        <Path Stroke="White" StrokeThickness="1" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+            <Path.Data>
+                <GeometryGroup>
+                    <EllipseGeometry RadiusX="104" RadiusY="104" Center="105,105" />
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+        <Path Name="ClockView1" Stroke="Black" StrokeThickness="8" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
         Data="M 105 5 V 15  M 5 105 H 15 M 105 205 V 195 M 205 105 H 195">
-                <Path.RenderTransform>
-                    <RotateTransform CenterX="105" CenterY="105" Angle="0" />
-                </Path.RenderTransform>
-            </Path>
-            <Path Name="ClockView2" Stroke="Black" StrokeThickness="8" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+            <Path.RenderTransform>
+               <RotateTransform CenterX="105" CenterY="105" Angle="0" />
+            </Path.RenderTransform>
+        </Path>
+        <Path Name="ClockView2" Stroke="Black" StrokeThickness="8" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
         Data="M 105 5 V 15  M 5 105 H 15 M 105 205 V 195 M 205 105 H 195">
                 <Path.RenderTransform>
                     <RotateTransform CenterX="105" CenterY="105" Angle="30" />
