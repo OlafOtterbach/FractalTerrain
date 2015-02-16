@@ -3,14 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <Storyboard x:Key="ClockStoryBoard" TargetName="ClockPointer" TargetProperty="RenderTransform.(RotateTransform.Angle)">
             <DoubleAnimation From="0" To="360" Duration="00:00:05" RepeatBehavior="Forever" />
         </Storyboard>
     </UserControl.Resources>
-    <Canvas Width="204" Height="204">
+    <Canvas Width="Auto" Height="Auto">
         <Canvas.RenderTransform>
             <ScaleTransform ScaleX="{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=ScaleFactor,Mode=OneWay}" 
                             ScaleY="{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=ScaleFactor,Mode=OneWay}"/>

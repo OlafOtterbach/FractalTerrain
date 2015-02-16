@@ -177,19 +177,27 @@ namespace FractalTerrain.Gui
 
       private async void RenderView(VisualTerrainModel visualModel)
       {
-         ActiveClock = (!m_silent) && true;
-         Task future = Task.Factory.StartNew(()=>m_view3D.Render(visualModel));
-         await future;
-         ActiveClock = false;
-         m_view3D.Redraw();
+         if (m_syncronized)
+         {
+            m_view3D.Render(visualModel);
+            m_view3D.Redraw();
+         }
+         else
+         {
+            ActiveClock = true;
+            Task future = Task.Factory.StartNew(() => m_view3D.Render(visualModel));
+            await future;
+            ActiveClock = false;
+            m_view3D.Redraw();
+         }
       }
 
 
       private void WriteCameraSettings()
       {
-         m_silent = true;
+         m_syncronized = true;
          Camera = new CameraSettings { AngleAxisEz = m_view3D.Camera.AngleAxisEz, AngleAxisEy = m_view3D.Camera.AngleAxisEy, Distance = m_view3D.Camera.Distance };
-         m_silent = false;
+         m_syncronized = false;
       }
 
 
@@ -251,6 +259,6 @@ namespace FractalTerrain.Gui
 
       private double m_mouseY = 0;
 
-      private bool m_silent = false;
+      private bool m_syncronized = false;
    }
 }

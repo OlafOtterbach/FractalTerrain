@@ -93,8 +93,8 @@
                 </StackPanel>
             </Border>
         </Expander>
-        <Viewbox Name="Clock" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <custom:ClockViewControl SizeFactor="{Binding RelativeSource={RelativeSource  AncestorType=UserControl},Path=ActualHeight, Mode=OneWay}" IsActive="{Binding Path=ActiveClock}"/>
-        </Viewbox>
+        <Grid Name="Clock" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <custom:ClockViewControl HorizontalAlignment="Center" VerticalAlignment="Center" SizeFactor="{Binding RelativeSource={RelativeSource  AncestorType=UserControl},Path=ActualHeight, Mode=OneWay}" IsActive="{Binding Path=ActiveClock}"/>
+        </Grid>
     </Grid>
 </Window>

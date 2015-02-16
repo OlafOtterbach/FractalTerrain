@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿/// <summary>Definition of the class ClockViewControl.</summary>
+/// <author>Olaf Otterbach</author>
+
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -65,7 +68,9 @@ namespace FractalTerrain.Gui
       {
          const double originalSize = 200.0;
          var newSize = sizeFactor / 3.0;
-         ScaleFactor = newSize / originalSize; 
+         ScaleFactor = newSize / originalSize;
+         Width = newSize + 5.0;
+         Height = newSize + 5.0;
       }
 
       public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register( "IsActive", typeof( bool ), typeof( ClockViewControl ), new FrameworkPropertyMetadata( true, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsActiveChanged ) );
