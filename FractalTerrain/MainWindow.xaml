@@ -94,7 +94,7 @@
             </Border>
         </Expander>
         <Grid Name="Clock" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <custom:ClockViewControl HorizontalAlignment="Center" VerticalAlignment="Center" SizeFactor="{Binding RelativeSource={RelativeSource  AncestorType=UserControl},Path=ActualHeight, Mode=OneWay}" IsActive="{Binding Path=ActiveClock}"/>
+            <custom:ClockViewControl HorizontalAlignment="Center" VerticalAlignment="Center" SizeFactor="{Binding RelativeSource={RelativeSource  AncestorType=Window},Path=ActualHeight, Mode=OneWay}" IsActive="{Binding Path=ActiveClock}"/>
         </Grid>
     </Grid>
 </Window>
