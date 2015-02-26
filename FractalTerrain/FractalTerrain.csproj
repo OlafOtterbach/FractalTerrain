@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="Gui\MainWindowBehaviour.cs" />
     <Compile Include="Gui\CommitComboBox.cs" />
+    <Compile Include="Gui\MinimumConverter.cs" />
     <Compile Include="Gui\TerrainViewControl.xaml.cs">
       <DependentUpon>TerrainViewControl.xaml</DependentUpon>
     </Compile>

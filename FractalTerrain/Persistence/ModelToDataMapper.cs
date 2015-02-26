@@ -10,6 +10,8 @@ namespace FractalTerrain.Persistence
    {
       public DataV1Dot1 Map( TerrainModel model, ViewModelSettings settings )
       {
+         if (settings == null) settings = new ViewModelSettings();
+         if (model == null) model = new TerrainModel();
          var data = new DataV1Dot1
          {
             MapSize = model.MapSize,

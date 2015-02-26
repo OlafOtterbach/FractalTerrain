@@ -1,7 +1,6 @@
 ﻿/// <summary>Definition of the class PersistMapperV1Tests.</summary>
 /// <author>Olaf Otterbach</author>
 
-using FractalTerrain.Model;
 using FractalTerrain.Persistence;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,67 +9,54 @@ namespace FractalTerrainTests.Persistence
    [TestClass]
    public class ModelToDataMapperTests
    {
-      //[TestMethod]
-      //public void MappingModelToDataTest()
-      //{
-      //   var model = GetModel(9);
-      //   var mapper = new PersistMapper();
-
-      //   var data = mapper.MapModelToPersistenceData(model);
-
-      //   Assert.AreNotEqual(data, null);
-      //}
-
-
-      //[TestMethod]
-      //public void PersistenceDataToMapModelTest()
-      //{
-      //   var model = GetModel(9);
-      //   var mapper = new PersistMapper();
-
-      //   var data = mapper.MapModelToPersistenceData(model);
-      //   Assert.AreNotEqual(data, null);
-      //   var mappedModel = mapper.PersistenceDataToMapModel(data);
-
-      //   Assert.AreNotEqual(mappedModel, null);
-      //}
-
-
-      private TerrainModel GetModel( int mapSize )
+      [TestMethod]
+      public void Map_ModelAndSettingsAreNull_StandardValuesMappes()
       {
-         var terrainMap = new double[mapSize, mapSize];
-         for( int i = 0; i < mapSize; i++ )
-         {
-            for( int j = 0; j < mapSize; j++ )
-            {
-               terrainMap[i, j] = (j+1) * ( i * 10 );
-            }
-         }
-         var terrainData = new TerrainModelData(terrainMap, mapSize);
+         var mapper = new ModelToDataMapper();
+         
+         var data = mapper.Map(null, null);
 
-         var appleMap = new double[mapSize, mapSize];
-         for( int i = 0; i < mapSize; i++ )
-         {
-            for( int j = 0; j < mapSize; j++ )
-            {
-               appleMap[i, j] = (double)j * (double)( i * 10 ) / (double)( mapSize * 10 );
-            }
-         }
-         var appleData = new AppleManData(appleMap, mapSize);
+         Assert.IsNotNull(data);
+      }
 
-         var model = new TerrainModel(null, null)
-         {
-            MapSize = mapSize,
-            AppleManMinimalPosition = -5.0,
-            AppleManMaximalPosition = 5.0,
-            AppleManMinimalSize = 0.1,
-            AppleManSize = 4.0,
-            AppleManXStartPosition = -2.0,
-            AppleManYStartPosition = -2.0,
-            TerrainModelData = terrainData,
-            AppleManData = appleData
-         };
-         return model;
+      [TestMethod]
+      public void Map_ModelAndSettings_CorrectMappedValues()
+      {
+         var pair = PersitenceTestsLib.GetModelAndSettings();
+         var mapper = new ModelToDataMapper();
+
+         var data = mapper.Map(pair.Item1, pair.Item2);
+
+         Assert.AreNotEqual(data, null);
+         Assert.AreEqual(data.MapSize, 9);
+         Assert.AreEqual(data.AppleManMinimalPosition, -5.0);
+         Assert.AreEqual(data.AppleManMaximalPosition, 5.0);
+         Assert.AreEqual(data.AppleManMinimalSize, 0.1);
+         Assert.AreEqual(data.AppleManSize, 4.0 );
+         Assert.AreEqual(data.AppleManXStartPosition, -2.0 );
+         Assert.AreEqual(data.AppleManYStartPosition, -2.0);
+         Assert.AreEqual(data.HoricontalRatio, 0.5);
+         Assert.AreEqual(data.VerticalRatio, 0.6);
+         Assert.IsNotNull(data.CameraBottomLeft);
+         Assert.IsNotNull(data.CameraBottomRight);
+         Assert.IsNotNull(data.CameraTopLeft);
+         Assert.IsNotNull(data.CameraTopRight);
+         Assert.IsNotNull(data.CameraSetting);
+         Assert.AreEqual(data.CameraBottomLeft.AngleAxisEz, 0.0);
+         Assert.AreEqual(data.CameraBottomLeft.AngleAxisEy, 1.0);
+         Assert.AreEqual(data.CameraBottomLeft.Distance, 2.0);
+         Assert.AreEqual(data.CameraBottomRight.AngleAxisEz, 3.0);
+         Assert.AreEqual(data.CameraBottomRight.AngleAxisEy, 4.0);
+         Assert.AreEqual(data.CameraBottomRight.Distance, 5.0);
+         Assert.AreEqual(data.CameraTopLeft.AngleAxisEz, 6.0);
+         Assert.AreEqual(data.CameraTopLeft.AngleAxisEy, 7.0);
+         Assert.AreEqual(data.CameraTopLeft.Distance, 8.0);
+         Assert.AreEqual(data.CameraTopRight.AngleAxisEz, 9.0);
+         Assert.AreEqual(data.CameraTopRight.AngleAxisEy, 10.0);
+         Assert.AreEqual(data.CameraTopRight.Distance, 11.0);
+         Assert.AreEqual(data.CameraSetting.AngleAxisEz, 12.0);
+         Assert.AreEqual(data.CameraSetting.AngleAxisEy, 13.0);
+         Assert.AreEqual(data.CameraSetting.Distance, 14.0);
       }
    }
 }

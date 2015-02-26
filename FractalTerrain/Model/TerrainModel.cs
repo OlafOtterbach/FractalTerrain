@@ -8,6 +8,10 @@ namespace FractalTerrain.Model
 {
    public class TerrainModel
    {
+      public TerrainModel()
+      {
+      }
+
       public TerrainModel( ITerrainModelDataGenerator terrainGenerator, IAppleManDataGenerator appleManGenerator )
       {
          m_terrainGenerator = terrainGenerator;

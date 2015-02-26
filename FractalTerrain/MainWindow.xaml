@@ -6,6 +6,7 @@
         xmlns:custom="clr-namespace:FractalTerrain.Gui"
         Title="{Binding Path=Title, Mode=OneWay}"  WindowState="Maximized">
     <Window.Resources>
+        <custom:MinimumConverter x:Key="MinimumConverter" />
         <Style TargetType="{x:Type Control}" x:Key="AdvancedGridSplitterPreview">
             <Setter Property="Template">
                 <Setter.Value>
@@ -94,7 +95,15 @@
             </Border>
         </Expander>
         <Grid Name="Clock" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <custom:ClockViewControl HorizontalAlignment="Center" VerticalAlignment="Center" SizeFactor="{Binding RelativeSource={RelativeSource  AncestorType=Window},Path=ActualHeight, Mode=OneWay}" IsActive="{Binding Path=ActiveClock}"/>
+            <!-- custom:ClockViewControl HorizontalAlignment="Center" VerticalAlignment="Center" SizeFactor="{Binding RelativeSource={RelativeSource  AncestorType=Window},Path=ActualHeight, Mode=OneWay}" IsActive="{Binding Path=ActiveClock}"/ -->
+            <custom:ClockViewControl HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{Binding Path=ActiveClock}">
+                <custom:ClockViewControl.SizeFactor>
+                    <MultiBinding Converter="{StaticResource MinimumConverter}">
+                        <Binding RelativeSource="{RelativeSource  AncestorType=Window}" Path="ActualWidth" Mode="OneWay"/>
+                        <Binding RelativeSource="{RelativeSource  AncestorType=Window}" Path="ActualHeight" Mode="OneWay"/>
+                    </MultiBinding>
+                </custom:ClockViewControl.SizeFactor>
+            </custom:ClockViewControl>
         </Grid>
     </Grid>
 </Window>

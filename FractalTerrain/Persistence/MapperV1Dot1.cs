@@ -19,15 +19,6 @@ namespace FractalTerrain.Persistence
       {
          try
          {
-            // var HoricontalRatio = ParseDouble( ctx.ParserData.Data["Settings"]["HoricontalRatio"] );
-            // var   VerticalRatio = ParseDouble( ctx.ParserData.Data["Settings"]["VerticalRatio"] );
-            // var   CameraTopLeft = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraTopLeft"] );
-            // var   CameraTopRight = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraTopRight"] );
-            //var    CameraBottomLeft = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraBottomLeft"] );
-            // var   CameraBottomRight = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraBottomRight"] );
-            // var CameraSetting = CameraSettings.TryParse( ctx.ParserData.Data["Settings"]["CameraSetting"] );
-
-
             var mapData = new DataV1Dot1()
             {
                MapSize = ParseInt( ctx.ParserData.Data["Data"]["MapSize"] ),

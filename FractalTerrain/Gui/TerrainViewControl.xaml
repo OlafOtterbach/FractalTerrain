@@ -6,12 +6,22 @@
              xmlns:custom="clr-namespace:FractalTerrain.Gui"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <custom:MinimumConverter x:Key="MinimumConverter" />
+    </UserControl.Resources>
     <Grid>
         <Canvas x:Name="ControlCanvas" Background="Black" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                Width="{Binding  RelativeSource={RelativeSource  AncestorType=UserControl},Path=ElementActualWidth,Mode=OneWayToSource}">
         </Canvas>
         <Grid Name="Clock" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <custom:ClockViewControl HorizontalAlignment="Center" VerticalAlignment="Center" SizeFactor="{Binding RelativeSource={RelativeSource  AncestorType=UserControl},Path=ActualHeight, Mode=OneWay}" IsActive="{Binding RelativeSource={RelativeSource  AncestorType=UserControl},Path=ActiveClock, Mode=OneWay}"/>
+            <custom:ClockViewControl HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{Binding RelativeSource={RelativeSource  AncestorType=UserControl},Path=ActiveClock, Mode=OneWay}">
+                <custom:ClockViewControl.SizeFactor>
+                    <MultiBinding Converter="{StaticResource MinimumConverter}">
+                        <Binding RelativeSource="{RelativeSource  AncestorType=UserControl}" Path="ActualWidth" Mode="OneWay"/>
+                        <Binding RelativeSource="{RelativeSource  AncestorType=UserControl}" Path="ActualHeight" Mode="OneWay"/>
+                    </MultiBinding>
+                </custom:ClockViewControl.SizeFactor>
+            </custom:ClockViewControl>
         </Grid>
     </Grid>
 </UserControl>

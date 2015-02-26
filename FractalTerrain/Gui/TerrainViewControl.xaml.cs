@@ -4,6 +4,7 @@
 using FractalTerrain.View;
 using FractalTerrain.ViewModel;
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,8 @@ namespace FractalTerrain.Gui
          InitializeComponent();
          InitView();
       }
+
+      private bool m_busy;
 
       public event PropertyChangedEventHandler PropertyChanged;
 
@@ -87,14 +90,13 @@ namespace FractalTerrain.Gui
                                         new FrameworkPropertyMetadata
                                         (
                                             default( double ),
-                                            FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                                             OnActualWidthChanged
                                         )
                                       );
       public double ElementActualWidth
       {
          get { return (double)GetValue( ElementActualWidthProperty ); }
-         set { var a = 0; a++; }
+         set { SetValue(ElementActualHeightProperty, value); }
       }
       private void SetActualWidth( double value )
       {
@@ -117,14 +119,13 @@ namespace FractalTerrain.Gui
                                         new FrameworkPropertyMetadata
                                         (
                                             default( double ),
-                                            FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                                             OnActualHeightChanged
                                         )
                                       );
       public double ElementActualHeight
       {
          get { return (double)GetValue( ElementActualHeightProperty ); }
-         set { var a = 0; a++; }
+         set { SetValue(ElementActualHeightProperty, value); }
       }
       private void SetActualHeight( double value )
       {
@@ -185,8 +186,21 @@ namespace FractalTerrain.Gui
          else
          {
             ActiveClock = true;
-            Task future = Task.Factory.StartNew(() => m_view3D.Render(visualModel));
-            await future;
+            bool repeat = false;
+            do
+            {
+               repeat = false;
+               Task future = Task.Factory.StartNew(() => m_view3D.Render(visualModel));
+               await future;
+               if(ResizeRequest)
+               {
+                  m_view3D.Resize();
+                  SetActualWidth(ActualWidth);
+                  SetActualHeight(ActualHeight);
+                  repeat = true;
+               }
+            }
+            while (repeat);
             ActiveClock = false;
             m_view3D.Redraw();
          }
@@ -205,12 +219,37 @@ namespace FractalTerrain.Gui
       {
          if( m_view3D != null )
          {
-            m_view3D.Resize();
-            RenderView(VisualModel);
-            SetActualWidth(ActualWidth);
-            SetActualHeight( ActualHeight );
+            if (!ActiveClock)
+            {
+               m_view3D.Resize();
+               RenderView(VisualModel);
+               SetActualWidth(ActualWidth);
+               SetActualHeight(ActualHeight);
+            }
+            else 
+            {
+               ResizeRequest = true;
+            }
          }
       }
+
+      private bool ResizeRequest
+      {
+         get
+         {
+            var toResize = m_resizeRequest;
+            m_resizeRequest = false;
+            return toResize;
+         }
+         set
+         {
+            if(value)
+            {
+               m_resizeRequest = value;
+            }
+         }
+      }
+      private bool m_resizeRequest;
 
       public void OnMouseDown(object sender, MouseButtonEventArgs inputEvent)
       {

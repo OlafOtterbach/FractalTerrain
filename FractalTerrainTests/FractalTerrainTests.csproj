@@ -76,12 +76,14 @@
     <Compile Include="Math\Matrix3DExtensionTests.cs" />
     <Compile Include="Math\VectorIntTests.cs" />
     <Compile Include="Model\TerrainModelTests.cs" />
-    <Compile Include="Persistence\MapperV1Tests.cs" />
+    <Compile Include="Persistence\ConverterV1ToV1Dot1Tests.cs" />
+    <Compile Include="Persistence\MapperV1Dot1Tests.cs" />
     <Compile Include="Persistence\ParserTests.cs" />
     <Compile Include="Persistence\ModelToDataMapperTests.cs" />
-    <Compile Include="Persistence\PersistWriterTests.cs" />
+    <Compile Include="Persistence\PersitenceTestsLib.cs" />
+    <Compile Include="Persistence\WriterTests.cs" />
+    <Compile Include="Persistence\RatingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RatingTests.cs" />
     <Compile Include="ViewModel\CameraSettingsTests.cs" />
     <Compile Include="View\Canvas2DMock.cs" />
     <None Include="packages.config" />
