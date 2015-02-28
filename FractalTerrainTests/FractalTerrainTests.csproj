@@ -87,7 +87,6 @@
     <Compile Include="ViewModel\CameraSettingsTests.cs" />
     <Compile Include="View\Canvas2DMock.cs" />
     <None Include="packages.config" />
-    <Compile Include="View\TerrainView3DTests.cs" />
     <Compile Include="View\ViewCameraTests.cs" />
   </ItemGroup>
   <ItemGroup />
