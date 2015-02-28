@@ -1,4 +1,8 @@
-﻿namespace FractalTerrain.View
+﻿/// <summary>Definition of the interface AppleManSettings.</summary>
+/// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
+
+namespace FractalTerrain.View
 {
    public class AppleManSettings
    {

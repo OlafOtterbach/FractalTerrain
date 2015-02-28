@@ -1,5 +1,6 @@
 ﻿/// <summary>Definition of the struct VisualVertex.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using System.Collections.Generic;
 using System.Windows.Media.Media3D;

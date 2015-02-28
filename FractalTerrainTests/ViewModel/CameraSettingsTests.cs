@@ -1,12 +1,12 @@
 ﻿/// <summary>Definition of the class CameraSettingsTests.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using FractalTerrain.ViewModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Text.RegularExpressions;
-using System.Linq;
 
-namespace FractalTerrainTests.Persistence
+namespace FractalTerrainTests
 {
    [TestClass]
    public class CameraSettingsTests

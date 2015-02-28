@@ -1,5 +1,10 @@
-﻿using System.Globalization;
+﻿/// <summary>Definition of the class CameraSettings.</summary>
+/// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
+
+using System.Globalization;
 using System.Text.RegularExpressions;
+
 namespace FractalTerrain.ViewModel
 {
    public class CameraSettings

@@ -1,17 +1,15 @@
 ﻿/// <summary>Definition of the class TerrainViewModel.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using FractalTerrain.Model;
 using FractalTerrain.Persistence;
 using FractalTerrain.View;
-using System.Collections.Generic;
-using System.ComponentModel;
 using Microsoft.Win32;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System;
+using System.ComponentModel;
 using System.Windows;
-using System.IO;
+using System.Windows.Input;
 
 namespace FractalTerrain.ViewModel
 {

@@ -1,5 +1,6 @@
 ﻿/// <summary>Definition of the class PersistMapperV1Tests.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using FractalTerrain.Persistence;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

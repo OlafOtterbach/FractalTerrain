@@ -1,7 +1,6 @@
 ﻿/// <summary>Definition of the class ModelValidator.</summary>
 /// <author>Olaf Otterbach</author>
-
-using System.Globalization;
+/// <state>2015.02.26</state>
 
 namespace FractalTerrain.Persistence
 {

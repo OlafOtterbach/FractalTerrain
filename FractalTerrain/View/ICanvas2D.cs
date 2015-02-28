@@ -1,10 +1,8 @@
 ﻿/// <summary>Definition of the interface ICanvas2D.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace FractalTerrain.View
 {

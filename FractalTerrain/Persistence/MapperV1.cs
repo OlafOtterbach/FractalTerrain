@@ -1,5 +1,6 @@
 ﻿/// <summary>Definition of the class MapperV1.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 namespace FractalTerrain.Persistence
 {

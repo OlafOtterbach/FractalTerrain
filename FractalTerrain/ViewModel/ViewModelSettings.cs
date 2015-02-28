@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿/// <summary>Definition of the class ViewModelSettings.</summary>
+/// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 namespace FractalTerrain.ViewModel
 {

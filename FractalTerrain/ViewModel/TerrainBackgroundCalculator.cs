@@ -1,4 +1,8 @@
-﻿using FractalTerrain.Model;
+﻿/// <summary>Definition of the class TerrainBackgroundCalculator.</summary>
+/// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
+
+using FractalTerrain.Model;
 using FractalTerrain.View;
 using System;
 using System.ComponentModel;

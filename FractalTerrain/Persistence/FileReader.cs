@@ -1,9 +1,8 @@
 ﻿/// <summary>Definition of the class FileReader.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
-using FractalTerrain.Model;
 using System;
-using System.IO;
 
 namespace FractalTerrain.Persistence
 {

@@ -1,5 +1,6 @@
 ﻿/// <summary>Definition of the class MinimumConverter.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using System;
 using System.Linq;

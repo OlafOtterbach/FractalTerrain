@@ -1,7 +1,7 @@
 ﻿/// <summary>Definition of the class Point3DExtensions.</summary>
 /// <author>Olaf Otterbach</author>
 /// <start>14.04.2014</start>
-/// <state>14.04.2014</state>
+/// <state>2015.02.26</state>
 
 using System;
 using System.Windows.Media.Media3D;

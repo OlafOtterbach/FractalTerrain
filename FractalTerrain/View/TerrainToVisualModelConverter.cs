@@ -1,4 +1,8 @@
-﻿using FractalTerrain.Model;
+﻿/// <summary>Definition of the class TerrainToVisualModelConverter.</summary>
+/// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
+
+using FractalTerrain.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

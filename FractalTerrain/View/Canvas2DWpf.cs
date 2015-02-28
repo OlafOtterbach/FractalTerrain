@@ -1,12 +1,11 @@
 ﻿/// <summary>Definition of the class Canvas2DWPF.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace FractalTerrain.View
 {

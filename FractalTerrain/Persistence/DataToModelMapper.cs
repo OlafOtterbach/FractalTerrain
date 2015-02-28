@@ -1,5 +1,6 @@
 ﻿/// <summary>Definition of the class DataToModelMapper.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using FractalTerrain.Model;
 using FractalTerrain.ViewModel;

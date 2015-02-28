@@ -1,6 +1,6 @@
 ﻿/// <summary>Definition of the class ConverterV1ToV1Dot1Tests.</summary>
 /// <author>Olaf Otterbach</author>
-/// <Date>2015<</Date>
+/// <state>2015.02.26</state>
 
 using FractalTerrain.Persistence;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -1,5 +1,6 @@
 ﻿/// <summary>Definition of the class ParserData.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using System.Collections.Generic;
 

@@ -1,7 +1,9 @@
 ﻿/// <summary>Definition of the class DataV1Dot1.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using FractalTerrain.ViewModel;
+
 namespace FractalTerrain.Persistence
 {
    public class DataV1Dot1 : IData

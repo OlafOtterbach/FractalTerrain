@@ -1,8 +1,8 @@
 ﻿/// <summary>Definition of the class TerrainModelData.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using System;
-using System.Windows.Media.Media3D;
 
 namespace FractalTerrain.Model
 {

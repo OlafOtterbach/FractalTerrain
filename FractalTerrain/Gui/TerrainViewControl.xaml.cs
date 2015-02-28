@@ -1,10 +1,10 @@
 ﻿/// <summary>Definition of the class TerrainViewControl.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using FractalTerrain.View;
 using FractalTerrain.ViewModel;
 using System.ComponentModel;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;

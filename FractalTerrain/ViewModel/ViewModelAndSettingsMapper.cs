@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿/// <summary>Definition of the class ViewModelAndSettingsMapper.</summary>
+/// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
+
 using System.Windows;
 
 namespace FractalTerrain.ViewModel

@@ -1,8 +1,8 @@
 ﻿/// <summary>Definition of the class TerrainModelGenerator.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using System;
-using System.Threading.Tasks;
 
 namespace FractalTerrain.Model
 {

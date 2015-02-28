@@ -1,7 +1,9 @@
 ﻿/// <summary>Definition of the class Mapper.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using System.Globalization;
+
 namespace FractalTerrain.Persistence
 {
    public abstract class Mapper

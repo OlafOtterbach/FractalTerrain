@@ -1,7 +1,9 @@
 ﻿/// <summary>Definition of the class AppleManDataGenerator.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using System.Threading.Tasks;
+
 namespace FractalTerrain.Model
 {
    public class AppleManDataGenerator : IAppleManDataGenerator

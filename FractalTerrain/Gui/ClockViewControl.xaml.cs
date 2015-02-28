@@ -1,5 +1,6 @@
 ﻿/// <summary>Definition of the class ClockViewControl.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using System.ComponentModel;
 using System.Windows;

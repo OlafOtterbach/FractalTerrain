@@ -1,12 +1,10 @@
 ﻿/// <summary>Definition of the class Matrix3DExtensionTests.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
-using System.Windows.Media.Media3D;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FractalTerrain;
-using System.Collections.Generic;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Windows.Media.Media3D;
 
 namespace FractalTerrainTests
 {

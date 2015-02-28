@@ -1,7 +1,7 @@
 ﻿/// <summary>Definition of the class Matrix3DExtensions.</summary>
 /// <author>Olaf Otterbach</author>
 /// <start>12.04.2014</start>
-/// <state>12.04.2014</state>
+/// <state>2015.02.26</state>
 
 using System;
 using System.Windows.Media.Media3D;

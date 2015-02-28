@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// <summary>Definition of the class AppleManData.</summary>
+/// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 namespace FractalTerrain.Model
 {

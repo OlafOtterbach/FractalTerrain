@@ -1,9 +1,8 @@
 ﻿/// <summary>Definition of the class ViewCameraTest.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
-using FractalTerrain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Windows.Media.Media3D;
 
 namespace FractalTerrainTests
 {

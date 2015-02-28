@@ -1,6 +1,6 @@
 ﻿/// <summary>Definition of the interface IAppleManDataGenerator.</summary>
 /// <author>Olaf Otterbach</author>
-
+/// <state>2015.02.26</state>
 
 namespace FractalTerrain.Model
 {

@@ -1,7 +1,7 @@
 ﻿/// <summary>Definition of the interface Canvas2DMock.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
-using FractalTerrain;
 using FractalTerrain.View;
 using System.Windows;
 

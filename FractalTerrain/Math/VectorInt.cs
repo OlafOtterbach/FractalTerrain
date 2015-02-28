@@ -1,7 +1,7 @@
 ﻿/// <summary>Definition of the class VectorInt.</summary>
 /// <author>Olaf Otterbach</author>
 /// <start>01.07.2014</start>
-/// <state>01.07.2014</state>
+/// <state>2015.02.26</state>
 
 using System;
 

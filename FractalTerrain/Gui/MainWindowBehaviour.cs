@@ -1,10 +1,10 @@
 ﻿/// <summary>Definition of the class MainWindowBehaviour.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using FractalTerrain.ViewModel;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Interactivity;
 
 namespace FractalTerrain.Gui

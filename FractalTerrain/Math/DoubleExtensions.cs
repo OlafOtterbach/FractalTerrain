@@ -1,7 +1,7 @@
 ﻿/// <summary>Definition of the class DoubleExtensions.</summary>
 /// <author>Olaf Otterbach</author>
 /// <start>17.04.2014</start>
-/// <state>17.04.2014</state>
+/// <state>2015.02.26</state>
 
 using System;
 

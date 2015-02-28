@@ -1,10 +1,10 @@
 ﻿/// <summary>Definition of the class VectorIntTests.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
-using NUnit.Framework;
-using NUnit.Core;
-using NUnit.VisualStudio;
 using FractalTerrain;
+using NUnit.Core;
+using NUnit.Framework;
 
 namespace FractalTerrainTests
 {

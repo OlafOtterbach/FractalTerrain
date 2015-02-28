@@ -1,5 +1,6 @@
 ﻿/// <summary>Definition of the class AppleManViewControl.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
 using FractalTerrain.View;
 using System.ComponentModel;

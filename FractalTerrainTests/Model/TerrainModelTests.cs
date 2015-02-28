@@ -1,12 +1,9 @@
 ﻿/// <summary>Definition of the class TerrainModelTests.</summary>
 /// <author>Olaf Otterbach</author>
+/// <state>2015.02.26</state>
 
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FractalTerrain;
-using System.Collections.Generic;
 using FractalTerrain.Model;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FractalTerrainTests
 {
