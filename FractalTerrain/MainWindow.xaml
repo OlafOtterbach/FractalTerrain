@@ -4,7 +4,8 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:FractalTerrain.ViewModel"
         xmlns:custom="clr-namespace:FractalTerrain.Gui"
-        Title="{Binding Path=Title, Mode=OneWay}"  WindowState="Maximized">
+        Title="{Binding Path=Title, Mode=OneWay}"  WindowState="Maximized"
+        Icon="Resources\FractalTerrain.ico">    
     <Window.Resources>
         <custom:MinimumConverter x:Key="MinimumConverter" />
         <Style TargetType="{x:Type Control}" x:Key="AdvancedGridSplitterPreview">
@@ -66,6 +67,7 @@
                             <MenuItem Header="_Save" Command="{Binding Path=CommandSave}" />
                             <MenuItem Header="Save_As" Command="{Binding Path=CommandSaveAs}" />
                         </MenuItem>
+                        <MenuItem Header="_Info" Command="{Binding Path=CommandInfo}" />
                     </Menu>
                     <Grid>
                         <custom:AppleManViewControl 

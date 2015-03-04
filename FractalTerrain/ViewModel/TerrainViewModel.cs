@@ -35,6 +35,7 @@ namespace FractalTerrain.ViewModel
          CommandOpen = new GuiButtonCommand(() => OnOpen(), () => OnOpenCanBeExecuted());
          CommandSave = new GuiButtonCommand(() => OnSave(), () => OnSaveCanBeExecuted());
          CommandSaveAs = new GuiButtonCommand(() => OnSaveAs(), () => OnSaveAsCanBeExecuted());
+         CommandInfo = new GuiButtonCommand(() => OnInfo(), () => OnInfoCanBeExecuted());
 
          ActiveClock = false;
       }
@@ -46,6 +47,7 @@ namespace FractalTerrain.ViewModel
       public ICommand CommandOpen { get; private set; }
       public ICommand CommandSave { get; private set; }
       public ICommand CommandSaveAs { get; private set; }
+      public ICommand CommandInfo { get; private set; }
 
       public bool ActiveClock 
       { 
@@ -286,6 +288,16 @@ namespace FractalTerrain.ViewModel
 
       }
 
+      public bool OnInfoCanBeExecuted()
+      {
+         return true;
+      }
+
+      public void OnInfo()
+      {
+         var info = "Created by Olaf Otterbach in 2015";
+         MessageBoxResult result = MessageBox.Show(info);
+      }
 
       protected void OnPropertyChanged(string name)
       {
