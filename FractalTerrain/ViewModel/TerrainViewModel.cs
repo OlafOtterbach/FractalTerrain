@@ -264,7 +264,6 @@ namespace FractalTerrain.ViewModel
       }
 
 
-
       public bool OnSaveAsCanBeExecuted()
       {
          return true;
@@ -295,7 +294,7 @@ namespace FractalTerrain.ViewModel
 
       public void OnInfo()
       {
-         var info = "Created by Olaf Otterbach in 2015";
+         var info = string.Format("FractalTerrain Version 1.0{0}{0}Created by Olaf Otterbach in 2015",Environment.NewLine);
          MessageBoxResult result = MessageBox.Show(info);
       }
 

@@ -26,13 +26,6 @@ namespace FractalTerrain.View
 
       public abstract void Refresh();
 
-
-      public void SetPen(double red, double green, double blue)
-      {
-         SetPen(red * 255.0, green * 255.0, blue * 255.0);
-      }
-
-
       public void SetPen( int red, int green, int blue )
       {
          uint ured = (uint)red;
