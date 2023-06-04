@@ -17,7 +17,7 @@ namespace FractalTerrain.Persistence
             var matches = Regex.Matches(ctx.Text, pattern, RegexOptions.Multiline);
             var res = matches.Cast<Match>()
                              .Select
-                             (
+                              (
                                 match => new
                                 {
                                    Section = match.Groups["Section"].Value,
@@ -30,7 +30,7 @@ namespace FractalTerrain.Persistence
                                                         .Select(x => x.Value), (key, value) => new { Key = key.Value, Value = value })
                                                         .ToDictionary(pair => pair.Key, pair => pair.Value)
                                 }
-                             ).ToDictionary(section => section.Section, section => section.KeyValues);
+                              ).ToDictionary(section => section.Section, section => section.KeyValues);
             var data = new ParserData()
             {
                FileType = res["Header"]["FileType"],
